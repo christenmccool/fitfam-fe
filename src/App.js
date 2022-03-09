@@ -1,23 +1,33 @@
-import logo from './logo.svg';
+import React from 'react';
+import NavBar from './app/NavBar';
+import AppRoutes from './app/AppRoutes';
 import './App.css';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+let theme = createTheme({
+  palette: {
+    primary: {
+      main: '#3f50b5',
+    },
+    secondary: {
+      main: '#4CAF50',
+    },
+  },
+  typography: { fontFamily: [
+    "Rubik",
+    "cursive"
+  ].join(",") }
+});
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div> 
+      <ThemeProvider theme={theme}>
+        <NavBar />
+        <AppRoutes />
+      </ThemeProvider>
     </div>
   );
 }
