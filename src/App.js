@@ -23,12 +23,10 @@ let theme = createTheme({
 
 function App() {
   return (
-    <div> 
-      <ThemeProvider theme={theme}>
-        <NavBar />
-        <AppRoutes />
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={theme}>
+      <NavBar />
+      <AppRoutes />
+    </ThemeProvider>
   );
 }
 

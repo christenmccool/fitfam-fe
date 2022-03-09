@@ -32,6 +32,7 @@ const WorkoutSearchPage = () => {
           searchWorkouts={searchWorkouts} 
         />
       </Box>
+      
       {searched ?
         <Box mt={5}>
           <Typography variant="h5" align="center" color="text.secondary" gutterBottom>

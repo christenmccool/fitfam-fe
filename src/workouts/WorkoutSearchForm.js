@@ -45,7 +45,7 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
 
 
   return (
-    <Container component='main'>
+    <Container>
       <Box
         sx={{
           display: 'flex',
@@ -53,17 +53,18 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
           alignItems: 'center',
         }}
       >
-
         <Typography component="h1" variant="h5" textAlign="center">
           Workout search
         </Typography>
 
-        <Typography component="body" textAlign="center" color="text.secondary" >
+        <Typography variant="body1" textAlign="center" color="text.secondary" >
           Select optional filters
         </Typography>
 
-        <Box component="form" onSubmit={handleSubmit} mt={3}>
+        <Box component="form" noValidate onSubmit={handleSubmit} mt={3}>
+
           <Grid container spacing={2}>
+
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
@@ -139,7 +140,9 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
           >
             Search
           </Button>
+
         </Box>
+
       </Box>
     </Container>
   )
