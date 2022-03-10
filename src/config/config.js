@@ -29,7 +29,8 @@ const categoryOpts = [
   'girls',
   'heroes',
   'games',
-  'wod'
+  'featured', 
+  'custon'
 ];
 
 

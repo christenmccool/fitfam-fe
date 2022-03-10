@@ -13,6 +13,8 @@ import WorkoutCardList from '../workouts/WorkoutCardList';
  * Shows workout search form
  * Loads workouts on submit from search form.
  * 
+ * WorkoutSearchPage -> { WorkoutSearchForm, WorkoutCardList }
+ * 
  * Routed at /workouts/search
  */
 const WorkoutSearchPage = () => {
@@ -32,7 +34,6 @@ const WorkoutSearchPage = () => {
           searchWorkouts={searchWorkouts} 
         />
       </Box>
-      
       {searched ?
         <Box mt={5}>
           <Typography variant="h5" align="center" color="text.secondary" gutterBottom>

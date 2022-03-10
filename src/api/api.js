@@ -23,9 +23,15 @@ class FitFamApi {
     }
   }
 
+    /** Get get user by userId */
+    static async getUser(userId) {
+      let res = await this.request(`users/${userId}`);
+      return res.user;
+    }
+
     /** Get today's workouts (supplied by the SugarWod API) */
     static async getTodaysWorkouts() {
-      let res = await this.request("workouts", { publishDate: moment().format("YYYY-MM-DD") });
+      let res = await this.request("workouts", { featuredDate: moment().format("YYYY-MM-DD") });
       return res.workouts;
     }
 
@@ -39,6 +45,12 @@ class FitFamApi {
     static async searchWorkouts(data) {
       let res = await this.request("workouts", data);
       return res.workouts;
+    }
+
+    /** Get results given user, family, workout */
+    static async getResults(userId, familyId, workoutId) {
+      let res = await this.request("results", {userId, familyId, workoutId});
+      return res.results;
     }
     
 }

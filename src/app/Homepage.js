@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
@@ -7,24 +7,34 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import FitFamApi from '../api/api';
+import UserContext from '../auth/UserContext';
 import WorkoutCardList from '../workouts/WorkoutCardList';
 
 
-/** Shows FitFam homepage
+/** FitFam homepage
  * 
  * On mount, loads daily workouts from API
- * 
  * WorkoutList -> WorkoutCardList -> WorkoutCard 
+ * 
+ * Links to WorkoutSearchPage
+ * 
+ * Anonymous user:
+ * Links to UserRegisterPage
  * 
  * Routed at /
  */
 const Homepage = () => {
   const [workouts, setWorkouts] = useState();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     async function getTodaysWorkouts() {
-      const todaysWorkouts = await FitFamApi.getTodaysWorkouts();
-      setWorkouts(todaysWorkouts);
+      try {
+        const todaysWorkouts = await FitFamApi.getTodaysWorkouts();
+        setWorkouts(todaysWorkouts);
+      } catch (err) {
+        console.log(err);
+      }
     }
     getTodaysWorkouts();
   }, []);
@@ -45,11 +55,7 @@ const Homepage = () => {
         variant="outlined" 
         size="large"
         fullWidth
-        sx={{ 
-          mt: 5, 
-          // backgroundColor: 'secondary.main',  
-          // '&:hover': { backgroundColor: 'secondary.dark'} 
-        }}
+        sx={{ mt: 5 }}
       >
         <Typography variant="h6">Search for more workouts</Typography>
       </Button>
