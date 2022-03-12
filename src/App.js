@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Button, CssBaseline, GlobalStyles } from "@mui/material";
+
 import FitFamApi from './api/api';
 
 import UserContext from './auth/UserContext';
@@ -13,6 +15,9 @@ import AppRoutes from './app/AppRoutes';
 
 let theme = createTheme({
   palette: {
+    background: {
+      // default: "#3f50b5"
+    },
     primary: {
       main: '#3f50b5',
     },
@@ -32,6 +37,7 @@ let theme = createTheme({
  *  App -> AppRoutes
  */
 function App() {
+  const [hasLoaded, setHasLoaded] = useState(false);
   const [user, setUser] = useState(null);
   const [families, setFamilies] = useState([]);
   const [primaryFamilyId, setPrimaryFamilyId] = useState(null);
@@ -43,17 +49,11 @@ function App() {
       if (token) {
         try {
           let { userId } = jwt.decode(token);
-          // JoblyApi.token = token;
+          // FitFamApi.token = token;
           const user = await FitFamApi.getUser(userId);
           setUser(user);
-          const families = user.families;
           setFamilies(user.families);
-
-          // const primaryFamId = families.filter(ele => ele.primaryFamily === true)[0].familyId;
-          let primaryFamId = null;
-          for (let family of families) {
-            if (family.primaryFamily) primaryFamId = family.familyId;
-          }
+          const primaryFamId = user.families.filter(ele => ele.primaryFamily === true)[0].familyId;
           setPrimaryFamilyId(primaryFamId);
         } catch (err) {
           console.error(err);
@@ -62,14 +62,17 @@ function App() {
           setPrimaryFamilyId(null);
         }
       }
+      setHasLoaded(true);
     }
     getCurrUser();
   // }, [token]);
   }, []);
 
+  if (!hasLoaded) return <div>Loading</div>;
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <UserContext.Provider value={{ user, setUser, families, setFamilies, primaryFamilyId }}>
         <NavBar />
         <AppRoutes />

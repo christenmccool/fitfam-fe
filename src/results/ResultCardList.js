@@ -3,16 +3,23 @@ import Stack from '@mui/material/Stack';
 
 import ResultCard from './ResultCard';
 
-const ResultCardList = ({ results }) => {
+/** Shows list of result cards
+ * 
+ * PostingDetail -> ResultCardList -> ResultCard
+ * 
+ */
+ const ResultCardList = ({ results }) => {
   return (
-    <Stack spacing={2} m="auto">
+    <Stack spacing={2} >
       {results.map(result => (
-          <div>
-            <h1>{result.userId}</h1>
-            <h1>{result.score}</h1>
-          </div>
-        ))
-      }
+        <ResultCard 
+          key={result.id}
+          id={result.id} 
+          userId={result.userId} 
+          score={result.score} 
+          notes={result.notes}
+        />
+      ))}
     </Stack>
   )
 }

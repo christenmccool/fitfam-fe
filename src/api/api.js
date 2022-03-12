@@ -23,15 +23,21 @@ class FitFamApi {
     }
   }
 
-    /** Get get user by userId */
-    static async getUser(userId) {
-      let res = await this.request(`users/${userId}`);
+    /** Get get user by user id */
+    static async getUser(id) {
+      let res = await this.request(`users/${id}`);
       return res.user;
     }
 
     /** Get today's workouts (supplied by the SugarWod API) */
-    static async getTodaysWorkouts() {
-      let res = await this.request("workouts", { featuredDate: moment().format("YYYY-MM-DD") });
+    // static async getTodaysWorkouts() {
+    //   let res = await this.request("workouts", { featuredDate: moment().format("YYYY-MM-DD"), category: 'featured' });
+    //   return res.workouts;
+    // }
+
+    /** Get featured workouts by date */
+    static async getFeaturedWorkouts(date) {
+      let res = await this.request("workouts", { featuredDate: date, category: 'featured' });
       return res.workouts;
     }
 
@@ -41,23 +47,42 @@ class FitFamApi {
       return res.workout;
     }
 
+    /** Get postings by date, familyId */
+    static async getPostings(date, familyId) {
+      let res = await this.request("postings", { postDate: date, familyId });
+      return res.postings;
+    }
+
+    /** Get postings by posting id */
+    static async getPosting(id) {
+      let res = await this.request(`postings/${id}`);
+      return res.posting;
+    }
+
+    /** Get postings by date, familyId */
+    static async createPosting(workoutId, familyId, postDate) {
+      console.log(workoutId, familyId, postDate)
+      let res = await this.request("postings", { workoutId, familyId, postDate }, "post");
+      return res.posting;
+    }
+
     /** Search workouts */
     static async searchWorkouts(data) {
       let res = await this.request("workouts", data);
       return res.workouts;
     }
 
-    /** Get results given user, family, workout */
-    static async getResults(userId, familyId, workoutId) {
-      let res = await this.request("results", {userId, familyId, workoutId});
+    /** Get results given postId */
+    static async getResults(postId) {
+      let res = await this.request("results", {postId});
       return res.results;
     }
     
 }
 //user 1 - admin
-FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0NjUzMTc4MX0.KtYFbtbBzjny6ts_N3mqM396EptwNZXYZrAw1-QztBE";
+// FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0NjUzMTc4MX0.KtYFbtbBzjny6ts_N3mqM396EptwNZXYZrAw1-QztBE";
 //user 2 - non-admin
-// FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NDY1MzE5MzV9.NJyH9JOqaNNbwFftoUnAsE0pm14dr3-RxuzSqD2QISw";
+FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NDY1MzE5MzV9.NJyH9JOqaNNbwFftoUnAsE0pm14dr3-RxuzSqD2QISw";
 
 
 export default FitFamApi;

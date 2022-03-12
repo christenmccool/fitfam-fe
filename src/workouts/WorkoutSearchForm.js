@@ -54,13 +54,13 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
   return (
     <Container>
       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography component="h1" variant="h5" textAlign="center">
+        <Typography component="h1" variant="h5" >
           Workout search
         </Typography>
-        <Typography variant="body1" textAlign="center" color="text.secondary" >
+        <Typography variant="body1" color="text.secondary" >
           Select optional filters
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} mt={3}>
+        <Box component="form" noValidate onSubmit={handleSubmit} mt={3} >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField

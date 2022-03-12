@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Stack from '@mui/material/Stack';
 
 import WorkoutCard from './WorkoutCard';
@@ -8,16 +9,16 @@ import WorkoutCard from './WorkoutCard';
  * WorkoutList -> WorkoutCardList -> WorkoutCard 
  * 
  */
-const WorkoutCardList = ({ workouts }) => {
-
+const WorkoutCardList = ({ workouts, cardMaxHeight }) => {
   return (
-    <Stack spacing={2} m="auto">
+    <Stack spacing={2}>
       {workouts.map(workout => (
           <WorkoutCard 
             key={workout.id} 
             id={workout.id} 
             name={workout.name} 
             description={workout.description} 
+            maxHeight={cardMaxHeight}
           />
         ))
       }

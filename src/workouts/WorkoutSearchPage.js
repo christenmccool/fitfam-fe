@@ -28,8 +28,8 @@ const WorkoutSearchPage = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs" bgcolor="primary">
-      <Box mt={5}>
+    <Container component="main" maxWidth="xs">
+      <Box mt={4}>
         <WorkoutSearchForm 
           searchWorkouts={searchWorkouts} 
         />
