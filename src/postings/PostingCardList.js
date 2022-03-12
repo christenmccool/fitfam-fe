@@ -19,6 +19,7 @@ const PostingCardList = ({ postings, cardMaxHeight=1000 }) => {
           id={posting.id} 
           woName={posting.woName} 
           woDescription={posting.woDescription} 
+          woScoreType={posting.woScoreType} 
           maxHeight={cardMaxHeight}
         />
       ))}

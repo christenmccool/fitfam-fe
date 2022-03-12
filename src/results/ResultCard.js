@@ -13,7 +13,6 @@ import FitFamApi from '../api/api';
  * PostingDetail -> ResultCardList -> ResultCard
  */
 const ResultCard = ({ id, userFirst, score, notes}) => {
-
   return (
     <Card 
       variant="outlined" 
@@ -37,15 +36,19 @@ const ResultCard = ({ id, userFirst, score, notes}) => {
             {score}
           </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Typography 
-              variant="h5" 
-              color="text.secondary" 
-              textAlign="center"
-            >
-              {notes}
-            </Typography>
-          </Grid>
+          {notes ?
+            <Grid item xs={12}>
+              <Typography 
+                variant="h5" 
+                color="text.secondary" 
+                textAlign="center"
+                mt={2}
+              >
+                {notes}
+              </Typography>
+            </Grid>
+            : null
+          }
         </Grid>
       </CardContent>
     </Card>

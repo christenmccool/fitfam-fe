@@ -31,7 +31,7 @@ const Homepage = () => {
   const today = moment().format("YYYY-MM-DD");
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="sm">
 
       {user ?
         <PostingList date={today}/>

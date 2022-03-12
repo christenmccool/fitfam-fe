@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useParams } from "react-router-dom";
 import moment from 'moment';
 
@@ -11,7 +11,9 @@ import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import FitFamApi from '../api/api';
+import UserContext from '../auth/UserContext';
 import ResultCardList from '../results/ResultCardList';
+import ResultNewForm from '../results/ResultNewForm';
 
 //From MUI docs
 const ExpandMore = styled((props) => {
@@ -25,14 +27,19 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-/** Shows information about a posting
+/** Shows information about a posting 
+ * - Workout name and description
+ * - List of results
+ * - ResultNewForm if user hasn't submitted a result yet
+ * Adds new result to results list on submit of form
  * 
- * PostingDetail -> ResultCardList -> ResultCard
+ * PostingDetail -> {ResultCardList, ResultNewForm} -> ResultCard
  *
  * Routed at /postings/:id
  */
 const PostingDetail = () => {
   const {id} = useParams();
+  const {user, primaryFamilyId} = useContext(UserContext);
 
   const [posting, setPosting] = useState();
   const [results, setResults] = useState();
@@ -47,6 +54,9 @@ const PostingDetail = () => {
       try {
         const posting = await FitFamApi.getPosting(id);
         setPosting(posting);
+
+        const results = await FitFamApi.getResults(id);
+        setResults(results);
       } catch (err) {
         console.log(err);
       }
@@ -54,22 +64,15 @@ const PostingDetail = () => {
     getPosting();
   }, [])
 
-  useEffect(() => {
-    try {
-      async function getResults() {
-        const results = await FitFamApi.getResults(id);
-        setResults(results);
-      }
-      getResults();
-    } catch (err) {
-      console.log(err);
-    }
-  }, [])
+  async function submitNewResult(score, notes) {
+    const newResult = await FitFamApi.createResult(user.id, posting.id, score, notes);
+    setResults([...results, newResult]);
+  }
 
   if (!posting || !results) return <div>Loading</div>
 
   return (
-    <Container align="center" maxWidth="md">
+    <Container align="center" maxWidth="sm">
       <Box m={5}>
         <Typography variant="h6" color="text.secondary" mb={1}>
           {moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
@@ -93,9 +96,21 @@ const PostingDetail = () => {
           </Typography>
         </Collapse>
       </Box>
-      <ResultCardList 
-        results={results}
-      />
+      {results.length ?
+        <ResultCardList 
+          results={results}
+          scoreType={posting.woScoreType}
+        /> :
+      <Typography variant="h4" mb={3}>
+        No results posted yet.
+      </Typography>
+      }
+      <Box mt={5}>
+        <ResultNewForm 
+          submitNewResult={submitNewResult} 
+          scoreType={posting.woScoreType}
+        />
+      </Box>
     </Container>
   )
 }

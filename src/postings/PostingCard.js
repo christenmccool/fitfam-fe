@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
 import ResultDashboard from './ResultDashboard';
-
+import { scoreToString } from '../helpers/formatScore';
 
 /** Summary information about a posting
  * Includes ResultDashboard 
@@ -20,17 +20,25 @@ import ResultDashboard from './ResultDashboard';
  * PostingList -> PostingCardList -> PostingCard -> ResultDashboard
  * Card links to PostDetail
  */
-const PostingCard = ({ id, woName, woDescription, maxHeight }) => {
+const PostingCard = ({ id, woName, woDescription, woScoreType, maxHeight }) => {
   const { user } = useContext(UserContext);
 
-  const [results, setResults] = useState([]);
-  const [userResults, setUserResults] = useState(null);
+  const [results, setResults] = useState();
+  const [userScore, setUserScore] = useState();
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     async function getResults() {
       try {
-        let results = await FitFamApi.getResults(id);
-        setResults(results);
+        const postingResults = await FitFamApi.getResults(id);
+        setResults(postingResults);
+
+        const userResults = postingResults.filter(ele => ele.userId === user.id);
+        if (userResults.length) {
+          const userScore = scoreToString(woScoreType, userResults[0].score)
+          setUserScore(userScore);
+        }
+        setLoaded(true)
       } catch (err) {
         console.log(err);
       }
@@ -38,12 +46,7 @@ const PostingCard = ({ id, woName, woDescription, maxHeight }) => {
     getResults();
   }, []);
 
-  useEffect(() => {
-    const userResults = results.filter(ele => ele.userId === user.id)[0];
-    setUserResults(userResults);
-  }, [results, user]);
-
-  if (!results) return <div></div>;
+  if (!loaded) return <div></div>;
 
   return (
     <Card 
@@ -76,7 +79,7 @@ const PostingCard = ({ id, woName, woDescription, maxHeight }) => {
           <ResultDashboard 
             postId={id}
             numResults={results.length}
-            userResults={userResults}
+            userScore={userScore}
           />
       </CardContent>
     </Card>

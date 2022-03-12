@@ -47,6 +47,12 @@ class FitFamApi {
       return res.workout;
     }
 
+    /** Search workouts */
+    static async searchWorkouts(data) {
+      let res = await this.request("workouts", data);
+      return res.workouts;
+    }
+    
     /** Get postings by date, familyId */
     static async getPostings(date, familyId) {
       let res = await this.request("postings", { postDate: date, familyId });
@@ -59,17 +65,10 @@ class FitFamApi {
       return res.posting;
     }
 
-    /** Get postings by date, familyId */
+    /** Create new posting by workoutId, familyId */
     static async createPosting(workoutId, familyId, postDate) {
-      console.log(workoutId, familyId, postDate)
       let res = await this.request("postings", { workoutId, familyId, postDate }, "post");
       return res.posting;
-    }
-
-    /** Search workouts */
-    static async searchWorkouts(data) {
-      let res = await this.request("workouts", data);
-      return res.workouts;
     }
 
     /** Get results given postId */
@@ -78,6 +77,11 @@ class FitFamApi {
       return res.results;
     }
     
+    /** Create new result */
+    static async createResult(postId, userId, score=null, notes=null) {
+      let res = await this.request("results", {postId, userId, score, notes}, "post");
+      return res.result;
+    }
 }
 //user 1 - admin
 // FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0NjUzMTc4MX0.KtYFbtbBzjny6ts_N3mqM396EptwNZXYZrAw1-QztBE";

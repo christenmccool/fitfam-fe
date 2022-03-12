@@ -40,16 +40,16 @@ const WorkoutDetail = () => {
         <Typography variant="h5" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
           {workout.description}
         </Typography>
-        <Typography variant="h6" color="text.secondary" mb={1}>
-          Score Type: {workout.scoreType}
-        </Typography>
         {workout.featuredDate ?
           <Typography variant="h6" color="text.secondary" mb={1}>
-            Workout date: {moment(workout.featuredDate).format("dddd, MMMM Do, YYYY")}
+            Featured date: {moment(workout.featuredDate).format("dddd, MMMM Do, YYYY")}
           </Typography>
           :
           null
         }
+        <Typography variant="h6" color="text.secondary" mb={1}>
+          Score Type: {workout.scoreType}
+        </Typography>
         {workout.movements.length ? 
           <Typography variant="h6" color="text.secondary">
             {workout.movements.length === 1 ? "Movement" : "Movements"}: {workout.movements.map(ele => ele.movementName).join(", ")}

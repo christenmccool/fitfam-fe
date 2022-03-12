@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink as RouterLink } from 'react-router-dom';
 
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -11,7 +10,7 @@ import Button from '@mui/material/Button';
  *
  * PostingList -> PostingCardList -> PostingCard -> ResultDashboard
  */
-const ResultDashboard = ({ postId, numResults, userResults }) => {
+const ResultDashboard = ({ postId, numResults, userScore }) => {
 
   let message;
   if (numResults > 1) {
@@ -19,13 +18,13 @@ const ResultDashboard = ({ postId, numResults, userResults }) => {
   } else if (numResults === 1) {
     message = `1 result`;
   } else {
-    message = "No results posted yet."
+    message = "0 results"
   }
 
   return (
     <Grid container spacing={2} alignItems="stretch">
       <Grid item xs={12} sm={6}>
-        {userResults ?
+        {userScore ?
           <Button 
             // component={RouterLink}
             // to="/workouts/search"
@@ -33,7 +32,7 @@ const ResultDashboard = ({ postId, numResults, userResults }) => {
             fullWidth
             sx={{ mt: 1 }}
           >
-            <Typography variant="h4" >{userResults.score}</Typography>
+            <Typography variant="h4" >{userScore}</Typography>
           </Button> :
           <Button 
             // component={RouterLink}
