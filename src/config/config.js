@@ -30,7 +30,7 @@ const categoryOpts = [
   'heroes',
   'games',
   'featured', 
-  'custon'
+  'custom'
 ];
 
 

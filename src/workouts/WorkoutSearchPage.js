@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
@@ -28,22 +29,26 @@ const WorkoutSearchPage = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box mt={4}>
-        <WorkoutSearchForm 
-          searchWorkouts={searchWorkouts} 
-        />
-      </Box>
-      {searched ?
-        <Box mt={5}>
-          <Typography variant="h5" align="center" color="text.secondary" gutterBottom>
-            {workouts.length ? "Search Results" : "No workouts match your search criteria"}
-          </Typography>
-          <WorkoutCardList workouts={workouts} />
-        </Box>
-        :
-        null
-      }
+    <Container component="main" maxWidth="sm">
+      <Grid container maxWidth="sm">
+        <Grid item xs={12}>
+          <Box mt={4}>
+            <WorkoutSearchForm 
+              searchWorkouts={searchWorkouts} 
+            />
+          </Box>
+          {searched ?
+            <Box mt={5}>
+              <Typography variant="h5" align="center" color="text.secondary" gutterBottom>
+                {workouts.length ? "Search Results" : "No workouts match your search criteria"}
+              </Typography>
+              <WorkoutCardList workouts={workouts} />
+            </Box>
+            :
+            null
+          }
+        </Grid>
+      </Grid>
     </Container>
   )
 }

@@ -14,6 +14,8 @@ import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
 import ResultCardList from '../results/ResultCardList';
 import ResultNewForm from '../results/ResultNewForm';
+import { scoreToString } from '../helpers/formatScore';
+
 
 //From MUI docs
 const ExpandMore = styled((props) => {
@@ -39,10 +41,11 @@ const ExpandMore = styled((props) => {
  */
 const PostingDetail = () => {
   const {id} = useParams();
-  const {user, primaryFamilyId} = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   const [posting, setPosting] = useState();
   const [results, setResults] = useState();
+  const [userResult, setUserResult] = useState();
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -64,8 +67,15 @@ const PostingDetail = () => {
     getPosting();
   }, [])
 
+  useEffect(() => {
+    if (!results) return;
+
+    const userResult = results.filter(ele => ele.userId === user.id)[0];
+    setUserResult(userResult);
+  }, [results])
+
   async function submitNewResult(score, notes) {
-    const newResult = await FitFamApi.createResult(user.id, posting.id, score, notes);
+    const newResult = await FitFamApi.createResult(posting.id, user.id, score, notes);
     setResults([...results, newResult]);
   }
 
@@ -105,12 +115,17 @@ const PostingDetail = () => {
         No results posted yet.
       </Typography>
       }
-      <Box mt={5}>
-        <ResultNewForm 
-          submitNewResult={submitNewResult} 
-          scoreType={posting.woScoreType}
-        />
-      </Box>
+      {userResult ? 
+        <Box mt={5}>
+            Edit form
+        </Box> :
+        <Box mt={5}>
+          <ResultNewForm 
+            submitNewResult={submitNewResult} 
+            scoreType={posting.woScoreType}
+          />
+        </Box>
+      }
     </Container>
   )
 }

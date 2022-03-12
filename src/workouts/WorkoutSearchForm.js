@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -52,88 +51,86 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
 
 
   return (
-    <Container>
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography component="h1" variant="h5" >
-          Workout search
-        </Typography>
-        <Typography variant="body1" color="text.secondary" >
-          Select optional filters
-        </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} mt={3} >
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                id="keyword"
-                name="keyword"
-                label="Keyword"
-                autoFocus
-                onChange={handleKeywordChange}
-                value={keyword}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id="cetegory-label">Category</InputLabel>
-                <Select
-                  labelId="cetegory-label"
-                  id="category"
-                  value={category}
-                  label="Category"
-                  onChange={handleCategoryChange}
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  {categoryOpts.map((name) => (
-                    <MenuItem
-                      key={name}
-                      value={name}
-                    >
-                      {name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
-              <Autocomplete
-                multiple
-                margin="normal"
-                fullWidth
-                id="movements"
-                options={movementOpts}
-                getOptionLabel={(option) => option.name}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                value={movements}
-                onChange={(event, value) => handleMovementChange(value)}
-                filterSelectedOptions
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Movements"
-                    placeholder="Add movement"
-                  />
-                )}
-              />
-            </Grid>
+    <Box>
+      <Typography component="h1" variant="h5" textAlign="center">
+        Workout search
+      </Typography>
+      <Typography variant="body1" color="text.secondary" textAlign="center">
+        Select optional filters
+      </Typography>
+      <Box component="form" noValidate onSubmit={handleSubmit} mt={3} >
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              id="keyword"
+              name="keyword"
+              label="Keyword"
+              autoFocus
+              onChange={handleKeywordChange}
+              value={keyword}
+            />
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="outlined"
-            size="large"
-            sx={{ mt: 3,
-              // backgroundColor: 'secondary.main',  
-              // '&:hover': { backgroundColor: 'secondary.dark'} 
-            }}
-          >
-            Search
-          </Button>
-        </Box>
+          <Grid item xs={12} sm={6}>
+            <FormControl fullWidth>
+              <InputLabel id="cetegory-label">Category</InputLabel>
+              <Select
+                labelId="cetegory-label"
+                id="category"
+                value={category}
+                label="Category"
+                onChange={handleCategoryChange}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {categoryOpts.map((name) => (
+                  <MenuItem
+                    key={name}
+                    value={name}
+                  >
+                    {name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
+            <Autocomplete
+              multiple
+              margin="normal"
+              fullWidth
+              id="movements"
+              options={movementOpts}
+              getOptionLabel={(option) => option.name}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              value={movements}
+              onChange={(event, value) => handleMovementChange(value)}
+              filterSelectedOptions
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Movements"
+                  placeholder="Add movement"
+                />
+              )}
+            />
+          </Grid>
+        </Grid>
+        <Button
+          type="submit"
+          fullWidth
+          variant="outlined"
+          size="large"
+          sx={{ mt: 3,
+            // backgroundColor: 'secondary.main',  
+            // '&:hover': { backgroundColor: 'secondary.dark'} 
+          }}
+        >
+          Search
+        </Button>
       </Box>
-    </Container>
+    </Box>
   )
 }
 
