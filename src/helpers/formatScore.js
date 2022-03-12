@@ -10,6 +10,8 @@ function scoreToString(scoreType, score) {
       return `${score.reps}`
     case "Load":
       return `${score.load}`
+    default:
+      return `${score.score}`
   }
 }
 

@@ -34,4 +34,28 @@ const categoryOpts = [
 ];
 
 
-export {movementOpts, categoryOpts};
+const scoreTypeToFields = [
+  {
+    scoreType: "Rounds + Reps",
+    fields: ["rounds", "reps"]
+  },
+  {
+    scoreType: "Time",
+    fields: ["min", "sec"]
+  },
+  {
+    scoreType: "Reps",
+    fields: ["reps"]
+  },
+  {
+    scoreType: "Load",
+    fields: ["load"]
+  },
+  {
+    scoreType: "Other",
+    fields: ["results"]
+  }
+] 
+
+
+export {movementOpts, categoryOpts, scoreTypeToFields};

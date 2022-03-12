@@ -28,8 +28,8 @@ import WorkoutList from '../workouts/WorkoutList';
 const Homepage = () => {
   const { user } = useContext(UserContext);
 
-  const today = moment().format("YYYY-MM-DD");
-
+  // const today = moment().format("YYYY-MM-DD");
+  const today = moment().subtract(3, 'days').format("YYYY-MM-DD");
   return (
     <Container maxWidth="sm">
 
