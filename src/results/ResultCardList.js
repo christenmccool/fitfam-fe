@@ -15,7 +15,7 @@ import ResultCard from './ResultCard';
         <ResultCard 
           key={result.id}
           id={result.id} 
-          userId={result.userId} 
+          userFirst={result.userFirst} 
           score={result.score} 
           notes={result.notes}
         />

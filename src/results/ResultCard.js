@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
@@ -12,18 +12,7 @@ import FitFamApi from '../api/api';
  *
  * PostingDetail -> ResultCardList -> ResultCard
  */
-const ResultCard = ({ id, userId, score, notes}) => {
-  const [resultUser, setResultlUser] = useState();
-
-  useEffect(() => {
-    async function getResultUser() {
-      const user = await FitFamApi.getUser(userId);
-      setResultlUser(user);
-    }
-    getResultUser();
-  }, [])
-
-  if (!resultUser) return <div></div>;
+const ResultCard = ({ id, userFirst, score, notes}) => {
 
   return (
     <Card 
@@ -37,7 +26,7 @@ const ResultCard = ({ id, userId, score, notes}) => {
               variant="h4" 
               color="text.primary" 
             >       
-              {`${resultUser.firstName}`}
+              {userFirst}
             </Typography>
           </Grid>
           <Grid item xs={12} sm={6}>
