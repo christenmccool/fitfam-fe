@@ -1,5 +1,6 @@
-import React, {useState, useContext} from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import React, {useState, useEffect, useContext} from 'react';
+// import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useSearchParams } from 'react-router-dom';
 import moment from 'moment';
 
 import Container from '@mui/material/Container';
@@ -29,30 +30,39 @@ import WorkoutList from '../workouts/WorkoutList';
  */
 const Homepage = () => {
   const { user } = useContext(UserContext);
-  const [date, setDate] = useState(new Date());
+  const [searchParams, setSearchParams] = useSearchParams("");
 
-  // const today = moment().format("YYYY-MM-DD");
-  // const today = moment().subtract(3, 'days').format("YYYY-MM-DD");
+  const initialDate = searchParams.get('date') || moment().format("YYYY-MM-DD");
+  const [date, setDate] = useState(initialDate);
 
+  useEffect(() => {
+    const newDate = searchParams.get('date');
+    if (newDate) {
+      setDate(newDate);
+    } else {
+      setSearchParams({date: moment().format("YYYY-MM-DD")});
+    }
+  }, [searchParams, setSearchParams])
+  
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" >
       <Box mt={4} sx={{display:"flex", justifyContent:"center"}}>
         <DatePicker
           label="Date"
           value={date}
-          onChange={(newValue) => setDate(newValue)}
-          renderInput={(params) => <TextField {...params} sx={{input: {fontSize:'20px', p:1}}}/>}
+          onChange={(newDate) => setSearchParams({date: moment(newDate).format("YYYY-MM-DD")})}
+          renderInput={(params) => <TextField {...params} sx={{backgroundColor: "#FFF", input: {fontSize:'20px', p:1}}}/>}
         />
       </Box>
       {user ?
-        <PostingList date={moment(date).format("YYYY-MM-DD")}/>
+        <PostingList date={date}/>
         :
         <Box>
-          <WorkoutList date={moment(date).format("YYYY-MM-DD")} />
+          <WorkoutList date={date} />
           <Button 
             component={RouterLink}
             to="/workouts/search"
-            variant="outlined" 
+            variant="contained" 
             size="large"
             fullWidth
             sx={{ mt: 3 }}

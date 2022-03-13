@@ -51,14 +51,14 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
 
 
   return (
-    <Box>
+    <Box >
       <Typography component="h1" variant="h5" textAlign="center">
         Workout search
       </Typography>
       <Typography variant="body1" color="text.secondary" textAlign="center">
         Select optional filters
       </Typography>
-      <Box component="form" noValidate onSubmit={handleSubmit} mt={3} >
+      <Box component="form" noValidate onSubmit={handleSubmit} mt={3}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6}>
             <TextField

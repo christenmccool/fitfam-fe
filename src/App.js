@@ -3,10 +3,11 @@ import jwt from 'jsonwebtoken';
 import moment from 'moment';
 
 import './App.css';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+
+import AdapterMoment from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, GlobalStyles } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 
 import FitFamApi from './api/api';
 
@@ -73,7 +74,7 @@ function App() {
   if (!hasLoaded) return <div>Loading</div>;
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider dateAdapter={AdapterMoment}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <UserContext.Provider value={{ user, setUser, families, setFamilies, primaryFamilyId }}>

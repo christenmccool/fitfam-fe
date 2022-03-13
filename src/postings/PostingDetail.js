@@ -59,8 +59,11 @@ const PostingDetail = () => {
           setResults(results);
         }
 
-        const userResult = results.filter(ele => ele.userId === user.id)[0];
-        setUserResult(userResult);
+        if (results) {
+          const userResult = results.filter(ele => ele.userId === user.id)[0];
+          setUserResult(userResult);
+        }
+
       } catch (err) {
         console.log(err);
       }
@@ -82,7 +85,7 @@ const PostingDetail = () => {
   if (!loaded) return <div>Loading</div>
 
   return (
-    <Container align="center" maxWidth="sm">
+    <Container align="center" maxWidth="sm" sx={{backgroundColor: "#FFF"}}>
       <Box mt={5}>
         <Typography variant="h6" color="text.secondary" mb={1}>
           {moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
