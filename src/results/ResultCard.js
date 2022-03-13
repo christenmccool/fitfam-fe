@@ -1,18 +1,21 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
 
-import FitFamApi from '../api/api';
 
 /** Result information
  *
  * PostingDetail -> ResultCardList -> ResultCard
  */
-const ResultCard = ({ id, userFirst, score, notes}) => {
+const ResultCard = ({ id, userFirst, score, notes, isUser, postId}) => {
   return (
     <Card 
       variant="outlined" 
@@ -50,6 +53,17 @@ const ResultCard = ({ id, userFirst, score, notes}) => {
             : null
           }
         </Grid>
+        {isUser ?
+          <Box sx={{display:"flex", justifyContent: "flex-end"}} >
+            <IconButton
+              component={RouterLink}
+              to={`/postings/${postId}/results`}
+            >
+              <EditIcon />
+            </IconButton>
+          </Box>
+          : null
+        }
       </CardContent>
     </Card>
   )

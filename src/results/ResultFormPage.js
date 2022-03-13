@@ -50,18 +50,18 @@ const ResultFormPage = () => {
   async function submitNewResult(score, notes) {
     const newResult = await FitFamApi.createResult(posting.id, user.id, score, notes);
     setResults([...results, newResult]);
-    navigate(`postings/${postId}`);
+    navigate(`/postings/${postId}`);
   }
 
   async function submitEditResult(score, notes) {
     const editedResult = await FitFamApi.editResult(userResult.id, score, notes);
     const filteredResults = results.filter(ele => ele.userId !== user.id);
     setResults([...filteredResults, editedResult]);
-    navigate(`postings/${postId}`);
+    navigate(`/postings/${postId}`);
   }
 
   async function cancel() {
-    navigate(`postings/${postId}`);
+    navigate(`/postings/${postId}`);
   }
 
   const message = userResult ? "Edit" : "Post";

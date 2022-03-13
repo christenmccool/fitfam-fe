@@ -100,6 +100,7 @@ const PostingDetail = () => {
 
       {results.length ?
         <ResultCardList 
+          postId={posting.id}
           results={results}
           scoreType={posting.woScoreType}
         /> :
