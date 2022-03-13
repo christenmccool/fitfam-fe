@@ -18,7 +18,7 @@ import { scoreToString } from '../helpers/formatScore';
  * - number of results posted
  *
  * PostingList -> PostingCardList -> PostingCard -> ResultDashboard
- * Card links to PostDetail
+ * Card links to PostingDetail
  */
 const PostingCard = ({ id, woName, woDescription, woScoreType, maxHeight }) => {
   const { user } = useContext(UserContext);
@@ -70,7 +70,7 @@ const PostingCard = ({ id, woName, woDescription, woScoreType, maxHeight }) => {
           </Typography>
           <Typography 
             variant="h6" 
-            style={{whiteSpace: "pre-line"}}
+            style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}
           >
             {woDescription}
           </Typography>

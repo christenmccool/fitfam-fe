@@ -30,9 +30,9 @@ const WorkoutSearchPage = () => {
 
   return (
     <Container component="main" maxWidth="sm">
-      <Grid container maxWidth="sm">
+      <Grid container maxWidth="sm" mt={5} >
         <Grid item xs={12}>
-          <Box mt={4}>
+          <Box p={3} sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
             <WorkoutSearchForm 
               searchWorkouts={searchWorkouts} 
             />

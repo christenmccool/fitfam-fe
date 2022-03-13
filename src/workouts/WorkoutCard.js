@@ -32,7 +32,7 @@ const WorkoutCard = ({ id, name, description, maxHeight }) => {
           </Typography>
           <Typography 
             variant="h6" 
-            style={{whiteSpace: "pre-line"}}
+            style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}
           >
             {description}
           </Typography>

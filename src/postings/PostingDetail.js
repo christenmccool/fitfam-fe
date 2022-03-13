@@ -85,8 +85,9 @@ const PostingDetail = () => {
   if (!loaded) return <div>Loading</div>
 
   return (
-    <Container align="center" maxWidth="sm" sx={{backgroundColor: "#FFF"}}>
-      <Box mt={5}>
+    < Container align="center" maxWidth="sm" sx={{backgroundColor: "#FFF"}}>
+      <Box m={5} p={3}>
+        <Box>
         <Typography variant="h6" color="text.secondary" mb={1}>
           {moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
         </Typography>
@@ -132,7 +133,8 @@ const PostingDetail = () => {
         </Button> 
         : null
       }
-    </Container>
+    </Box>
+  </Container>
   )
 }
 

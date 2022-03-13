@@ -72,21 +72,19 @@ const ResultFormPage = () => {
   if (!loaded) return <div>Loading</div>;
 
   return (
-    <Container align="center" maxWidth="sm">
-      <Box m={5}>
-         <Box mt={5}>
-          <Typography variant="h4">
-            {`${message} your results`}
-          </Typography>
-          <Box mt={4}>
-            <ResultForm 
-              submitResult={submitFunction} 
-              cancel={cancel}
-              scoreType={posting.woScoreType}
-              initScore={initScore}
-              initNotes={initNotes}
-            />
-          </Box>
+    <Container align="center" maxWidth="sm" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
+      <Box m={5} p={3}>
+        <Typography variant="h4">
+          {`${message} your results`}
+        </Typography>
+        <Box mt={4}>
+          <ResultForm 
+            submitResult={submitFunction} 
+            cancel={cancel}
+            scoreType={posting.woScoreType}
+            initScore={initScore}
+            initNotes={initNotes}
+          />
         </Box>
       </Box>
     </Container>
