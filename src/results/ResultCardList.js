@@ -1,4 +1,5 @@
 import React, {useContext} from 'react';
+
 import Stack from '@mui/material/Stack';
 
 import ResultCard from './ResultCard';
@@ -10,7 +11,7 @@ import { scoreToString } from '../helpers/formatScore';
  * PostingDetail -> ResultCardList -> ResultCard
  * 
  */
-const ResultCardList = ({ postId, results, scoreType }) => {   
+const ResultCardList = ({ postId, results, scoreType, deleteResult }) => {   
   const {user} = useContext(UserContext);
 
   return (
@@ -24,6 +25,7 @@ const ResultCardList = ({ postId, results, scoreType }) => {
           notes={result.notes}
           isUser={result.userId === user.id}
           postId={postId}
+          deleteResult={deleteResult}
         />
       ))}
     </Stack>

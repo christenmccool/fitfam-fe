@@ -9,13 +9,19 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
 /** Result information
  *
  * PostingDetail -> ResultCardList -> ResultCard
  */
-const ResultCard = ({ id, userFirst, score, notes, isUser, postId}) => {
+const ResultCard = ({ id, userFirst, score, notes, isUser, postId, deleteResult}) => {
+
+  const handleClick = () => {
+    deleteResult(id);
+  }
+
   return (
     <Card 
       variant="outlined" 
@@ -60,6 +66,12 @@ const ResultCard = ({ id, userFirst, score, notes, isUser, postId}) => {
               to={`/postings/${postId}/results`}
             >
               <EditIcon />
+            </IconButton>
+            <IconButton
+              onClick={handleClick}
+              // onClick={id => deleteResult(id)}
+            >
+              <DeleteForeverIcon />
             </IconButton>
           </Box>
           : null

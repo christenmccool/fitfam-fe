@@ -52,7 +52,7 @@ const scoreTypeToFields = [
     fields: ["load"]
   },
   {
-    scoreType: "Other",
+    scoreType: "Other / Text",
     fields: ["results"]
   }
 ] 

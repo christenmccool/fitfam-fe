@@ -54,7 +54,6 @@ const PostingCard = ({ id, woName, woDescription, woScoreType, maxHeight }) => {
       variant="outlined" 
       align="center" 
       sx={{maxHeight, p:1}}
-      m={2}
     >
       <CardContent>
         <CardActionArea 

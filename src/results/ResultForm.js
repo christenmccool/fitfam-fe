@@ -50,7 +50,7 @@ const ResultForm = ({submitResult, cancel, scoreType, initScore, initNotes}) => 
       <Box component="form" noValidate onSubmit={handleSubmit} mt={1} >
         <Grid container spacing={2} justifyContent="center">
           {fieldNames.map(name => (
-            <Grid item xs={4} key={name}>
+            <Grid item xs={12/fieldNames.length} key={name}>
               <TextField
                 fullWidth
                 id={name}

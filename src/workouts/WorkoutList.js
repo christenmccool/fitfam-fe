@@ -30,7 +30,7 @@ const WorkoutList = ({ date }) => {
   if (!workouts) return <div>Loading</div>;
 
   return (
-    <Box mt={2}>
+    <Box mt={4}>
       <Typography variant="h6" align="center" color="text.secondary" gutterBottom>
         {workouts.length===1 ? "Featured Workout" : "Featured Workouts"}
       </Typography>

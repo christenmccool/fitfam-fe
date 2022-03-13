@@ -88,6 +88,13 @@ class FitFamApi {
       let res = await this.request(`results/${resultId}`, {score, notes}, "patch");
       return res.result;
     }
+
+    /** Delete result */
+    static async deleteResult(resultId) {
+      console.log(resultId)
+      let res = await this.request(`results/${resultId}`, null, "delete");
+      return res.deleted;
+    }
 }
 //user 1 - admin
 FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0NjUzMTc4MX0.KtYFbtbBzjny6ts_N3mqM396EptwNZXYZrAw1-QztBE";

@@ -46,18 +46,18 @@ const PostingDetail = () => {
   const [loaded, setLoaded] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
   useEffect(() => {
     async function getPosting() {
       try {
-        const posting = await FitFamApi.getPosting(id);
-        setPosting(posting);
+        if (!posting) {
+          const posting = await FitFamApi.getPosting(id);
+          setPosting(posting);
+        }
 
-        const results = await FitFamApi.getResults(id);
-        setResults(results);
+        if (!results) {
+          const results = await FitFamApi.getResults(id);
+          setResults(results);
+        }
 
         const userResult = results.filter(ele => ele.userId === user.id)[0];
         setUserResult(userResult);
@@ -67,14 +67,23 @@ const PostingDetail = () => {
       setLoaded(true);
     }
     getPosting();
-  }, [])
-  
+  }, [results])
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  async function deleteResult(resultId) {
+    const deletedId = await FitFamApi.deleteResult(resultId);
+    const remainingResults = results.filter(ele => ele.id !== +deletedId);
+    setResults([...remainingResults]);
+  }
 
   if (!loaded) return <div>Loading</div>
 
   return (
     <Container align="center" maxWidth="sm">
-      <Box m={5}>
+      <Box mt={5}>
         <Typography variant="h6" color="text.secondary" mb={1}>
           {moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
         </Typography>
@@ -103,6 +112,7 @@ const PostingDetail = () => {
           postId={posting.id}
           results={results}
           scoreType={posting.woScoreType}
+          deleteResult={deleteResult}
         /> :
       <Typography variant="h4">
         No results posted yet.

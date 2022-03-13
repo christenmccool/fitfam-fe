@@ -42,7 +42,7 @@ const PostingList = ({ date }) => {
   if (!postings) return <div>Loading</div>;
 
   return (
-    <Box mt={2}>
+    <Box mt={4}>
       <PostingCardList
         postings={postings}
       />

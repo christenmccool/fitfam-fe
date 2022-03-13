@@ -15,9 +15,9 @@ import AppRoutes from './app/AppRoutes';
 
 let theme = createTheme({
   palette: {
-    background: {
-      // default: "#3f50b5"
-    },
+    // background: {
+    //   default: 'rgb(231,235,240)'
+    // },
     primary: {
       main: '#3f50b5',
     },

@@ -11,7 +11,7 @@ function scoreToString(scoreType, score) {
     case "Load":
       return `${score.load}`
     default:
-      return `${score.score}`
+      return `${score.results}`
   }
 }
 
