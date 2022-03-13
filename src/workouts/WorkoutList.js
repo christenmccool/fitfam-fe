@@ -11,7 +11,6 @@ import WorkoutCardList from './WorkoutCardList';
  * On mount, loads workouts from API
  * 
  * WorkoutList -> WorkoutCardList -> WorkoutCard 
- * 
  */
 const WorkoutList = ({ date }) => {
   const [workouts, setWorkouts] = useState([]);

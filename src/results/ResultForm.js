@@ -2,29 +2,28 @@ import React, {useState} from 'react';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 import { scoreTypeToFields } from '../config/config';
 
-/** ResultNewForm
+/** Form for entering new results and editing results
  *
  * Fields for score and notes
- * Score field(s) depend on scoreTeyps
- * Calls submitNewResult from PostingDetail parent on submit
+ * Score field(s) depend on scoreType
+ * Calls submitNewResult from ResultFormPage parent on submit
  * 
- * PostingDetail -> ResultNewForm
+ * ResultFormPage -> ResultForm
  */
-const ResultNewForm = ({submitNewResult, scoreType}) => {
+const ResultForm = ({submitResult, cancel, scoreType, initScore, initNotes}) => {
   const fieldNames = scoreTypeToFields.find(ele => ele.scoreType === scoreType).fields;
   let initialScore = {};
   for (let name of fieldNames) {
     initialScore[name] = "";
   }
 
-  const [score, setScore] = useState(initialScore);
-  const [notes, setNotes] = useState("");
+  const [score, setScore] = useState(initScore || initialScore);
+  const [notes, setNotes] = useState(initNotes || "");
 
   const handleScoreChange = (event) => {
     const {name, value} = event.target;
@@ -40,17 +39,14 @@ const ResultNewForm = ({submitNewResult, scoreType}) => {
     event.preventDefault();
 
     if (notes) {
-      submitNewResult(score, notes);
+      submitResult(score, notes);
     } else {
-      submitNewResult(score);
+      submitResult(score);
     }
   };
 
   return (
     <Box>
-      <Typography component="h1" variant="h5">
-        Post your results
-      </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit} mt={1} >
         <Grid container spacing={2} justifyContent="center">
           {fieldNames.map(name => (
@@ -71,7 +67,7 @@ const ResultNewForm = ({submitNewResult, scoreType}) => {
             <TextField
               fullWidth
               multiline
-              minRows={4}
+              minRows={2}
               id="notes"
               name="notes"
               label="Notes"
@@ -86,17 +82,32 @@ const ResultNewForm = ({submitNewResult, scoreType}) => {
             />
           </Grid>
         </Grid>
-        <Button
-          type="submit"
-          variant="outlined"
-          size="large"
-          sx={{ mt:1 }}
-        >
-          Post results
-        </Button>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item>
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{ mt:1 }}
+            >
+              Submit
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              type="button"
+              variant="outlined"
+              size="large"
+              sx={{ mt:1 }}
+              onClick={cancel}
+            >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
       </Box>
     </Box>
   )
 }
 
-export default ResultNewForm;
+export default ResultForm;

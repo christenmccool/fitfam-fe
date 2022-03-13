@@ -38,6 +38,7 @@ const PostingCard = ({ id, woName, woDescription, woScoreType, maxHeight }) => {
           const userScore = scoreToString(woScoreType, userResults[0].score)
           setUserScore(userScore);
         }
+        
         setLoaded(true)
       } catch (err) {
         console.log(err);

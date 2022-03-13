@@ -79,8 +79,13 @@ class FitFamApi {
     
     /** Create new result */
     static async createResult(postId, userId, score, notes) {
-      console.log(postId, userId, score, notes)
       let res = await this.request("results", {postId, userId, score, notes}, "post");
+      return res.result;
+    }
+
+    /** Edit result */
+    static async editResult(resultId, score, notes) {
+      let res = await this.request(`results/${resultId}`, {score, notes}, "patch");
       return res.result;
     }
 }

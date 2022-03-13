@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, NavLink as RouterLink } from "react-router-dom";
 import moment from 'moment';
 
 import Container from '@mui/material/Container';
@@ -9,13 +9,11 @@ import { styled } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Button from '@mui/material/Button';
 
 import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
 import ResultCardList from '../results/ResultCardList';
-import ResultNewForm from '../results/ResultNewForm';
-import { scoreToString } from '../helpers/formatScore';
-
 
 //From MUI docs
 const ExpandMore = styled((props) => {
@@ -32,10 +30,9 @@ const ExpandMore = styled((props) => {
 /** Shows information about a posting 
  * - Workout name and description
  * - List of results
- * - ResultNewForm if user hasn't submitted a result yet
- * Adds new result to results list on submit of form
+ * - Link to ResultForm to add or edit user's result
  * 
- * PostingDetail -> {ResultCardList, ResultNewForm} -> ResultCard
+ * PostingDetail -> ResultCardList -> ResultCard
  *
  * Routed at /postings/:id
  */
@@ -46,6 +43,7 @@ const PostingDetail = () => {
   const [posting, setPosting] = useState();
   const [results, setResults] = useState();
   const [userResult, setUserResult] = useState();
+  const [loaded, setLoaded] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -60,26 +58,19 @@ const PostingDetail = () => {
 
         const results = await FitFamApi.getResults(id);
         setResults(results);
+
+        const userResult = results.filter(ele => ele.userId === user.id)[0];
+        setUserResult(userResult);
       } catch (err) {
         console.log(err);
       }
+      setLoaded(true);
     }
     getPosting();
   }, [])
+  
 
-  useEffect(() => {
-    if (!results) return;
-
-    const userResult = results.filter(ele => ele.userId === user.id)[0];
-    setUserResult(userResult);
-  }, [results])
-
-  async function submitNewResult(score, notes) {
-    const newResult = await FitFamApi.createResult(posting.id, user.id, score, notes);
-    setResults([...results, newResult]);
-  }
-
-  if (!posting || !results) return <div>Loading</div>
+  if (!loaded) return <div>Loading</div>
 
   return (
     <Container align="center" maxWidth="sm">
@@ -101,30 +92,31 @@ const PostingDetail = () => {
           </ExpandMore>
         </Box>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <Typography variant="h5" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
+          <Typography variant="h6" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
             {posting.woDescription}
           </Typography>
         </Collapse>
       </Box>
+
       {results.length ?
         <ResultCardList 
           results={results}
           scoreType={posting.woScoreType}
         /> :
-      <Typography variant="h4" mb={3}>
+      <Typography variant="h4">
         No results posted yet.
       </Typography>
       }
-      {userResult ? 
-        <Box mt={5}>
-            Edit form
-        </Box> :
-        <Box mt={5}>
-          <ResultNewForm 
-            submitNewResult={submitNewResult} 
-            scoreType={posting.woScoreType}
-          />
-        </Box>
+
+      {!userResult ?
+        <Button 
+          component={RouterLink}
+          to={`/postings/${posting.id}/results`}
+          sx={{ mt: 4 }}
+        >
+          <Typography variant="h4" >Post result</Typography>
+        </Button> 
+        : null
       }
     </Container>
   )

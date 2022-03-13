@@ -5,6 +5,7 @@ import Homepage from './Homepage';
 import WorkoutSearchPage from '../workouts/WorkoutSearchPage';
 import WorkoutDetail from '../workouts/WorkoutDetail';
 import PostingDetail from '../postings/PostingDetail';
+import ResultFormPage from '../results/ResultFormPage';
 import LoginForm from '../auth/LoginForm';
 import SignupForm from '../auth/SignupForm';
 
@@ -22,6 +23,7 @@ const AppRoutes = () => {
       <Route path="/workouts/search" element={<WorkoutSearchPage />} />
       <Route path="/workouts/:id" element={<WorkoutDetail />} />
       <Route path="/postings/:id" element={<PostingDetail />} />
+      <Route path="/postings/:postId/results/" element={<ResultFormPage />} />
       <Route path="/login" element={<LoginForm />} />
       <Route path="/signup" element={<SignupForm />} />
       <Route path="*" element={<Navigate replace to="/" />} />
