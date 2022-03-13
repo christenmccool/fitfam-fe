@@ -1,9 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import jwt from 'jsonwebtoken';
+import moment from 'moment';
 
 import './App.css';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Button, CssBaseline, GlobalStyles } from "@mui/material";
+import { CssBaseline, GlobalStyles } from "@mui/material";
 
 import FitFamApi from './api/api';
 
@@ -11,13 +14,12 @@ import UserContext from './auth/UserContext';
 import NavBar from './app/NavBar';
 import AppRoutes from './app/AppRoutes';
 
-
-
 let theme = createTheme({
   palette: {
-    // background: {
-    //   default: 'rgb(231,235,240)'
-    // },
+    background: {
+      default: 'rgb(231,235,240)'
+      // default: '#FFFFFF'
+    },
     primary: {
       main: '#3f50b5',
     },
@@ -71,13 +73,15 @@ function App() {
   if (!hasLoaded) return <div>Loading</div>;
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <UserContext.Provider value={{ user, setUser, families, setFamilies, primaryFamilyId }}>
-        <NavBar />
-        <AppRoutes />
-      </UserContext.Provider>
-    </ThemeProvider>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <UserContext.Provider value={{ user, setUser, families, setFamilies, primaryFamilyId }}>
+          <NavBar />
+          <AppRoutes />
+        </UserContext.Provider>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 

@@ -25,7 +25,7 @@ const WorkoutList = ({ date }) => {
       }
     }
     getFeaturedWorkouts();
-  }, []);
+  }, [date]);
 
   if (!workouts) return <div>Loading</div>;
 

@@ -37,7 +37,7 @@ const PostingList = ({ date }) => {
       }
     }
     getPostings();
-  }, []);
+  }, [date]);
 
   if (!postings) return <div>Loading</div>;
 
