@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -7,15 +8,15 @@ import Button from '@mui/material/Button';
 
 import { scoreTypeToFields } from '../config/config';
 
-/** Form for entering new results and editing results
+/** Form for entering new results and deleting/editing results
  *
  * Fields for score and notes
  * Score field(s) depend on scoreType
- * Calls submitNewResult from ResultFormPage parent on submit
+ * Calls submitResult from ResultFormPage parent on submit
  * 
  * ResultFormPage -> {PostingHeader, ResultForm}
  */
-const ResultForm = ({submitResult, handleCancel, scoreType, initScore, initNotes}) => {
+const ResultForm = ({formType, submitResult, deleteResult, postId, scoreType, initScore, initNotes}) => {
   const fieldNames = scoreTypeToFields.find(ele => ele.scoreType === scoreType).fields;
   let initialScore = {};
   for (let name of fieldNames) {
@@ -81,24 +82,35 @@ const ResultForm = ({submitResult, handleCancel, scoreType, initScore, initNotes
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2} justifyContent="center">
+        <Grid container mt={2} spacing={2} justifyContent="center">
           <Grid item>
             <Button
               type="submit"
               variant="contained"
               size="large"
-              sx={{ mt:1 }}
             >
               Submit
             </Button>
           </Grid>
+          {formType === "edit" ?
+            <Grid item>
+              <Button
+                type="button"
+                variant="outlined"
+                size="large"
+                onClick={deleteResult}
+              >
+                Delete
+              </Button>
+            </Grid>
+            : null
+          }
           <Grid item>
             <Button
+              component={RouterLink}
+              to={`/postings/${postId}`}
               type="button"
-              variant="outlined"
               size="large"
-              sx={{ mt:1 }}
-              onClick={handleCancel}
             >
               Cancel
             </Button>

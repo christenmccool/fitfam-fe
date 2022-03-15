@@ -43,13 +43,13 @@ const CommentDashboard = ({ resultId }) => {
   if (!comments) return <div>Loading</div>
 
   return (
-    <Grid container spacing={2} justifyContent="flex-end">
+    <Grid container spacing={2} justifyContent="center">
       <Grid item xs={12} sm={6}>
         <Button 
           component={RouterLink}
           to={`/results/${resultId}`}
           fullWidth
-          sx={{ mt: 1, height: '100%', justifyContent: "flex-end"}}
+          sx={{ mb: 1, height: '100%'}}
         >
             <Typography variant="h5" color="secondary">{message}</Typography>
         </Button>

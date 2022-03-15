@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
  *
  * CommentList -> {CommentCardList -> CommentCard, CommentForm}
  */
-const CommentForm = ({handleComment, initialComment="", turnOffEditing}) => {
+const CommentForm = ({formType, handleComment, initialComment="", toggleEditing}) => {
   const [content, setContent] = useState(initialComment);
   const [showSubmit, setShowSubmit] = useState(false);
 
@@ -35,7 +35,7 @@ const CommentForm = ({handleComment, initialComment="", turnOffEditing}) => {
   };
 
   const handleCancel = (event) => {
-    if (turnOffEditing) turnOffEditing();
+    if (formType === "edit") toggleEditing();
     setContent("");
   }
 

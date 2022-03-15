@@ -3,14 +3,19 @@ import React, {useState} from "react";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import CommentForm from './CommentForm';
 import CommentEditBar from "./CommentEditBar";
 
-/** Comment Contents
+/** Comment information
+ * 
+ * User's own comments: 
+ * - Includes CommentEditBar
+ * - Toggles between displaying Comment content and CommentForm when editing
  *
- * CommentList -> CommentCardList -> CommentCard
+ * CommentList -> CommentCardList -> CommentCard -> {CommentForm, CommentEditBar}
  */
 const CommentCard = ({ id, userFirst, content, isUser, editComment, deleteComment }) => {
   const [editing, setEditing] = useState(false);
@@ -28,9 +33,7 @@ const CommentCard = ({ id, userFirst, content, isUser, editComment, deleteCommen
     deleteComment(id)
   }
 
-  const turnOffEditing = () => {
-    setEditing(false);
-  }
+  const formType = content ? "edit" : "new";
   
   return (
     <Card 
@@ -49,11 +52,14 @@ const CommentCard = ({ id, userFirst, content, isUser, editComment, deleteCommen
         </Grid>
           {editing ?
             <Grid item xs={12}>
-              <CommentForm 
-                handleComment={handleEdit}
-                initialComment={content}
-                turnOffEditing={turnOffEditing}
-              />
+              <Box mb={2}>
+                <CommentForm 
+                  formType="edit"
+                  handleComment={handleEdit}
+                  initialComment={content}
+                  toggleEditing={toggleEditing}
+                />
+              </Box>
             </Grid>
             :
             <Grid item xs={12}>

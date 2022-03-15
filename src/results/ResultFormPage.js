@@ -50,26 +50,25 @@ const ResultFormPage = () => {
   }, []);
 
   async function submitNewResult(score, notes) {
-    const newResult = await FitFamApi.createResult(posting.id, user.id, {...score, type: posting.woScoreType}, notes);
-    setResults([...results, newResult]);
+    await FitFamApi.createResult(posting.id, user.id, {...score, type: posting.woScoreType}, notes);
     navigate(`/postings/${postId}`);
   }
 
   async function submitEditResult(score, notes) {
-    const editedResult = await FitFamApi.editResult(userResult.id, score, notes);
-    const filteredResults = results.filter(ele => ele.userId !== user.id);
-    setResults([...filteredResults, editedResult]);
+    await FitFamApi.editResult(userResult.id, score, notes);
     navigate(`/postings/${postId}`);
   }
 
-  async function handleCancel() {
+  async function deleteResult() {
+    await FitFamApi.deleteResult(userResult.id);
     navigate(`/postings/${postId}`);
   }
 
-  const message = userResult ? "Edit" : "Post";
-  const submitFunction = userResult ? submitEditResult : submitNewResult;
-  const initScore = userResult ? userResult.score : null;
-  const initNotes = userResult ? userResult.notes : null;
+  const formType = userResult ? "edit" : "new";
+  const message = formType==="edit" ? "Edit" : "Post";
+  const submitFunction = formType==="edit" ? submitEditResult : submitNewResult;
+  const initScore = formType==="edit" ? userResult.score : null;
+  const initNotes = formType==="edit" ? userResult.notes : null;
 
   if (!loaded) return <div>Loading</div>;
 
@@ -83,14 +82,16 @@ const ResultFormPage = () => {
           woDescription={posting.woDescription}
         />
 
-        <Typography variant="h4" mt={4} color="text.secondary">
+        <Typography variant="h4" mt={4} color="primary">
           {`${message} your results`}
         </Typography>
 
-        <Box mt={4}>
+        <Box mt={3}>
           <ResultForm 
+            formType={formType}
             submitResult={submitFunction} 
-            handleCancel={handleCancel}
+            deleteResult={deleteResult} 
+            postId={posting.id}
             scoreType={posting.woScoreType}
             initScore={initScore}
             initNotes={initNotes}

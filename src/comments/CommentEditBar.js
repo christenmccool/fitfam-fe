@@ -7,8 +7,9 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 /** Menu bar to allow for editing or deleting a user's comment from a result
- * Only display for user's own comment
- *
+ * Only displays for user's own comment
+ * 
+ * CommentList -> CommentCardList -> CommentCard -> {CommentForm, CommentEditBar}
  */
 const CommentEditBar = ({ toggleEditing, deleteComment}) => {
   return (
@@ -16,13 +17,19 @@ const CommentEditBar = ({ toggleEditing, deleteComment}) => {
       <IconButton
         onClick={toggleEditing}
       >
-        <EditIcon />
+        <EditIcon 
+          fontSize="small" 
+          sx={{color:"#bebebe"}}
+        />
       </IconButton>
 
       <IconButton
         onClick={deleteComment}
       >
-        <DeleteForeverIcon />
+        <DeleteForeverIcon 
+          fontSize="small" 
+          sx={{color:"#bebebe"}}
+        />
       </IconButton>
   </Box>
   )
