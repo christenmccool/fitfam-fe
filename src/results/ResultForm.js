@@ -18,6 +18,7 @@ import { scoreTypeToFields } from '../config/config';
  */
 const ResultForm = ({formType, submitResult, deleteResult, postId, scoreType, initScore, initNotes}) => {
   const fieldNames = scoreTypeToFields.find(ele => ele.scoreType === scoreType).fields;
+  
   let initialScore = {};
   for (let name of fieldNames) {
     initialScore[name] = "";

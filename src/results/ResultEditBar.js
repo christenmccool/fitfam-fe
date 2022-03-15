@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
  *
  * PostingDetail -> ResultList -> ResultCardList -> ResultCard -> {ResultInfo, ResultEditBar, CommentDashboard}
  */
-const ResultEditBar = ({ postId, deleteResult}) => {
+const ResultEditBar = ({ postId }) => {
   return (
     <Box sx={{display:"flex", justifyContent: "flex-end"}} >
       <Button

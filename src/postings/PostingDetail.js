@@ -69,7 +69,7 @@ const PostingDetail = () => {
           sx={{ mt: 5, height: '100%' }}
         >
           <Typography color="text.secondary">
-            {`Back to All Workouts`}
+            Back to All Workouts
           </Typography>
         </Button>
       </Box>

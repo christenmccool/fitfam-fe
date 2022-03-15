@@ -37,7 +37,6 @@ const ResultCard = ({ id, userFirst, score, notes, isUser, postId, deleteResult}
         {isUser ?
           <ResultEditBar
             postId={postId}
-            deleteResult={evt => deleteResult(id)}
           />
           : null
         }

@@ -34,7 +34,7 @@ const CommentForm = ({formType, handleComment, initialComment="", toggleEditing}
     setContent("");
   };
 
-  const handleCancel = (event) => {
+  const handleCancel = () => {
     if (formType === "edit") toggleEditing();
     setContent("");
   }

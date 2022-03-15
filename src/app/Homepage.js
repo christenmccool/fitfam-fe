@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useContext} from 'react';
-// import { Link as RouterLink } from 'react-router-dom';
 import { Link as RouterLink, useSearchParams } from 'react-router-dom';
 import moment from 'moment';
 
@@ -19,12 +18,12 @@ import WorkoutList from '../workouts/WorkoutList';
  * 
  * Anonymous user:
  * Shows WorkoutList for today's date
- *  WorkoutList -> WorkoutCardList -> WorkoutCard 
+ * WorkoutList -> WorkoutCardList -> WorkoutCard 
  * Links to WorkoutSearchPage
  * 
  * Logged in user:
  * Shows PostingList for today's date
- *  PostingList -> PostingCardList -> PostingCard 
+ * PostingList -> PostingCardList -> PostingCard 
  * 
  * Routed at /
  */
@@ -62,7 +61,7 @@ const Homepage = () => {
             <WorkoutList date={date} />
             <Button 
               component={RouterLink}
-              to="/workouts/search"
+              to="/workouts"
               variant="contained" 
               size="large"
               fullWidth

@@ -21,7 +21,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/workouts/search" element={<WorkoutSearchPage />} />
+      <Route path="/workouts/" element={<WorkoutSearchPage />} />
       <Route path="/workouts/:id" element={<WorkoutDetail />} />
       <Route path="/postings/:id" element={<PostingDetail />} />
       <Route path="/postings/:postId/results/" element={<ResultFormPage />} />

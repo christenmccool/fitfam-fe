@@ -53,12 +53,6 @@ import { scoreToString } from '../helpers/formatScore';
     getResult();
   }, [])
 
-  async function deleteResult() {
-    const postId = result.postId;
-    await FitFamApi.deleteResult(result.id);
-    navigate(`/postings/${postId}`);
-  }
-
   if (!loaded) return <div>Loading</div>
 
   return (
@@ -82,7 +76,6 @@ import { scoreToString } from '../helpers/formatScore';
         {isUserResult ?
           <ResultEditBar
             postId={posting.id}
-            deleteResult={evt => deleteResult(id)}
           />
           : null
         }

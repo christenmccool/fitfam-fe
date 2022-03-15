@@ -25,7 +25,6 @@ const ResultFormPage = () => {
   const navigate = useNavigate();
 
   const [posting, setPosting] = useState();
-  const [results, setResults] = useState();
   const [userResult, setUserResult] = useState();
   const [loaded, setLoaded] = useState(false);
 
@@ -36,8 +35,6 @@ const ResultFormPage = () => {
         setPosting(posting);
 
         const results = await FitFamApi.getResults(postId);
-        setResults(results);
-
         const userResult = results.filter(ele => ele.userId === user.id)[0];
         setUserResult(userResult);
   
@@ -66,7 +63,7 @@ const ResultFormPage = () => {
 
   const formType = userResult ? "edit" : "new";
   const message = formType==="edit" ? "Edit" : "Post";
-  const submitFunction = formType==="edit" ? submitEditResult : submitNewResult;
+  const handleSubmit = formType==="edit" ? submitEditResult : submitNewResult;
   const initScore = formType==="edit" ? userResult.score : null;
   const initNotes = formType==="edit" ? userResult.notes : null;
 
@@ -89,7 +86,7 @@ const ResultFormPage = () => {
         <Box mt={3}>
           <ResultForm 
             formType={formType}
-            submitResult={submitFunction} 
+            submitResult={handleSubmit} 
             deleteResult={deleteResult} 
             postId={posting.id}
             scoreType={posting.woScoreType}

@@ -32,7 +32,7 @@ const WorkoutDetail = () => {
   if (!workout) return <div>Loading</div>;
 
   return (
-    <Container align="center" maxWidth="sm" sx={{backgroundColor: "#FFF"}}>
+    <Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF"}}>
       <Box m={5} p={3}>
         <Typography variant="h3" color="secondary" gutterBottom >
           {workout.name}
