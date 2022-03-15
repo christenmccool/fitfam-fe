@@ -45,7 +45,7 @@ const Homepage = () => {
   }, [searchParams, setSearchParams])
   
   return (
-    <Container maxWidth="sm" >
+    <Container maxWidth="md" >
       <Box mt={4} sx={{display:"flex", justifyContent:"center"}}>
         <DatePicker
           label="Date"
@@ -54,23 +54,25 @@ const Homepage = () => {
           renderInput={(params) => <TextField {...params} sx={{backgroundColor: "#FFF", input: {fontSize:'20px', p:1}}}/>}
         />
       </Box>
-      {user ?
-        <PostingList date={date}/>
-        :
-        <Box>
-          <WorkoutList date={date} />
-          <Button 
-            component={RouterLink}
-            to="/workouts/search"
-            variant="contained" 
-            size="large"
-            fullWidth
-            sx={{ mt: 3 }}
-          >
-            <Typography variant="h6">Search for more workouts</Typography>
-          </Button>
-        </Box>
-      }
+      <Box mb={4}>
+        {user ?
+            <PostingList date={date}/>
+          :
+          <Box>
+            <WorkoutList date={date} />
+            <Button 
+              component={RouterLink}
+              to="/workouts/search"
+              variant="contained" 
+              size="large"
+              fullWidth
+              sx={{ mt: 3 }}
+            >
+              <Typography variant="h6">Search for more workouts</Typography>
+            </Button>
+          </Box>
+        }
+      </Box>
     </Container>
   )
 }

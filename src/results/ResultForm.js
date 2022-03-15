@@ -13,9 +13,9 @@ import { scoreTypeToFields } from '../config/config';
  * Score field(s) depend on scoreType
  * Calls submitNewResult from ResultFormPage parent on submit
  * 
- * ResultFormPage -> ResultForm
+ * ResultFormPage -> {PostingHeader, ResultForm}
  */
-const ResultForm = ({submitResult, cancel, scoreType, initScore, initNotes}) => {
+const ResultForm = ({submitResult, handleCancel, scoreType, initScore, initNotes}) => {
   const fieldNames = scoreTypeToFields.find(ele => ele.scoreType === scoreType).fields;
   let initialScore = {};
   for (let name of fieldNames) {
@@ -49,14 +49,14 @@ const ResultForm = ({submitResult, cancel, scoreType, initScore, initNotes}) => 
     <Box>
       <Box component="form" noValidate onSubmit={handleSubmit} mt={1} >
         <Grid container spacing={2} justifyContent="center">
-          {fieldNames.map(name => (
+          {fieldNames.map((name, i) => (
             <Grid item xs={12/fieldNames.length} key={name}>
               <TextField
                 fullWidth
                 id={name}
                 name={name}
                 label={name[0].toUpperCase() + name.slice(1)}
-                autoFocus
+                autoFocus={i === 0}
                 onChange={handleScoreChange}
                 value={score[name]}
                 sx={{input: {fontSize: 35, textAlign: "center"}}}
@@ -71,12 +71,11 @@ const ResultForm = ({submitResult, cancel, scoreType, initScore, initNotes}) => 
               id="notes"
               name="notes"
               label="Notes"
-              autoFocus
               onChange={handleNotesChange}
               value={notes}
               InputProps={{
                 inputProps: {
-                  style: {fontSize: 30, textAlign: 'center', spellcheck:"false"}
+                  style: {fontSize: 30, textAlign: 'center', spellcheck:"false", lineHeight: "normal"}
                 }
               }}
             />
@@ -99,7 +98,7 @@ const ResultForm = ({submitResult, cancel, scoreType, initScore, initNotes}) => 
               variant="outlined"
               size="large"
               sx={{ mt:1 }}
-              onClick={cancel}
+              onClick={handleCancel}
             >
               Cancel
             </Button>

@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
+import moment from 'moment';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -7,15 +8,16 @@ import Typography from '@mui/material/Typography';
 
 import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
+import PostingHeader from '../postings/PostingHeader';
 import ResultForm from '../results/ResultForm';
 
-
 /** Shows form for posting results 
+ * Includes PostingHeader with workout name and description
  * 
  * If no previous result for user: blank form for new result
  * If previous result: form to edit results
  * 
- * ResultFormPage -> ResultForm 
+ * ResultFormPage -> {PostingHeader, ResultForm}
  */
 const ResultFormPage = () => {
   const {postId} = useParams();
@@ -48,7 +50,7 @@ const ResultFormPage = () => {
   }, []);
 
   async function submitNewResult(score, notes) {
-    const newResult = await FitFamApi.createResult(posting.id, user.id, score, notes);
+    const newResult = await FitFamApi.createResult(posting.id, user.id, {...score, type: posting.woScoreType}, notes);
     setResults([...results, newResult]);
     navigate(`/postings/${postId}`);
   }
@@ -60,7 +62,7 @@ const ResultFormPage = () => {
     navigate(`/postings/${postId}`);
   }
 
-  async function cancel() {
+  async function handleCancel() {
     navigate(`/postings/${postId}`);
   }
 
@@ -73,14 +75,22 @@ const ResultFormPage = () => {
 
   return (
     <Container align="center" maxWidth="sm" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
+
       <Box m={5} p={3}>
-        <Typography variant="h4">
+        <PostingHeader
+          postDate={moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
+          woName={posting.woName}
+          woDescription={posting.woDescription}
+        />
+
+        <Typography variant="h4" mt={4} color="text.secondary">
           {`${message} your results`}
         </Typography>
+
         <Box mt={4}>
           <ResultForm 
             submitResult={submitFunction} 
-            cancel={cancel}
+            handleCancel={handleCancel}
             scoreType={posting.woScoreType}
             initScore={initScore}
             initNotes={initNotes}

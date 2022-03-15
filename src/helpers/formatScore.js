@@ -1,7 +1,7 @@
 /** Takes a score object and returns a string representation
  */
-function scoreToString(scoreType, score) {
-  switch (scoreType) {
+function scoreToString(score) {
+  switch (score.type) {
     case "Rounds + Reps":
       return `${score.rounds}+${score.reps}`
     case "Time":

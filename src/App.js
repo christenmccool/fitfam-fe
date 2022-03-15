@@ -7,7 +7,7 @@ import './App.css';
 import AdapterMoment from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, GlobalStyles } from "@mui/material";
 
 import FitFamApi from './api/api';
 
@@ -18,8 +18,7 @@ import AppRoutes from './app/AppRoutes';
 let theme = createTheme({
   palette: {
     background: {
-      default: 'rgb(231,235,240)'
-      // default: '#FFFFFF'
+      default: '#E7EBF0'
     },
     primary: {
       main: '#3f50b5',

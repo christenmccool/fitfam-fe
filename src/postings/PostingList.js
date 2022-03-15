@@ -12,7 +12,6 @@ import PostingCardList from './PostingCardList';
  * On mount, loads postings from API
  * 
  * PostingList -> PostingCardList -> PostingCard 
- * 
  */
 const PostingList = ({ date }) => {
   const [postings, setPostings] = useState([]);
