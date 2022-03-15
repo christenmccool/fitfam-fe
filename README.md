@@ -6,3 +6,4 @@ FitFam allows family members to complete shared daily workouts posted on FitFam.
 
 ### Tech Stack
 React
+[Component structure](https://docs.google.com/presentation/d/1m08gpmcFyXLrIEbB2YN-A2URZnDTxKkUglf-dcRSkIE/edit?usp=sharing)
