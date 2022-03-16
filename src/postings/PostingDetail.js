@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-
 import FitFamApi from '../api/api';
 import PostingHeader from '../postings/PostingHeader';
 import ResultList from '../results/ResultList';
@@ -64,12 +63,11 @@ const PostingDetail = () => {
         <Button 
           component={RouterLink}
           to={`/?date=${moment(posting.postDate).format("YYYY-MM-DD")}`}
-          variant="outlined"
-          fullWidth
+          size="large"
           sx={{ mt: 5, height: '100%' }}
         >
           <Typography color="text.secondary">
-            Back to All Workouts
+            Back
           </Typography>
         </Button>
       </Box>

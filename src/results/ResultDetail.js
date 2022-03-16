@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { useParams, useNavigate, Link as RouterLink } from "react-router-dom";
+import { useParams, Link as RouterLink } from "react-router-dom";
 import moment from 'moment';
 
 import Container from '@mui/material/Container';
@@ -28,7 +28,6 @@ import { scoreToString } from '../helpers/formatScore';
  const ResultDetail = () => {
   const {id} = useParams();
   const {user} = useContext(UserContext);
-  const navigate = useNavigate();
 
   const [posting, setPosting] = useState();
   const [result, setResult] = useState();
@@ -87,12 +86,11 @@ import { scoreToString } from '../helpers/formatScore';
         <Button 
           component={RouterLink}
           to={`/postings/${posting.id}`}
-          variant="outlined"
-          fullWidth
+          size="large"
           sx={{ mt: 5, height: '100%' }}
         >
           <Typography color="text.secondary">
-            {`Back to All Results`}
+            {`Back`}
           </Typography>
         </Button>
     </Box>
