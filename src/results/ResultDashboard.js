@@ -40,6 +40,7 @@ const ResultDashboard = ({ postId }) => {
         console.log(err);
       }
     }
+    setLoaded(false)
     getResults();
   }, []);
 

@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Homepage from './Homepage';
 import WorkoutSearchPage from '../workouts/WorkoutSearchPage';
 import WorkoutDetail from '../workouts/WorkoutDetail';
+import PostingList from '../postings/PostingList';
 import PostingDetail from '../postings/PostingDetail';
 import ResultFormPage from '../results/ResultFormPage';
 import ResultDetail from '../results/ResultDetail';
@@ -22,6 +23,7 @@ const AppRoutes = ({ login, signup }) => {
       <Route path="/" element={<Homepage />} />
       <Route path="/workouts/" element={<WorkoutSearchPage />} />
       <Route path="/workouts/:id" element={<WorkoutDetail />} />
+      <Route path="/postings" element={<PostingList />} />
       <Route path="/postings/:id" element={<PostingDetail />} />
       <Route path="/postings/:postId/results/" element={<ResultFormPage />} />
       <Route path="/results/:id" element={<ResultDetail />} />

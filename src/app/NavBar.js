@@ -14,6 +14,8 @@ import UserContext from '../auth/UserContext';
 const NavBar = ({logout}) => {
   const {user} = useContext(UserContext);
 
+  const homepageLink = user ? "/postings" : "/"; 
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -21,7 +23,7 @@ const NavBar = ({logout}) => {
           <IconButton 
             aria-label="go to FitFam homepage" 
             component={RouterLink} 
-            to="/" 
+            to={homepageLink} 
             color="inherit" 
           >
             <FitnessCenterIcon fontSize="large" />
@@ -30,8 +32,10 @@ const NavBar = ({logout}) => {
         <Box>
           {user ?
             <Button 
-            color="inherit"
-            onClick={logout}
+              component={RouterLink} 
+              to="/"
+              color="inherit"
+              onClick={logout}
               variant="outlined"
               sx={{py: '2px'}}
             >

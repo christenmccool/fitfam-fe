@@ -1,21 +1,41 @@
 import React, {useState, useEffect, useContext} from 'react';
-import UserContext from '../auth/UserContext';
+import { useSearchParams } from 'react-router-dom';
+import moment from 'moment';
 
+import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 
 import FitFamApi from '../api/api';
+import UserContext from '../auth/UserContext';
+import SelectDate from '../common/SelectDate';
 import PostingCardList from './PostingCardList';
 
 
-/** Shows list of a family's postings for a given date 
+/** Shows list of a working postings for a given date and family
  * 
+ * Gets date from query string or today's date
  * On mount, loads postings from API
  * 
  * PostingList -> PostingCardList -> PostingCard 
+ *  
+ * Routed at /postings
  */
-const PostingList = ({ date }) => {
+const PostingList = () => {
+  const { user, primaryFamilyId } = useContext(UserContext);
+  const [searchParams, setSearchParams] = useSearchParams("");
+
+  const initialDate = searchParams.get('date') || moment().format("YYYY-MM-DD");
+  const [date, setDate] = useState(initialDate);
+  
   const [postings, setPostings] = useState([]);
-  const { primaryFamilyId } = useContext(UserContext);
+
+  useEffect(() => {
+    const newDate = searchParams.get('date');
+    if (newDate) {
+      setDate(newDate);
+    } 
+  }, [searchParams, setSearchParams])
+
 
   useEffect(() => {
     async function getPostings() {
@@ -35,17 +55,22 @@ const PostingList = ({ date }) => {
         console.log(err);
       }
     }
+    setPostings(null);
     getPostings();
   }, [date]);
 
   if (!postings) return <div>Loading</div>;
 
   return (
-    <Box mt={4}>
-      <PostingCardList
-        postings={postings}
-      />
-    </Box>
+    <Container maxWidth="md" align="center">
+      <Box mt={4}>
+        < SelectDate />
+
+        <PostingCardList
+          postings={postings}
+        />
+      </Box>
+    </Container>
   )
 }
 
