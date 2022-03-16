@@ -44,7 +44,7 @@ const Homepage = () => {
   }, [searchParams, setSearchParams])
   
   return (
-    <Container maxWidth="md" >
+    <Container maxWidth="md" align="center">
       <Box mt={4} sx={{display:"flex", justifyContent:"center"}}>
         <DatePicker
           label="Date"
@@ -64,7 +64,6 @@ const Homepage = () => {
               to="/workouts"
               variant="contained" 
               size="large"
-              fullWidth
               sx={{ mt: 3 }}
             >
               <Typography variant="h6">Search for more workouts</Typography>

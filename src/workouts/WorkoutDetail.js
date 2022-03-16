@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import moment from 'moment';
 
 import FitFamApi from '../api/api';
@@ -7,6 +7,7 @@ import FitFamApi from '../api/api';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 
 /** Shows information about a workout
@@ -16,6 +17,7 @@ import Typography from '@mui/material/Typography';
 const WorkoutDetail = () => {
   const { id } = useParams();
   const [workout, setWorkout] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -57,6 +59,14 @@ const WorkoutDetail = () => {
           :
           null
         }
+        <Box mt={4}>
+          <Button
+            onClick={() => navigate(-1)}
+            size="large"
+          >
+            Back
+          </Button>
+        </Box>
       </Box>
     </Container>
   )

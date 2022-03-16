@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-
 import FitFamApi from '../api/api';
 import WorkoutCardList from './WorkoutCardList';
 
@@ -30,15 +30,16 @@ const WorkoutList = ({ date }) => {
   if (!workouts) return <div>Loading</div>;
 
   return (
-    <Box mt={4}>
-      <Typography variant="h6" align="center" color="text.secondary" gutterBottom>
-        {workouts.length===1 ? "Featured Workout" : "Featured Workouts"}
-      </Typography>
-      <WorkoutCardList
-        workouts={workouts}
-        cardMaxHeight={1000}
-      />
-    </Box>
+    <Container maxWidth="sm" >
+      <Box mt={4}>
+        <Typography variant="h6" align="center" color="text.secondary" gutterBottom>
+          {workouts.length===1 ? "Featured Workout" : "Featured Workouts"}
+        </Typography>
+        <WorkoutCardList
+          workouts={workouts}
+        />
+      </Box>
+    </Container>
   )
 }
 

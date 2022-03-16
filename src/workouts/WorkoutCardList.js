@@ -9,7 +9,7 @@ import WorkoutCard from './WorkoutCard';
  * WorkoutList -> WorkoutCardList -> WorkoutCard 
  * 
  */
-const WorkoutCardList = ({ workouts, cardMaxHeight }) => {
+const WorkoutCardList = ({ workouts }) => {
   return (
     <Stack spacing={2}>
       {workouts.map(workout => (
@@ -18,7 +18,6 @@ const WorkoutCardList = ({ workouts, cardMaxHeight }) => {
             id={workout.id} 
             name={workout.name} 
             description={workout.description} 
-            maxHeight={cardMaxHeight}
           />
         ))
       }
