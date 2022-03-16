@@ -12,12 +12,11 @@ import SignupForm from '../auth/SignupForm';
 
 /** Routes for FitFam app
  *
- * Parts of site should only be visitable when logged in. Those routes are
- * wrapped by <PrivateRoute>, which is an authorization component.
+ * Parts of site should only be visitable when logged in. 
  *
  * Non-existant route redirects to the homepage.
  */
-const AppRoutes = () => {
+const AppRoutes = ({ login, signup }) => {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
@@ -26,8 +25,8 @@ const AppRoutes = () => {
       <Route path="/postings/:id" element={<PostingDetail />} />
       <Route path="/postings/:postId/results/" element={<ResultFormPage />} />
       <Route path="/results/:id" element={<ResultDetail />} />
-      <Route path="/login" element={<LoginForm />} />
-      <Route path="/signup" element={<SignupForm />} />
+      <Route path="/login" element={<LoginForm login={login}/>} />
+      <Route path="/signup" element={<SignupForm signup={signup}/>} />
       <Route path="*" element={<Navigate replace to="/" />} />
     </Routes> 
   )

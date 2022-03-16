@@ -23,6 +23,24 @@ class FitFamApi {
     }
   }
 
+    /** Log in with email and password. Returns token */
+    static async signup(data) {
+      let res = await this.request(`auth/register`, data, "post");
+      return res.token;
+    }
+
+    /** Log in with email and password. Returns token */
+    static async login(email, password) {
+      let res = await this.request(`auth/login`, {email, password}, "post");
+      return res.token;
+    }
+
+    /** Edit user profile */
+    static async editProfile(userId, data) {
+      let res = await this.request(`users/${userId}`, data, "patch");
+      return res.user;
+    }
+
     /** Get get user by user id */
     static async getUser(id) {
       let res = await this.request(`users/${id}`);

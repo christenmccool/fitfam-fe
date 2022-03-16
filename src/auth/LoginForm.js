@@ -1,10 +1,84 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const LoginForm = () => {
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+
+/** LoginForm
+ *
+ * Form for user login given email and password 
+ * Routed at /login
+ */
+const LoginForm = ({ login }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleEmailChange = (event) => {
+    const {value} = event.target;
+    setEmail(value);
+  };
+
+  const handlePasswordChange = (event) => {
+    const {value} = event.target;
+    setPassword(value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    login(email, password);
+    navigate('/');
+  };
+
+
   return (
-    <>
-      Login Form
-    </>
+    <Container align="center" maxWidth="xs" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
+      <Box m={5} py={2}>
+        <Typography component="h1" variant="h4" textAlign="center" color="primary">
+          Login to FitFam
+        </Typography>
+
+        <Box component="form" noValidate onSubmit={handleSubmit} mt={2}>
+          <TextField
+            margin="normal"
+            fullWidth
+            required
+            id="email"
+            name="email"
+            label="Email Address"
+            autoFocus
+            onChange={handleEmailChange}
+            value={email}
+          />
+          <TextField
+            margin="normal"
+            fullWidth
+            required
+            id="password"
+            name="password"
+            label="Password"
+            type="password"
+            onChange={handlePasswordChange}
+            value={password}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="outlined"
+            size="large"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Login
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   )
 }
 

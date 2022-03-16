@@ -1,29 +1,65 @@
-import React from 'react';
-import { NavLink as RouterLink } from 'react-router-dom';
+import React, {useContext} from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import Link from '@mui/material/Link';
+import Button from '@mui/material/Button';
+
+import UserContext from '../auth/UserContext';
 
 //NavBar Component for FitFam app
-const NavBar = () => {
+const NavBar = ({logout}) => {
+  const {user} = useContext(UserContext);
 
   return (
     <AppBar position="static">
       <Toolbar>
         <Box sx={{ flexGrow: 1, display: 'flex' }}>
-          <IconButton aria-label="go to FitFam homepage" component={RouterLink} to="/" color="inherit" >
+          <IconButton 
+            aria-label="go to FitFam homepage" 
+            component={RouterLink} 
+            to="/" 
+            color="inherit" 
+          >
             <FitnessCenterIcon fontSize="large" />
           </IconButton>
         </Box>
-        {/* <Box>
-          <Link component={RouterLink} to="/results" variant="h5" color="inherit">
-              Result for Today
-          </Link>
-        </Box> */}
+        <Box>
+          {user ?
+            <Button 
+            color="inherit"
+            onClick={logout}
+              variant="outlined"
+              sx={{py: '2px'}}
+            >
+              Logout
+            </Button>
+            :
+            <Box>
+              <Button 
+                color="primary"
+                component={RouterLink}
+                to={`/login`}
+                variant="outlined"
+                sx={{p: '2px', m:1, backgroundColor: 'white'}}
+              >
+                Login
+              </Button>
+              <Button 
+                color="inherit"
+                component={RouterLink}
+                to={`/signup`}
+                variant="outlined"
+                sx={{p: '2px'}}
+              >
+                Signup
+              </Button>
+            </Box>
+          }
+        </Box>
       </Toolbar>
     </AppBar>
   );
