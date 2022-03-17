@@ -66,9 +66,11 @@ const PostingList = () => {
       <Box mt={4}>
         < SelectDate />
 
-        <PostingCardList
-          postings={postings}
-        />
+        <Box mt={4}>
+          <PostingCardList
+            postings={postings}
+          />
+        </Box>
       </Box>
     </Container>
   )

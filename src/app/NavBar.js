@@ -47,8 +47,13 @@ const NavBar = ({logout}) => {
                 color="primary"
                 component={RouterLink}
                 to={`/login`}
-                variant="outlined"
-                sx={{p: '2px', m:1, backgroundColor: 'white'}}
+                variant="contained"
+                color="white"
+                sx={{
+                  p: '2px', 
+                  m:1, 
+                  color: 'primary.main'
+                }}
               >
                 Login
               </Button>

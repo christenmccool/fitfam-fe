@@ -1,5 +1,6 @@
 import axios from 'axios';
-import moment from 'moment';
+import {v4 as uuidv4} from 'uuid';
+
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -23,125 +24,151 @@ class FitFamApi {
     }
   }
 
-    /** Log in with email and password. Returns token */
-    static async signup(data) {
-      let res = await this.request(`auth/register`, data, "post");
-      return res.token;
-    }
+  /** Register new user. Returns token */
+  static async createUser(data) {
+    let res = await this.request(`auth/register`, data, "post");
+    return res.token;
+  }
 
-    /** Log in with email and password. Returns token */
-    static async login(email, password) {
-      let res = await this.request(`auth/login`, {email, password}, "post");
-      return res.token;
-    }
+  /** Log in with email and password. Returns token */
+  static async login(email, password) {
+    let res = await this.request(`auth/login`, {email, password}, "post");
+    return res.token;
+  }
 
-    /** Edit user profile */
-    static async editProfile(userId, data) {
-      let res = await this.request(`users/${userId}`, data, "patch");
-      return res.user;
-    }
+  /** Edit user profile */
+  static async editProfile(userId, data) {
+    let res = await this.request(`users/${userId}`, data, "patch");
+    return res.user;
+  }
 
-    /** Get get user by user id */
-    static async getUser(id) {
-      let res = await this.request(`users/${id}`);
-      return res.user;
-    }
+  /** Find family by join code */
+  static async findFamily(joinCode) {
+    let res = await this.request(`families/`, {joinCode});
+    return res.families[0];
+  }
 
-    /** Get featured workouts by date */
-    static async getFeaturedWorkouts(date) {
-      let res = await this.request("workouts", { featuredDate: date, category: 'featured' });
-      return res.workouts;
-    }
+  /** Find family by join code */
+  static async createFamily(familyName) {
+    let joinCode;
+    let family;
 
-    /** Get workout by workout id */
-    static async getWorkout(id) {
-      let res = await this.request(`workouts/${id}`);
-      return res.workout;
-    }
+    do {
+      joinCode = Math.random().toString(36).substr(2, 10).toUpperCase();
+      family = await FitFamApi.findFamily(joinCode);
+    } while (family);
 
-    /** Search workouts */
-    static async searchWorkouts(data) {
-      let res = await this.request("workouts", data);
-      return res.workouts;
-    }
-    
-    /** Get postings by date, familyId */
-    static async getPostings(date, familyId) {
-      let res = await this.request("postings", { postDate: date, familyId });
-      return res.postings;
-    }
+    let res = await this.request(`families/`, {familyName, joinCode}, "post");
+    return res.family;
+  }
 
-    /** Get posting by posting id */
-    static async getPosting(id) {
-      let res = await this.request(`postings/${id}`);
-      return res.posting;
-    }
+  /** Join family */
+  static async joinFamily(userId, familyId) {
+    let res = await this.request(`memberships/`, {userId, familyId, primaryFamily: true}, "post");
+    return res.membership;
+  }
 
-    /** Create new posting by workoutId, familyId */
-    static async createPosting(workoutId, familyId, postDate) {
-      let res = await this.request("postings", { workoutId, familyId, postDate }, "post");
-      return res.posting;
-    }
+  /** Get get user by user id */
+  static async getUser(id) {
+    let res = await this.request(`users/${id}`);
+    return res.user;
+  }
 
-    /** Get results given postId */
-    static async getResults(postId) {
-      let res = await this.request("results", {postId});
-      return res.results;
-    }
+  /** Get featured workouts by date */
+  static async getFeaturedWorkouts(date) {
+    let res = await this.request("workouts", { featuredDate: date, category: 'featured' });
+    return res.workouts;
+  }
 
-    /** Get result by result id */
-    static async getResult(id) {
-      let res = await this.request(`results/${id}`);
-      return res.result;
-    }
-    
-    /** Create new result */
-    static async createResult(postId, userId, score, notes) {
-      let res = await this.request("results", {postId, userId, score, notes}, "post");
-      return res.result;
-    }
+  /** Get workout by workout id */
+  static async getWorkout(id) {
+    let res = await this.request(`workouts/${id}`);
+    return res.workout;
+  }
 
-    /** Edit result */
-    static async editResult(resultId, score, notes) {
-      let res = await this.request(`results/${resultId}`, {score, notes}, "patch");
-      return res.result;
-    }
+  /** Search workouts */
+  static async searchWorkouts(data) {
+    let res = await this.request("workouts", data);
+    return res.workouts;
+  }
+  
+  /** Get postings by date, familyId */
+  static async getPostings(date, familyId) {
+    let res = await this.request("postings", { postDate: date, familyId });
+    return res.postings;
+  }
 
-    /** Delete result */
-    static async deleteResult(resultId) {
-      let res = await this.request(`results/${resultId}`, null, "delete");
-      return res.deleted;
-    }
+  /** Get posting by posting id */
+  static async getPosting(id) {
+    let res = await this.request(`postings/${id}`);
+    return res.posting;
+  }
 
-    /** Get comment given resultId */
-    static async getComments(resultId) {
-      let res = await this.request("comments", {resultId});
-      return res.comments;
-    }
+  /** Create new posting by workoutId, familyId */
+  static async createPosting(workoutId, familyId, postDate) {
+    let res = await this.request("postings", { workoutId, familyId, postDate }, "post");
+    return res.posting;
+  }
 
-    /** Get comment by comment id */
-    static async getComment(id) {
-      let res = await this.request(`comments/${id}`);
-      return res.comment;
-    }
-        
-    /** Create new comment */
-    static async createComment(resultId, userId, content) {
-      let res = await this.request("comments", {resultId, userId, content}, "post");
-      return res.comment;
-    }
+  /** Get results given postId */
+  static async getResults(postId) {
+    let res = await this.request("results", {postId});
+    return res.results;
+  }
 
-    /** Edit comment */
-    static async editComment(commentId, content) {
-      let res = await this.request(`comments/${commentId}`, {content}, "patch");
-      return res.comment;
-    }
+  /** Get result by result id */
+  static async getResult(id) {
+    let res = await this.request(`results/${id}`);
+    return res.result;
+  }
+  
+  /** Create new result */
+  static async createResult(postId, userId, score, notes) {
+    let res = await this.request("results", {postId, userId, score, notes}, "post");
+    return res.result;
+  }
 
-    /** Delete comment */
-    static async deleteComment(commentId) {
-      let res = await this.request(`comments/${commentId}`, null, "delete");
-      return res.deleted;
-    }
+  /** Edit result */
+  static async editResult(resultId, score, notes) {
+    let res = await this.request(`results/${resultId}`, {score, notes}, "patch");
+    return res.result;
+  }
+
+  /** Delete result */
+  static async deleteResult(resultId) {
+    let res = await this.request(`results/${resultId}`, null, "delete");
+    return res.deleted;
+  }
+
+  /** Get comment given resultId */
+  static async getComments(resultId) {
+    let res = await this.request("comments", {resultId});
+    return res.comments;
+  }
+
+  /** Get comment by comment id */
+  static async getComment(id) {
+    let res = await this.request(`comments/${id}`);
+    return res.comment;
+  }
+      
+  /** Create new comment */
+  static async createComment(resultId, userId, content) {
+    let res = await this.request("comments", {resultId, userId, content}, "post");
+    return res.comment;
+  }
+
+  /** Edit comment */
+  static async editComment(commentId, content) {
+    let res = await this.request(`comments/${commentId}`, {content}, "patch");
+    return res.comment;
+  }
+
+  /** Delete comment */
+  static async deleteComment(commentId) {
+    let res = await this.request(`comments/${commentId}`, null, "delete");
+    return res.deleted;
+  }
 }
 //user 1 - admin
 FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0NjUzMTc4MX0.KtYFbtbBzjny6ts_N3mqM396EptwNZXYZrAw1-QztBE";

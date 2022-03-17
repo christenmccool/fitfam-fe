@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -29,10 +28,10 @@ const LoginForm = ({ login }) => {
     setPassword(value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    login(email, password);
+    await login(email, password);
     navigate('/');
   };
 
@@ -44,7 +43,7 @@ const LoginForm = ({ login }) => {
           Login to FitFam
         </Typography>
 
-        <Box component="form" noValidate onSubmit={handleSubmit} mt={2}>
+        <Box component="form" onSubmit={handleSubmit} mt={2}>
           <TextField
             margin="normal"
             fullWidth
@@ -69,8 +68,7 @@ const LoginForm = ({ login }) => {
           />
           <Button
             type="submit"
-            fullWidth
-            variant="outlined"
+            variant="contained"
             size="large"
             sx={{ mt: 3, mb: 2 }}
           >

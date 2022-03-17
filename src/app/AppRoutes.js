@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
+import UserContext from '../auth/UserContext';
 import Homepage from './Homepage';
 import WorkoutSearchPage from '../workouts/WorkoutSearchPage';
 import WorkoutDetail from '../workouts/WorkoutDetail';
@@ -18,12 +19,15 @@ import SignupForm from '../auth/SignupForm';
  * Non-existant route redirects to the homepage.
  */
 const AppRoutes = ({ login, signup }) => {
+  const {user} = useContext(UserContext);
+
+  const homeElement = user ? <PostingList /> : <Homepage /> ;
+
   return (
     <Routes>
-      <Route path="/" element={<Homepage />} />
+      <Route path="/" element={homeElement} />
       <Route path="/workouts/" element={<WorkoutSearchPage />} />
       <Route path="/workouts/:id" element={<WorkoutDetail />} />
-      <Route path="/postings" element={<PostingList />} />
       <Route path="/postings/:id" element={<PostingDetail />} />
       <Route path="/postings/:postId/results/" element={<ResultFormPage />} />
       <Route path="/results/:id" element={<ResultDetail />} />

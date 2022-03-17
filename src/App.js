@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 
 import './App.css';
@@ -26,6 +25,9 @@ let theme = createTheme({
     secondary: {
       main: '#4CAF50',
     },
+    white: {
+      main: '#FFF'
+    }
   },
   typography: { fontFamily: [
     "Rubik",

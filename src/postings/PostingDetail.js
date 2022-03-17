@@ -62,7 +62,7 @@ const PostingDetail = () => {
 
         <Button 
           component={RouterLink}
-          to={`/postings?date=${moment(posting.postDate).format("YYYY-MM-DD")}`}
+          to={`/?date=${moment(posting.postDate).format("YYYY-MM-DD")}`}
           size="large"
           sx={{ mt: 5, height: '100%' }}
         >
