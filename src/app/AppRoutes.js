@@ -20,7 +20,6 @@ import SignupForm from '../auth/SignupForm';
  */
 const AppRoutes = ({ login, signup }) => {
   const {user} = useContext(UserContext);
-
   const homeElement = user ? <PostingList /> : <Homepage /> ;
 
   return (

@@ -31,8 +31,10 @@ const LoginForm = ({ login }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    await login(email, password);
-    navigate('/');
+    const result = await login(email, password);
+    if (result.success) {
+      navigate('/');
+    }
   };
 
 

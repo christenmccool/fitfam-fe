@@ -1,6 +1,4 @@
 import axios from 'axios';
-import {v4 as uuidv4} from 'uuid';
-
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -25,7 +23,7 @@ class FitFamApi {
   }
 
   /** Register new user. Returns token */
-  static async createUser(data) {
+  static async signup(data) {
     let res = await this.request(`auth/register`, data, "post");
     return res.token;
   }
@@ -48,7 +46,7 @@ class FitFamApi {
     return res.families[0];
   }
 
-  /** Find family by join code */
+  /** Create a new family with a given family name. Creates a joinCode */
   static async createFamily(familyName) {
     let joinCode;
     let family;
@@ -63,8 +61,21 @@ class FitFamApi {
   }
 
   /** Join family */
-  static async joinFamily(userId, familyId) {
-    let res = await this.request(`memberships/`, {userId, familyId, primaryFamily: true}, "post");
+  static async joinFamily(userId, familyId, primaryFamily=false) {
+    let res = await this.request(`memberships/`, {userId, familyId, primaryFamily}, "post");
+    return res.membership;
+  }
+
+  /** Change primary family */
+  static async changePrimaryFamily(userId, familyId) {
+    const user = await this.getUser(userId);
+    const userFamilies = user.families;
+    for (let family of userFamilies) {
+      if (family.familyId !== familyId) {
+        await this.request(`memberships/${userId}-${family.familyId}`, {primaryFamily: false}, "patch");
+      }
+    }
+    let res = await this.request(`memberships/${userId}-${familyId}`, {primaryFamily: true}, "patch");
     return res.membership;
   }
 
@@ -171,7 +182,7 @@ class FitFamApi {
   }
 }
 //user 1 - admin
-FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0NjUzMTc4MX0.KtYFbtbBzjny6ts_N3mqM396EptwNZXYZrAw1-QztBE";
+// FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0NjUzMTc4MX0.KtYFbtbBzjny6ts_N3mqM396EptwNZXYZrAw1-QztBE";
 //user 2 - non-admin
 // FitFamApi.token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2NDY1MzE5MzV9.NJyH9JOqaNNbwFftoUnAsE0pm14dr3-RxuzSqD2QISw";
 //user 3 - family 2

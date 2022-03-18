@@ -83,13 +83,16 @@ function App() {
     getCurrUser();
   }, [token]);
 
+
   //Login in with email and password to obtain authentication token
   async function login(email, password) {
     try {
       let token = await FitFamApi.login(email, password);
       setToken(token);
+      return {success: true}
     } catch (err) {
       console.log(err);
+      return {success: false}
     }
   }
 
@@ -97,6 +100,12 @@ function App() {
   async function signup(data) {
     try {
       let token = await FitFamApi.signup(data);
+      FitFamApi.token = token;
+      
+      //automatically join "Team FitFam" with familyId 1
+      let { userId } = jwt.decode(token);
+      await FitFamApi.joinFamily(userId, 1, true);
+
       setToken(token);
     } catch (err) {
       console.log(err);
@@ -118,7 +127,7 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <UserContext.Provider value={{ user, setUser, families, setFamilies, primaryFamilyId }}>
+        <UserContext.Provider value={{ user, setUser, families, setFamilies, primaryFamilyId, setPrimaryFamilyId }}>
           <NavBar 
             logout={logout}
           />
