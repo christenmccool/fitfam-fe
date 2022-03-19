@@ -7,6 +7,9 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
+
 
 import UserContext from '../auth/UserContext';
 
@@ -28,19 +31,37 @@ const NavBar = ({logout}) => {
           >
             <FitnessCenterIcon fontSize="large" />
           </IconButton>
+          <Button 
+            component={RouterLink} 
+            to={homepageLink} 
+            color="inherit"
+            size="large"
+            sx={{p: 1, textTransform: 'none'}}
+          >
+            <Typography variant="h5">
+              FitFam
+            </Typography>
+          </Button>
         </Box>
         <Box>
           {user ?
-            <Button 
-              component={RouterLink} 
-              to="/"
-              color="inherit"
-              onClick={logout}
-              variant="outlined"
-              sx={{py: '2px'}}
-            >
-              Logout
-            </Button>
+            <Box sx={{display: 'flex'}}>
+              <Avatar 
+                src={user.imageUrl}
+                sx={{bgcolor: 'white.main', color: 'primary.main', mr: 2}}
+              >
+              </Avatar>
+              <Button 
+                component={RouterLink} 
+                to="/"
+                color="inherit"
+                onClick={logout}
+                variant="outlined"
+                sx={{py: '2px'}}
+              >
+                Logout
+              </Button>
+            </Box>
             :
             <Box>
               <Button 
@@ -51,7 +72,7 @@ const NavBar = ({logout}) => {
                 color="white"
                 sx={{
                   p: '2px', 
-                  m:1, 
+                  m: 2, 
                   color: 'primary.main'
                 }}
               >
