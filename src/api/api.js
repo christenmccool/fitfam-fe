@@ -20,7 +20,9 @@ class FitFamApi {
     } catch (err) {
       console.log(err);
       let { message } = err.response.data.error;
-      throw Array.isArray(message) ? message : [message];
+      message = Array.isArray(message) ? message : [message];
+      message = message.map(ele => ele.slice(0,9) === "instance." ? ele.slice(9) : ele)
+      throw message;
     }
   }
 
@@ -48,7 +50,7 @@ class FitFamApi {
   static async findFamily(joinCode) {
     let res = await this.request(`families/`, {joinCode});
     if (!res.families.length) {
-      throw "Invalid join code"
+      throw ["Invalid join code"]
     } else {
       return res.families[0];
     }
@@ -59,10 +61,11 @@ class FitFamApi {
     let joinCode;
     let family;
 
+    //Make sure joinCode is unique
     do {
       joinCode = Math.random().toString(36).substr(2, 10).toUpperCase();
-      family = await FitFamApi.findFamily(joinCode);
-    } while (family);
+      family = await this.request(`families/`, {joinCode});
+    } while (family.length);
 
     let res = await this.request(`families/`, {familyName, joinCode}, "post");
     return res.family;

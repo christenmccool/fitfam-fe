@@ -139,7 +139,6 @@ function App() {
       let family; 
       if (familyOption === "join"){
         family = await FitFamApi.findFamily(familyData);
-        console.log(family)
       } else if (familyOption === "create") {
         family = await FitFamApi.createFamily(familyData);
       }

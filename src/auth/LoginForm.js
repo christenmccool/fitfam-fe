@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import Alert from '../common/Alert';
 
 /** LoginForm
  *
@@ -17,6 +18,7 @@ import Button from '@mui/material/Button';
 const LoginForm = ({ login }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
@@ -35,12 +37,14 @@ const LoginForm = ({ login }) => {
     const result = await login(email, password);
     if (result.success) {
       navigate('/');
-    }
+    } else {
+      setErrors(result.err);
+    } 
   };
 
 
   return (
-    <Container align="center" maxWidth="xs" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
+    <Container align="center" maxWidth="sm" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
       <Box m={5} py={2}>
         <Typography component="h1" variant="h4" textAlign="center" color="primary">
           Login to FitFam
@@ -78,6 +82,11 @@ const LoginForm = ({ login }) => {
             Login
           </Button>
         </Box>
+
+        {errors.length ?
+          <Alert messages={errors} />
+          : null
+        }
       </Box>
     </Container>
   )

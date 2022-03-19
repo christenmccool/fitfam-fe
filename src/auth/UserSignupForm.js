@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import UserContext from './UserContext';
+import Alert from '../common/Alert';
 
 /** Form to register new user with email, first and last name, and password
  * Stores returned token in App state and new user in context
@@ -24,7 +24,7 @@ const UserSignupForm = ({ signup }) => {
   }
 
   const [fields, setFields] = useState(initialState);
-  const {user} = useContext(UserContext);
+  const [errors, setErrors] = useState([]);
 
   const handleChange =  async (event) => {
     const {name, value} = event.target;
@@ -34,7 +34,10 @@ const UserSignupForm = ({ signup }) => {
   const handleSubmit =  async (event) => {
     event.preventDefault();
 
-    await signup(fields);
+    const result = await signup(fields);
+    if (result.err) {
+      setErrors(result.err);
+    } 
   }
 
   return (
@@ -103,6 +106,11 @@ const UserSignupForm = ({ signup }) => {
             Signup
           </Button>
         </Box>
+
+        {errors.length ?
+          <Alert messages={errors} />
+          : null
+        }
       </Box>
     </Container>
   )

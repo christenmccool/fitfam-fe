@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+
+import Alert from '../common/Alert';
 
 
 /** Form for new user to select FitFam option
@@ -33,6 +35,7 @@ const FamilySignupForm = ({ signupFamily }) => {
 
   const [famOption, setFamOption] = useState("join");
   const [famData, setFamData] = useState("");
+  const [errors, setErrors] = useState([]);
 
   const navigate =  useNavigate();
 
@@ -40,6 +43,7 @@ const FamilySignupForm = ({ signupFamily }) => {
     const {value} = event.target;
     setFamOption(value);
     setFamData("");
+    setErrors([]);
   }
 
   const handleFamDataChange =  async (event) => {
@@ -56,7 +60,9 @@ const FamilySignupForm = ({ signupFamily }) => {
       const result = await signupFamily(famOption, famData);
       if (result.success) {
         navigate("/");
-      }
+      } else {
+        setErrors(result.err);
+      } 
     }
   }
 
@@ -109,6 +115,11 @@ const FamilySignupForm = ({ signupFamily }) => {
             Submit
           </Button>
         </Box>
+
+        {errors.length ?
+          <Alert messages={errors} />
+          : null
+        }
       </Box>
     </Container>
   )
