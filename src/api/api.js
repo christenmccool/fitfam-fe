@@ -18,7 +18,9 @@ class FitFamApi {
       let resp = (await axios({ url, method, data, params, headers }));
       return resp.data;
     } catch (err) {
-      console.error(err);
+      console.log(err);
+      let { message } = err.response.data.error;
+      throw Array.isArray(message) ? message : [message];
     }
   }
 

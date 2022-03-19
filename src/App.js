@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import jwt from 'jsonwebtoken';
-
 import './App.css';
 
 import AdapterMoment from '@mui/lab/AdapterMoment';
@@ -9,7 +8,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from "@mui/material";
 
 import FitFamApi from './api/api';
-
 import UserContext from './auth/UserContext';
 import NavBar from './app/NavBar';
 import AppRoutes from './app/AppRoutes';
@@ -35,6 +33,9 @@ let theme = createTheme({
   ].join(",") }
 });
 
+// Key name for storing token in localStorage 
+const TOKEN_STORAGE_ID = "fitfam-token";
+
 
 /** Fiftam app
  * 
@@ -56,7 +57,9 @@ function App() {
   const [user, setUser] = useState(null);
   const [families, setFamilies] = useState([]);
   const [primaryFamilyId, setPrimaryFamilyId] = useState(null);
-  const [token, setToken] = useState(FitFamApi.token);
+
+  const initialToken = localStorage.getItem(TOKEN_STORAGE_ID);
+  const [token, setToken] = useState(initialToken);
 
   // Load user info from API when user logs in and generates a token
   useEffect(() => {
@@ -65,8 +68,11 @@ function App() {
         try {
           let { userId } = jwt.decode(token);
           FitFamApi.token = token;
+          localStorage.setItem(TOKEN_STORAGE_ID, token);
+
           const user = await FitFamApi.getUser(userId);
           setUser(user);
+          
           setFamilies(user.families);
           const primaryFamId = user.families.filter(ele => ele.primaryFamily === true)[0].familyId;
           setPrimaryFamilyId(primaryFamId);
@@ -76,6 +82,8 @@ function App() {
           setFamilies([]);
           setPrimaryFamilyId(null);
         }
+      } else {
+        localStorage.removeItem(TOKEN_STORAGE_ID);
       }
       setLoaded(true);
     }
@@ -92,11 +100,12 @@ function App() {
       return {success: true}
     } catch (err) {
       console.log(err);
-      return {success: false}
+      return {success: false, err}
     }
   }
 
   //Sign up to obtain authentication token
+  //Automatically log new user in by setting token in state
   async function signup(data) {
     try {
       let token = await FitFamApi.signup(data);
@@ -107,18 +116,17 @@ function App() {
       await FitFamApi.joinFamily(userId, 1, true);
 
       setToken(token);
+      return {success: true}
     } catch (err) {
       console.log(err);
+      return {success: false, err}
     }
   }
 
+  //Log out of site by setting user and token state to null
   async function logout() {
-    try {
-      setUser(null);
-      setToken(null);
-    } catch (err) {
-      console.log(err);
-    }
+    setUser(null);
+    setToken(null);
   }
 
   if (!loaded) return <div>Loading</div>;
