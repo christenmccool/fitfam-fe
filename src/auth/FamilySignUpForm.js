@@ -9,6 +9,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 
 
+/** Form for new user to select FitFam option
+ * User can join an existing FitFam with their join code, or create a new FitFam
+ * Option to join no family other than Team FitFam
+ * 
+ * Signupform -> {UserSignupForm, FamilySignupForm}
+ */
 const FamilySignupForm = ({ familySignup }) => {
   const options = [
     {

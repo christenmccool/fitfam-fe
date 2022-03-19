@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 /** LoginForm
  *
  * Form for user login given email and password 
+ * 
  * Routed at /login
  */
 const LoginForm = ({ login }) => {

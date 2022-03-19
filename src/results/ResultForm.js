@@ -77,7 +77,7 @@ const ResultForm = ({formType, submitResult, deleteResult, postId, scoreType, in
               value={notes}
               InputProps={{
                 inputProps: {
-                  style: {fontSize: 30, textAlign: 'center', spellcheck:"false", lineHeight: "normal"}
+                  style: {fontSize: 20, textAlign: 'center', spellcheck:"false", lineHeight: "normal"}
                 }
               }}
             />

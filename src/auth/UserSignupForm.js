@@ -9,6 +9,12 @@ import Button from '@mui/material/Button';
 
 import UserContext from './UserContext';
 
+/** Form to register new user with email, first and last name, and password
+ * Stores returned token in App state and new user in context
+ * New user automatically joins Team FitFam
+ * 
+ * Signupform -> {UserSignupForm, FamilySignupForm}
+ */
 const UserSignupForm = ({ signup }) => {
   const initialState = {
     email: "",
