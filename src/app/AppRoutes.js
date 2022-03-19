@@ -18,7 +18,7 @@ import SignupForm from '../auth/SignupForm';
  *
  * Non-existant route redirects to the homepage.
  */
-const AppRoutes = ({ login, signup }) => {
+const AppRoutes = ({ login, signup, signupFamily }) => {
   const {user} = useContext(UserContext);
   const homeElement = user ? <PostingList /> : <Homepage /> ;
 
@@ -31,7 +31,7 @@ const AppRoutes = ({ login, signup }) => {
       <Route path="/postings/:postId/results/" element={<ResultFormPage />} />
       <Route path="/results/:id" element={<ResultDetail />} />
       <Route path="/login" element={<LoginForm login={login}/>} />
-      <Route path="/signup" element={<SignupForm signup={signup}/>} />
+      <Route path="/signup" element={<SignupForm signup={signup} signupFamily={signupFamily} />} />
       <Route path="*" element={<Navigate replace to="/" />} />
     </Routes> 
   )

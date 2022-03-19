@@ -72,7 +72,7 @@ function App() {
 
           const user = await FitFamApi.getUser(userId);
           setUser(user);
-          
+
           setFamilies(user.families);
           const primaryFamId = user.families.filter(ele => ele.primaryFamily === true)[0].familyId;
           setPrimaryFamilyId(primaryFamId);
@@ -129,6 +129,36 @@ function App() {
     setToken(null);
   }
 
+/** Either join or create a new family when user signs up
+ * familyOption can be "join" or "create"
+ * - "join", familyData contains family joinCode
+ * - "create", familyData contains new familyName
+ **/
+  async function signupFamily(familyOption, familyData) {
+    try {
+      let family; 
+      if (familyOption === "join"){
+        family = await FitFamApi.findFamily(familyData);
+        console.log(family)
+      } else if (familyOption === "create") {
+        family = await FitFamApi.createFamily(familyData);
+      }
+
+      await FitFamApi.joinFamily(user.id, family.id);
+      await FitFamApi.changePrimaryFamily(user.id, family.id);
+
+      setPrimaryFamilyId(family.id);
+      const updatedUser = await FitFamApi.getUser(user.id);
+      setUser(updatedUser);
+      setFamilies(updatedUser.families);
+
+      return {success: true}
+    } catch (err) {
+      console.log(err);
+      return {success: false, err}
+    }
+  }
+
   if (!loaded) return <div>Loading</div>;
 
   return (
@@ -142,6 +172,7 @@ function App() {
           <AppRoutes 
             login={login}
             signup={signup}
+            signupFamily={signupFamily}
           />
         </UserContext.Provider>
       </ThemeProvider>

@@ -42,10 +42,16 @@ class FitFamApi {
     return res.user;
   }
 
-  /** Find family by join code */
+  /** Find family by join code 
+   * Throws error if family not found
+   */
   static async findFamily(joinCode) {
     let res = await this.request(`families/`, {joinCode});
-    return res.families[0];
+    if (!res.families.length) {
+      throw "Invalid join code"
+    } else {
+      return res.families[0];
+    }
   }
 
   /** Create a new family with a given family name. Creates a joinCode */

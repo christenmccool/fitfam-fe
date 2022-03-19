@@ -15,7 +15,7 @@ import Button from '@mui/material/Button';
  * 
  * Signupform -> {UserSignupForm, FamilySignupForm}
  */
-const FamilySignupForm = ({ familySignup }) => {
+const FamilySignupForm = ({ signupFamily }) => {
   const options = [
     {
       value: 'join',
@@ -50,9 +50,13 @@ const FamilySignupForm = ({ familySignup }) => {
   const handleSubmit =  async (event) => {
     event.preventDefault();
 
-    const result = await familySignup(famOption, famData);
-    if (result.success) {
+    if (famOption === "none") {
       navigate("/");
+    } else {
+      const result = await signupFamily(famOption, famData);
+      if (result.success) {
+        navigate("/");
+      }
     }
   }
 
@@ -102,7 +106,7 @@ const FamilySignupForm = ({ familySignup }) => {
             size="large"
             sx={{ mt: 3, mb: 2 }}
           >
-            Signup
+            Submit
           </Button>
         </Box>
       </Box>
