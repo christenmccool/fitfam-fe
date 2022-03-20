@@ -22,12 +22,14 @@ import PostingCardList from './PostingCardList';
  * Routed at /postings
  */
 const PostingList = () => {
-  const { user, primaryFamilyId } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [searchParams, setSearchParams] = useSearchParams("");
 
   const initialDate = searchParams.get('date') || moment().format("YYYY-MM-DD");
   const [date, setDate] = useState(initialDate);
-  const [familyId, setFamilyId] = useState(primaryFamilyId);
+
+  const initialFamily = user.families.filter(ele => ele.primaryFamily === true)[0].familyId;
+  const [familyId, setFamilyId] = useState(initialFamily);
   
   const [postings, setPostings] = useState([]);
 

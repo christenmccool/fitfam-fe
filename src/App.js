@@ -54,7 +54,6 @@ const TOKEN_STORAGE_ID = "fitfam-token";
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [user, setUser] = useState(null);
-  const [primaryFamilyId, setPrimaryFamilyId] = useState(null);
 
   const initialToken = localStorage.getItem(TOKEN_STORAGE_ID);
   const [token, setToken] = useState(initialToken);
@@ -70,13 +69,9 @@ function App() {
 
           const user = await FitFamApi.getUser(userId);
           setUser(user);
-
-          const primaryFamId = user.families.filter(ele => ele.primaryFamily === true)[0].familyId;
-          setPrimaryFamilyId(primaryFamId);
         } catch (err) {
           console.error(err);
           setUser(null);
-          setPrimaryFamilyId(null);
         }
       } else {
         localStorage.removeItem(TOKEN_STORAGE_ID);
@@ -142,7 +137,6 @@ function App() {
       await FitFamApi.joinFamily(user.id, family.id);
       await FitFamApi.changePrimaryFamily(user.id, family.id);
 
-      setPrimaryFamilyId(family.id);
       const updatedUser = await FitFamApi.getUser(user.id);
       setUser(updatedUser);
 
@@ -161,7 +155,6 @@ function App() {
       const dataToUpdate = {...data};
       if (data.primFamId) {
         await FitFamApi.changePrimaryFamily(user.id, data.primFamId);
-        setPrimaryFamilyId(data.primFamId);
         delete dataToUpdate['primFamId'];
       }
       delete dataToUpdate['password'];
@@ -180,7 +173,7 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <UserContext.Provider value={{ user, setUser, primaryFamilyId, setPrimaryFamilyId }}>
+        <UserContext.Provider value={{ user, setUser }}>
           <NavBar 
             logout={logout}
           />

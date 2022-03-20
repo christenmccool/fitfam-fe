@@ -28,6 +28,8 @@ const ResultFormPage = () => {
   const [userResult, setUserResult] = useState();
   const [loaded, setLoaded] = useState(false);
 
+  const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
+
   useEffect(() => {
     async function getResults() {
       try {
@@ -77,6 +79,7 @@ const ResultFormPage = () => {
           postDate={moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
           woName={posting.woName}
           woDescription={posting.woDescription}
+          famName={famName}
         />
 
         <Typography variant="h4" mt={4} color="primary">

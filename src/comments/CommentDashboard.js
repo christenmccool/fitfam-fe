@@ -51,7 +51,7 @@ const CommentDashboard = ({ resultId }) => {
           fullWidth
           sx={{ mb: 1, height: '100%'}}
         >
-            <Typography variant="h5" color="secondary">{message}</Typography>
+            <Typography variant="h5" color="text.secondary">{message}</Typography>
         </Button>
       </Grid>
     </Grid>

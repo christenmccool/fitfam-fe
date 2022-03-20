@@ -17,7 +17,7 @@ import Alert from '../common/Alert';
  * Routed at /profile/update
  */
 const UserProfileForm = ({ updateProfile }) => {
-  const {user, primaryFamilyId} = useContext(UserContext);
+  const {user} = useContext(UserContext);
   const navigate = useNavigate();
 
   const initialState = {
@@ -37,6 +37,8 @@ const UserProfileForm = ({ updateProfile }) => {
   )
 
   const [fields, setFields] = useState(initialState);
+
+  const primaryFamilyId = user.families.filter(ele => ele.primaryFamily === true)[0].familyId;
   const [primFamId, setPrimFamId] = useState(primaryFamilyId);
   const [errors, setErrors] = useState([]);
 
