@@ -147,7 +147,7 @@ function App() {
       const updatedUser = await FitFamApi.getUser(user.id);
       setUser(updatedUser);
 
-      return {success: true}
+      return {success: true, familyId: family.id}
     } catch (err) {
       console.log(err);
       return {success: false, err}

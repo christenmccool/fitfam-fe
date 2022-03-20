@@ -9,17 +9,20 @@ import Button from '@mui/material/Button';
 import FamilySignupForm from '../auth/FamilySignupForm';
 
 
-/** Wrapper for new user form to select FitFam option
- * Includes option to join no additional FitFam
- * Send user home on submit
+/** Form for existing user to join an existing family or create a new one
  * 
- * Signupform -> FamilySignupFormWrapper -> FamilySignupForm
+ * AddFamilyForm -> FamilySignupForm
+ * Routed at /families/join
  */
 const AddFamilyForm = ({ signupFamily }) => {
   const navigate =  useNavigate();
 
-  function afterFormCompleted() {
-    navigate("/profile")
+  function afterFormCompleted(famOption, familyId) {
+    if (famOption === "join") {
+      navigate("/profile");
+    } else if (famOption === "create") {
+      navigate(`/families/${familyId}`);
+    }
   }
 
   return (
@@ -27,7 +30,7 @@ const AddFamilyForm = ({ signupFamily }) => {
       <Box m={5} pb={2}>
         <Box m={2} pt={5} pb={3}>
           <Typography component="h1" variant="h4" textAlign="center" color="primary">
-          Join or create a new FitFam
+            Join or create a new FitFam
           </Typography>
 
           <FamilySignupForm signupFamily={signupFamily} includeNone={false} afterFormCompleted={afterFormCompleted} />

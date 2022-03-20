@@ -44,6 +44,18 @@ class FitFamApi {
     return res.user;
   }
 
+  /** Get get user by user id */
+  static async getUser(id) {
+    let res = await this.request(`users/${id}`);
+    return res.user;
+  }
+
+  /** Get get family by family id */
+  static async getFamily(id) {
+    let res = await this.request(`families/${id}`);
+    return res.family;
+  }  
+
   /** Find family by join code 
    * Throws error if family not found
    */
@@ -88,12 +100,6 @@ class FitFamApi {
     }
     let res = await this.request(`memberships/${userId}-${familyId}`, {primaryFamily: true}, "patch");
     return res.membership;
-  }
-
-  /** Get get user by user id */
-  static async getUser(id) {
-    let res = await this.request(`users/${id}`);
-    return res.user;
   }
 
   /** Get featured workouts by date */

@@ -60,7 +60,7 @@ const FamilySignupForm = ({ signupFamily, includeNone=false, afterFormCompleted 
     } else {
       const result = await signupFamily(famOption, famData);
       if (result.success) {
-        afterFormCompleted();
+        afterFormCompleted(famOption, result.familyId);
       } else {
         setErrors(result.err);
       } 

@@ -1,20 +1,27 @@
 import React from 'react';
-import moment from 'moment';
+import {Link as RouterLink} from 'react-router-dom';
 
-import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 
 /** Shows list of families, with primary family highlighted
+ * 
+ *  UserProfile -> UserDetails -> FamilyList
  */
 const FamilyList = ({ families }) => {
   const primaryFamilyId = families.find(ele => ele.primaryFamily === true).familyId;
 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+    <Stack >
       {families.map(family => (
-        <Box key={family.familyId} sx={{display: 'inline-block'}}>
+        <Button 
+          component={RouterLink}
+          to={`/families/${family.familyId}`}
+          key={family.familyId} 
+          sx={{textTransform: 'none'}}
+        >
           <Typography 
             variant="h6" 
             sx={{
@@ -28,10 +35,10 @@ const FamilyList = ({ families }) => {
           >
             {family.familyName}
           </Typography>
-        </Box> 
+        </Button> 
         )
       )}
-    </Box>
+    </Stack>
   )
 }
 

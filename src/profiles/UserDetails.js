@@ -8,7 +8,8 @@ import Avatar from '@mui/material/Avatar';
 
 import FamilyList from './FamilyList';
 
-/** Shows details of user profile, including list of families
+/** Shows details of a user's profile, including list of families
+ * 
  *  UserProfile -> UserDetails -> FamilyList
  */
 const UserDetails = ({ user }) => {

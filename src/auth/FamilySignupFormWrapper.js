@@ -16,8 +16,12 @@ import FamilySignupForm from './FamilySignupForm';
 const FamilySignupFormWrapper = ({ signupFamily }) => {
   const navigate =  useNavigate();
 
-  function afterFormCompleted() {
-    navigate("/");
+  function afterFormCompleted(famOption, familyId) {
+    if (famOption === "join") {
+      navigate("/");
+    } else if (famOption === "create") {
+      navigate(`/families/${familyId}`);
+    }
   }
 
   return (

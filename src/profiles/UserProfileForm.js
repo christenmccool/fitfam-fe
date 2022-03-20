@@ -13,10 +13,11 @@ import UserContext from '../auth/UserContext';
 import Alert from '../common/Alert';
 
 /** Form to update user profile
- *  UserProfile -> UserProfileForm
+ *  
+ * Routed at /profile/update
  */
 const UserProfileForm = ({ updateProfile }) => {
-  const {user, setUser, primaryFamilyId, setPrimaryFamilyId} = useContext(UserContext);
+  const {user, primaryFamilyId} = useContext(UserContext);
   const navigate = useNavigate();
 
   const initialState = {
@@ -65,7 +66,7 @@ const UserProfileForm = ({ updateProfile }) => {
 
     const result = await updateProfile(fieldsToSubmit);
     if (result.success) {
-      navigate("/profile");
+      navigate(`/users/${user.id}`);
     } else {
       setErrors(result.err);
     } 
@@ -150,7 +151,7 @@ const UserProfileForm = ({ updateProfile }) => {
             <Grid item xs={12}>
               <Button
                 component={RouterLink}
-                to="/family/join"
+                to="/families/join"
                 size="large"
                 variant="outlined"
               >
@@ -196,7 +197,7 @@ const UserProfileForm = ({ updateProfile }) => {
           </Button>
           <Button
             component={RouterLink}
-            to="/profile"
+            to={`/users/${user.id}`}
             type="button"
             variant="outlined"
             size="large"
