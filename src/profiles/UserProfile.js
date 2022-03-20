@@ -41,7 +41,7 @@ const UserProfile = () => {
     <Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
       <Box m={5} pb={2}>
         <UserDetails 
-          user={user} 
+          user={profUser} 
         />
         {isUser ? 
           <Button
