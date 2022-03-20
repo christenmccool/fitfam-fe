@@ -54,6 +54,7 @@ const TOKEN_STORAGE_ID = "fitfam-token";
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [user, setUser] = useState(null);
+  const [currFamId, setCurrFamId] = useState(null);
 
   const initialToken = localStorage.getItem(TOKEN_STORAGE_ID);
   const [token, setToken] = useState(initialToken);
@@ -69,6 +70,8 @@ function App() {
 
           const user = await FitFamApi.getUser(userId);
           setUser(user);
+
+          setCurrFamId(user.families.filter(ele => ele.primaryFamily === true)[0].familyId);
         } catch (err) {
           console.error(err);
           setUser(null);
@@ -105,6 +108,7 @@ function App() {
       //automatically join "Team FitFam" with familyId 1
       let { userId } = jwt.decode(token);
       await FitFamApi.joinFamily(userId, 1, true);
+      setCurrFamId(1);
 
       setToken(token);
       return {success: true}
@@ -139,6 +143,7 @@ function App() {
 
       const updatedUser = await FitFamApi.getUser(user.id);
       setUser(updatedUser);
+      setCurrFamId(family.id);
 
       return {success: true, familyId: family.id}
     } catch (err) {
@@ -156,6 +161,7 @@ function App() {
       if (data.primFamId) {
         await FitFamApi.changePrimaryFamily(user.id, data.primFamId);
         delete dataToUpdate['primFamId'];
+        setCurrFamId(data.primFamId);
       }
       delete dataToUpdate['password'];
       const updatedUser = await FitFamApi.editProfile(user.id, dataToUpdate);
@@ -173,7 +179,7 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser, currFamId, setCurrFamId }}>
           <NavBar 
             logout={logout}
           />
@@ -182,6 +188,8 @@ function App() {
             signup={signup}
             signupFamily={signupFamily}
             updateProfile={updateProfile}
+            currFamId={currFamId} 
+            setCurrFamId={setCurrFamId}
           />
         </UserContext.Provider>
       </ThemeProvider>

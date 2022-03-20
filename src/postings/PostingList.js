@@ -21,20 +21,21 @@ import PostingCardList from './PostingCardList';
  *  
  * Routed at /postings
  */
-const PostingList = () => {
+const PostingList = ({ currFamId, setCurrFamId }) => {
   const { user } = useContext(UserContext);
   const [searchParams, setSearchParams] = useSearchParams("");
 
   const initialDate = searchParams.get('date') || moment().format("YYYY-MM-DD");
   const [date, setDate] = useState(initialDate);
 
-  const initialFamily = user.families.filter(ele => ele.primaryFamily === true)[0].familyId;
-  const [familyId, setFamilyId] = useState(initialFamily);
+  // const initialFamily = user.families.filter(ele => ele.primaryFamily === true)[0].familyId;
+  const [familyId, setFamilyId] = useState(currFamId);
   
   const [postings, setPostings] = useState([]);
 
   function changeFamilyId(famId) {
     setFamilyId(famId);
+    setCurrFamId(famId);
   }
 
   useEffect(() => {

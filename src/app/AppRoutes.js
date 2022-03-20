@@ -23,9 +23,9 @@ import AddFamilyForm from '../profiles/AddFamilyForm';
  *
  * Non-existant route redirects to the homepage.
  */
-const AppRoutes = ({ login, signup, signupFamily, updateProfile }) => {
+const AppRoutes = ({ login, signup, signupFamily, updateProfile, currFamId, setCurrFamId }) => {
   const {user} = useContext(UserContext);
-  const homeElement = user ? <PostingList /> : <Homepage /> ;
+  const homeElement = user ? <PostingList currFamId={currFamId} setCurrFamId={setCurrFamId}/> : <Homepage /> ;
 
   return (
     <Routes>
