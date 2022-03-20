@@ -21,7 +21,7 @@ import PostingCardList from './PostingCardList';
  * Routed at /postings
  */
 const PostingList = () => {
-  const { user, primaryFamilyId } = useContext(UserContext);
+  const { primaryFamilyId } = useContext(UserContext);
   const [searchParams, setSearchParams] = useSearchParams("");
 
   const initialDate = searchParams.get('date') || moment().format("YYYY-MM-DD");
@@ -63,7 +63,7 @@ const PostingList = () => {
 
   return (
     <Container maxWidth="md" align="center">
-      <Box mt={4}>
+      <Box my={4}>
         < SelectDate />
 
         <Box mt={4}>

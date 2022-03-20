@@ -11,6 +11,9 @@ import ResultFormPage from '../results/ResultFormPage';
 import ResultDetail from '../results/ResultDetail';
 import LoginForm from '../auth/LoginForm';
 import SignupForm from '../auth/SignupForm';
+import UserProfile from '../profiles/UserProfile';
+import UserProfileForm from '../profiles/UserProfileForm';
+import AddFamilyForm from '../profiles/AddFamilyForm';
 
 /** Routes for FitFam app
  *
@@ -18,7 +21,7 @@ import SignupForm from '../auth/SignupForm';
  *
  * Non-existant route redirects to the homepage.
  */
-const AppRoutes = ({ login, signup, signupFamily }) => {
+const AppRoutes = ({ login, signup, signupFamily, updateProfile }) => {
   const {user} = useContext(UserContext);
   const homeElement = user ? <PostingList /> : <Homepage /> ;
 
@@ -32,6 +35,9 @@ const AppRoutes = ({ login, signup, signupFamily }) => {
       <Route path="/results/:id" element={<ResultDetail />} />
       <Route path="/login" element={<LoginForm login={login}/>} />
       <Route path="/signup" element={<SignupForm signup={signup} signupFamily={signupFamily} />} />
+      <Route path="/profile" element={<UserProfile />} />
+      <Route path="/profile/update" element={<UserProfileForm updateProfile={updateProfile} />} />
+      <Route path="/family/join" element={<AddFamilyForm signupFamily={signupFamily} />} />
       <Route path="*" element={<Navigate replace to="/" />} />
     </Routes> 
   )

@@ -35,7 +35,7 @@ const Homepage = () => {
 
   return (
     <Container maxWidth="md" align="center">
-      <Box mb={4}>
+      <Box my={4}>
         <SelectDate />
       
         <WorkoutList date={date} />

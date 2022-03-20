@@ -55,7 +55,6 @@ const TOKEN_STORAGE_ID = "fitfam-token";
 function App() {
   const [loaded, setLoaded] = useState(false);
   const [user, setUser] = useState(null);
-  const [families, setFamilies] = useState([]);
   const [primaryFamilyId, setPrimaryFamilyId] = useState(null);
 
   const initialToken = localStorage.getItem(TOKEN_STORAGE_ID);
@@ -73,13 +72,11 @@ function App() {
           const user = await FitFamApi.getUser(userId);
           setUser(user);
 
-          setFamilies(user.families);
           const primaryFamId = user.families.filter(ele => ele.primaryFamily === true)[0].familyId;
           setPrimaryFamilyId(primaryFamId);
         } catch (err) {
           console.error(err);
           setUser(null);
-          setFamilies([]);
           setPrimaryFamilyId(null);
         }
       } else {
@@ -129,15 +126,15 @@ function App() {
     setToken(null);
   }
 
-/** Either join or create a new family when user signs up
- * familyOption can be "join" or "create"
- * - "join", familyData contains family joinCode
- * - "create", familyData contains new familyName
- **/
+  /** Either join or create a new family when user signs up
+   * familyOption can be "join" or "create"
+   * - "join", familyData contains family joinCode
+   * - "create", familyData contains new familyName
+   **/
   async function signupFamily(familyOption, familyData) {
     try {
       let family; 
-      if (familyOption === "join"){
+      if (familyOption === "join") {
         family = await FitFamApi.findFamily(familyData);
       } else if (familyOption === "create") {
         family = await FitFamApi.createFamily(familyData);
@@ -149,11 +146,30 @@ function App() {
       setPrimaryFamilyId(family.id);
       const updatedUser = await FitFamApi.getUser(user.id);
       setUser(updatedUser);
-      setFamilies(updatedUser.families);
 
       return {success: true}
     } catch (err) {
       console.log(err);
+      return {success: false, err}
+    }
+  }
+
+  async function updateProfile(data) {
+    try {
+      await FitFamApi.login(user.email, data.password);
+
+      const dataToUpdate = {...data};
+      if (data.primFamId) {
+        await FitFamApi.changePrimaryFamily(user.id, data.primFamId);
+        setPrimaryFamilyId(data.primFamId);
+        delete dataToUpdate['primFamId'];
+      }
+      delete dataToUpdate['password'];
+      const updatedUser = await FitFamApi.editProfile(user.id, dataToUpdate);
+
+      setUser(updatedUser);
+      return {success: true}
+    } catch (err) {
       return {success: false, err}
     }
   }
@@ -164,7 +180,7 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <UserContext.Provider value={{ user, setUser, families, setFamilies, primaryFamilyId, setPrimaryFamilyId }}>
+        <UserContext.Provider value={{ user, setUser, primaryFamilyId, setPrimaryFamilyId }}>
           <NavBar 
             logout={logout}
           />
@@ -172,6 +188,7 @@ function App() {
             login={login}
             signup={signup}
             signupFamily={signupFamily}
+            updateProfile={updateProfile}
           />
         </UserContext.Provider>
       </ThemeProvider>
