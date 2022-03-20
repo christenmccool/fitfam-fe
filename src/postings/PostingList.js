@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
 import SelectDate from '../common/SelectDate';
+import FamilySelect from './FamilySelect';
 import PostingCardList from './PostingCardList';
 
 
@@ -21,13 +22,18 @@ import PostingCardList from './PostingCardList';
  * Routed at /postings
  */
 const PostingList = () => {
-  const { primaryFamilyId } = useContext(UserContext);
+  const { user, primaryFamilyId } = useContext(UserContext);
   const [searchParams, setSearchParams] = useSearchParams("");
 
   const initialDate = searchParams.get('date') || moment().format("YYYY-MM-DD");
   const [date, setDate] = useState(initialDate);
+  const [familyId, setFamilyId] = useState(primaryFamilyId);
   
   const [postings, setPostings] = useState([]);
+
+  function changeFamilyId(famId) {
+    setFamilyId(famId);
+  }
 
   useEffect(() => {
     const newDate = searchParams.get('date');
@@ -40,13 +46,13 @@ const PostingList = () => {
   useEffect(() => {
     async function getPostings() {
       try {
-        let currPostings = await FitFamApi.getPostings(date, primaryFamilyId);
+        let currPostings = await FitFamApi.getPostings(date, familyId);
         
         //If no current postings, creating postings for date's featured workout
         if (!currPostings.length) {
           const featuredWorkouts = await FitFamApi.getFeaturedWorkouts(date);
           for (let workout of featuredWorkouts) {
-            let posting = await FitFamApi.createPosting(workout.id, primaryFamilyId, date);
+            let posting = await FitFamApi.createPosting(workout.id, familyId, date);
             currPostings.push(posting);
           }
         }
@@ -57,14 +63,25 @@ const PostingList = () => {
     }
     setPostings(null);
     getPostings();
-  }, [date]);
+  }, [date, familyId]);
 
   if (!postings) return <div>Loading</div>;
 
   return (
     <Container maxWidth="md" align="center">
       <Box my={4}>
-        < SelectDate />
+        <Box sx={{display: 'flex', justifyContent: 'center', flexDirection: {xs: "column", sm: "row"} }}>
+          <Box p={1}>
+            < SelectDate />
+          </Box>
+          <Box p={1}>
+            < FamilySelect 
+              families={user.families}
+              familyId={familyId}
+              changeFamilyId={changeFamilyId}
+            />
+          </Box>
+        </Box>
 
         <Box mt={4}>
           <PostingCardList

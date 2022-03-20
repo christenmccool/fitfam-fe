@@ -15,7 +15,7 @@ import CommentDashboard from "../comments/CommentDashboard";
  * PostingDetail -> ResultList -> ResultCardList -> ResultCard -> {ResultInfo, ResultEditBar, CommentDashboard}
  * Card links to ResultDetail
  */
-const ResultCard = ({ id, userFirst, score, notes, isUser, postId, deleteResult}) => {
+const ResultCard = ({ id, userFirst, score, notes, isUser, postId }) => {
 
   return (
     <Card 

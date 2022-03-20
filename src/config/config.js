@@ -54,6 +54,10 @@ const scoreTypeToFields = [
   {
     scoreType: "Other / Text",
     fields: ["results"]
+  },
+  {
+    scoreType: "Calories",
+    fields: ["calories"]
   }
 ] 
 

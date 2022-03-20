@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useParams, Link as RouterLink} from "react-router-dom";
 import moment from 'moment';
 
@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import FitFamApi from '../api/api';
 import PostingHeader from '../postings/PostingHeader';
 import ResultList from '../results/ResultList';
-
+import UserContext from '../auth/UserContext';
 
 /** Shows information about a posting 
  * - Workout name and description
@@ -23,9 +23,12 @@ import ResultList from '../results/ResultList';
  */
 const PostingDetail = () => {
   const {id} = useParams();
+  const {user} = useContext(UserContext);
 
   const [posting, setPosting] = useState();
   const [loaded, setLoaded] = useState(false);
+
+  const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
 
   useEffect(() => {
     async function getPosting() {
@@ -52,6 +55,7 @@ const PostingDetail = () => {
           postDate={moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
           woName={posting.woName}
           woDescription={posting.woDescription}
+          famName={famName}
         />
 
         <Box mt={4}>

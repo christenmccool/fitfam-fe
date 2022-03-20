@@ -10,6 +10,8 @@ function scoreToString(score) {
       return `${score.reps}`
     case "Load":
       return `${score.load}`
+    case "Calories":
+      return `${score.calories}`
     default:
       return `${score.results}`
   }

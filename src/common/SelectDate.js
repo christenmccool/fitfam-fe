@@ -26,12 +26,12 @@ const SelectDate = () => {
   }, [searchParams, setSearchParams])
   
   return (
-    <Box mt={4} sx={{display:"flex", justifyContent:"center"}}>
+    <Box sx={{display:"flex", justifyContent:"center"}}>
       <DatePicker
         label="Date"
         value={date}
         onChange={(newDate) => setSearchParams({date: moment(newDate).format("YYYY-MM-DD")})}
-        renderInput={(params) => <TextField {...params} sx={{backgroundColor: "#FFF", input: {fontSize:'20px', p:1}}}/>}
+        renderInput={(params) => <TextField {...params} sx={{backgroundColor: "#FFF", input: {fontSize:'20px', p:2}}}/>}
       />
     </Box>
   ) 

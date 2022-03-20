@@ -36,7 +36,6 @@ let theme = createTheme({
 // Key name for storing token in localStorage 
 const TOKEN_STORAGE_ID = "fitfam-token";
 
-
 /** Fiftam app
  * 
  * user is user object obtained from backend API
@@ -154,6 +153,7 @@ function App() {
     }
   }
 
+  //Update user profile with new data
   async function updateProfile(data) {
     try {
       await FitFamApi.login(user.email, data.password);

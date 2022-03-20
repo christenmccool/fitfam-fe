@@ -68,6 +68,7 @@ class FitFamApi {
     }
   }
 
+
   /** Create a new family with a given family name. Creates a joinCode */
   static async createFamily(familyName) {
     let joinCode;

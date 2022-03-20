@@ -34,6 +34,7 @@ import { scoreToString } from '../helpers/formatScore';
   const [loaded, setLoaded] = useState(false);
 
   const isUserResult = loaded && user.id === result.userId;
+  const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
 
   useEffect(() => {
     async function getResult() {
@@ -61,6 +62,7 @@ import { scoreToString } from '../helpers/formatScore';
           postDate={moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
           woName={posting.woName}
           woDescription={posting.woDescription}
+          famName={famName}
         />
 
         <Box mt={4} mb={3}>

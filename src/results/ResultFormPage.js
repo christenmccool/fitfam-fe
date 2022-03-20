@@ -37,12 +37,12 @@ const ResultFormPage = () => {
         const results = await FitFamApi.getResults(postId);
         const userResult = results.filter(ele => ele.userId === user.id)[0];
         setUserResult(userResult);
-  
         setLoaded(true)
       } catch (err) {
         console.log(err);
       }
     }
+    setLoaded(false)
     getResults();
   }, []);
 

@@ -31,7 +31,7 @@ const ExpandMore = styled((props) => {
  *
  * Routed at /postings/:id
  */
-const PostingHeader = ({ postDate, woName, woDescription }) => {
+const PostingHeader = ({ postDate, woName, woDescription, famName="default" }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -45,6 +45,9 @@ const PostingHeader = ({ postDate, woName, woDescription }) => {
       </Typography>
       <Typography variant="h3" color="secondary" >
         {woName}
+      </Typography>
+      <Typography variant="h6" color="text.primary" >
+        {famName}
       </Typography>
       <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
         <ExpandMore
