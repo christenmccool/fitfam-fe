@@ -11,7 +11,7 @@ import FitFamApi from '../api/api';
 
 
 /** Shows profle for a given user
- * UserProfile -> UserInfo
+ * UserProfile -> UserDetails
  * 
  * Routed at /users/:id
  **/
@@ -55,7 +55,7 @@ const UserProfile = () => {
           </Button>
           : 
           null
-      }
+        }
       </Box>
     </Container>
   )

@@ -1,23 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {useParams, Link as RouterLink} from 'react-router-dom';
-import moment from 'moment';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 import FitFamApi from '../api/api';
+import UserContext from '../auth/UserContext';
 import FamilyDetails from './FamilyDetails';
 
 
-/** User Profile
- * Shows user profile and UserProfileForm for editable user attributes
- * UserProfile -> {UserInfo, UserProfileForm}
+/** Shows profle for a given family
+ * FamilyProfile -> FamilyDetails
  * 
- * Routed at /profile
+ * Routed at /families/:id
  **/
 const FamilyProfile = () => {
   const { id } = useParams();
+  const { user } = useContext(UserContext);
+
   const [family, setFamily] = useState();
+
+  const isFamAdmin = family && user.families.some(ele => (ele.isAdmin === true && ele.familyId === +id));
 
   useEffect(() => {
     async function loadFamily() {
@@ -38,6 +42,19 @@ const FamilyProfile = () => {
         <FamilyDetails 
           family={family} 
         />
+        {isFamAdmin ? 
+          <Button
+            component={RouterLink}
+            to={`/families/${id}/update`}
+            variant="outlined"
+            size="large"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Edit Profile
+          </Button>
+          : 
+          null
+        }
       </Box>
     </Container>
   )

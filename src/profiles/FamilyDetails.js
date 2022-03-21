@@ -16,8 +16,13 @@ const FamilyDetails = ({ family }) => {
     <Box m={2} py={5}>
       <Grid container spacing={2} justifyContent="center">
         {family.imageUrl ?
-          <Grid item xs={12} sm={6}>
-            <image scr={family.imageUrl} />
+          <Grid item xs={12}>
+            <Box
+              component="img"
+              sx={{ maxWidth: { xs: 300, md: 450 } }}
+              alt="Family image"
+              src={family.imageUrl}
+            />
           </Grid>
           :
           null

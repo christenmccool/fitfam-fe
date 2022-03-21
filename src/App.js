@@ -25,6 +25,9 @@ let theme = createTheme({
     },
     white: {
       main: '#FFF'
+    },
+    grey: {
+      main: '#E7EBF0'
     }
   },
   typography: { fontFamily: [
@@ -132,13 +135,16 @@ function App() {
   async function signupFamily(familyOption, familyData) {
     try {
       let family; 
+      let isAdmin;
       if (familyOption === "join") {
         family = await FitFamApi.findFamily(familyData);
+        isAdmin = false;
       } else if (familyOption === "create") {
         family = await FitFamApi.createFamily(familyData);
+        isAdmin = true;
       }
 
-      await FitFamApi.joinFamily(user.id, family.id);
+      await FitFamApi.joinFamily(user.id, family.id, false, isAdmin);
       await FitFamApi.changePrimaryFamily(user.id, family.id);
 
       const updatedUser = await FitFamApi.getUser(user.id);

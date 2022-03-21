@@ -76,7 +76,7 @@ const ResultDashboard = ({ postId }) => {
           fullWidth
           sx={{ mt: 1, height: '100%' }}
         >
-          <Typography variant="h4" color="primary" >{message}</Typography>
+          <Typography variant="h4" color="text.secondary" >{message}</Typography>
         </Button>
       </Grid>
     </Grid>

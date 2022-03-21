@@ -10,6 +10,7 @@ import PostingDetail from '../postings/PostingDetail';
 import ResultFormPage from '../results/ResultFormPage';
 import ResultDetail from '../results/ResultDetail';
 import FamilyProfile from '../profiles/FamilyProfile';
+import FamilyProfileFormPage from '../profiles/FamilyProfileFormPage';
 import LoginForm from '../auth/LoginForm';
 import SignupForm from '../auth/SignupForm';
 import Profile from '../profiles/Profile';
@@ -36,6 +37,7 @@ const AppRoutes = ({ login, signup, signupFamily, updateProfile, currFamId, setC
       <Route path="/postings/:postId/results/" element={<ResultFormPage />} />
       <Route path="/results/:id" element={<ResultDetail />} />
       <Route path="/families/:id" element={<FamilyProfile />} />
+      <Route path="/families/:id/update" element={<FamilyProfileFormPage />} />
       <Route path="/users/:id" element={<UserProfile />} />
       <Route path="/login" element={<LoginForm login={login}/>} />
       <Route path="/signup" element={<SignupForm signup={signup} signupFamily={signupFamily} />} />

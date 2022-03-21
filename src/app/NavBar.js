@@ -48,7 +48,7 @@ const NavBar = ({logout}) => {
             <Box sx={{display: 'flex'}}>
               <Avatar 
                 component={RouterLink} 
-                to={`users/${user.id}`}
+                to={`profile`}
                 src={user.imageUrl}
                 sx={{bgcolor: 'white.main', color: 'primary.main', mr: 2}}
               >

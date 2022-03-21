@@ -68,7 +68,6 @@ class FitFamApi {
     }
   }
 
-
   /** Create a new family with a given family name. Creates a joinCode */
   static async createFamily(familyName) {
     let joinCode;
@@ -84,9 +83,15 @@ class FitFamApi {
     return res.family;
   }
 
+  /** Edit family profile */
+  static async editFamilyProfile(familyId, data) {
+    let res = await this.request(`families/${familyId}`, data, "patch");
+    return res.family;
+  }
+
   /** Join family */
-  static async joinFamily(userId, familyId, primaryFamily=false) {
-    let res = await this.request(`memberships/`, {userId, familyId, primaryFamily}, "post");
+  static async joinFamily(userId, familyId, primaryFamily=false, isAdmin=false) {
+    let res = await this.request(`memberships/`, {userId, familyId, primaryFamily, isAdmin}, "post");
     return res.membership;
   }
 
