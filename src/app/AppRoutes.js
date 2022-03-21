@@ -7,6 +7,7 @@ import WorkoutSearchPage from '../workouts/WorkoutSearchPage';
 import WorkoutDetail from '../workouts/WorkoutDetail';
 import PostingList from '../postings/PostingList';
 import PostingDetail from '../postings/PostingDetail';
+import PostingFormPage from '../postings/PostingFormPage';
 import ResultFormPage from '../results/ResultFormPage';
 import ResultDetail from '../results/ResultDetail';
 import FamilyProfile from '../profiles/FamilyProfile';
@@ -15,7 +16,7 @@ import LoginForm from '../auth/LoginForm';
 import SignupForm from '../auth/SignupForm';
 import Profile from '../profiles/Profile';
 import UserProfile from '../profiles/UserProfile';
-import UserProfileForm from '../profiles/UserProfileForm';
+import UserProfileFormPage from '../profiles/UserProfileFormPage';
 import AddFamilyForm from '../profiles/AddFamilyForm';
 
 /** Routes for FitFam app
@@ -34,7 +35,8 @@ const AppRoutes = ({ login, signup, signupFamily, updateProfile, currFamId, setC
       <Route path="/workouts/" element={<WorkoutSearchPage />} />
       <Route path="/workouts/:id" element={<WorkoutDetail />} />
       <Route path="/postings/:id" element={<PostingDetail />} />
-      <Route path="/postings/:postId/results/" element={<ResultFormPage />} />
+      <Route path="/postings/new" element={<PostingFormPage />} />
+      <Route path="/postings/:postId/results" element={<ResultFormPage />} />
       <Route path="/results/:id" element={<ResultDetail />} />
       <Route path="/families/:id" element={<FamilyProfile />} />
       <Route path="/families/:id/update" element={<FamilyProfileFormPage />} />
@@ -42,7 +44,7 @@ const AppRoutes = ({ login, signup, signupFamily, updateProfile, currFamId, setC
       <Route path="/login" element={<LoginForm login={login}/>} />
       <Route path="/signup" element={<SignupForm signup={signup} signupFamily={signupFamily} />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/profile/update" element={<UserProfileForm updateProfile={updateProfile} />} />
+      <Route path="/profile/update" element={<UserProfileFormPage />} />
       <Route path="/families/join" element={<AddFamilyForm signupFamily={signupFamily} />} />
       <Route path="*" element={<Navigate replace to="/" />} />
     </Routes> 

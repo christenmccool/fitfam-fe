@@ -14,13 +14,13 @@ import Alert from '../common/Alert';
  * FamilyProfileFormPage -> FamilyProfileForm
  */
 const FamilyProfileForm = ({ family, updateFamily }) => {
+  const navigate = useNavigate();
+
   const initialState = {
     familyName: family.familyName || "",
     bio: family.bio || "",
     imageUrl: family.imageUrl || ""
   }
-
-  const navigate = useNavigate();
 
   const [fields, setFields] = useState(initialState);
   const [errors, setErrors] = useState([]);
@@ -51,7 +51,7 @@ const FamilyProfileForm = ({ family, updateFamily }) => {
   }
 
   return (
-    <Box m={5} pt={4}>
+    <Box m={5}>
       <Box component="form" noValidate onSubmit={handleSubmit} mt={2}>
         <Grid container spacing={2} justifyContent="center" mt={2}>
           <Grid item xs={12}>
@@ -98,7 +98,7 @@ const FamilyProfileForm = ({ family, updateFamily }) => {
           type="submit"
           variant="contained"
           size="large"
-          sx={{ my: 3, mr: 1}}
+          sx={{ mt: 3, mr: 1}}
         >
           Submit
         </Button>
@@ -108,7 +108,7 @@ const FamilyProfileForm = ({ family, updateFamily }) => {
           type="button"
           variant="outlined"
           size="large"
-          sx={{ my: 3}}
+          sx={{ mt: 3}}
         >
           Cancel
         </Button>

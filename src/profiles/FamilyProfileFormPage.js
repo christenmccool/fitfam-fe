@@ -12,7 +12,7 @@ import FamilyProfileForm from './FamilyProfileForm';
 /** Page showing the form to update family profile
  * Only available to family admin users
  * 
- * loads family data on mount
+ * Loads family data on mount
  *  
  * FamilyProfileFormPage -> FamilyProfileForm
  * 
@@ -72,6 +72,7 @@ const FamilyProfileFormPage = () => {
         <Typography component="h1" variant="h4" textAlign="center" color="primary" mb={3}>
           Edit Family Profile
         </Typography>
+
         <FamilyProfileForm
           family={family}
           updateFamily={updateFamily}

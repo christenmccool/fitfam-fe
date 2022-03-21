@@ -64,7 +64,7 @@ const ResultList = ({ postId }) => {
       {!userResult ?
         <Button 
           component={RouterLink}
-          variant="contained"
+          variant="outlined"
           to={`/postings/${postId}/results`}
           sx={{ mt: 4 }}
         >

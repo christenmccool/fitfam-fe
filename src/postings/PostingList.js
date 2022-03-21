@@ -1,9 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link as RouterLink } from 'react-router-dom';
 import moment from 'moment';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
 
 import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
@@ -50,7 +53,7 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
     async function getPostings() {
       try {
         let currPostings = await FitFamApi.getPostings(date, familyId);
-        
+        console.log(currPostings);
         //If no current postings, creating postings for date's featured workout
         if (!currPostings.length) {
           const featuredWorkouts = await FitFamApi.getFeaturedWorkouts(date);
@@ -86,11 +89,20 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
           </Box>
         </Box>
 
-        <Box mt={4}>
+        <Box mt={2}>
           <PostingCardList
             postings={postings}
           />
         </Box>
+
+        <Button 
+          component={RouterLink}
+          to={`/postings/new`}
+          variant="contained"
+          sx={{ mt: 4 }}
+        >
+          <Typography variant="h4" >Post new workout</Typography>
+        </Button> 
       </Box>
     </Container>
   )

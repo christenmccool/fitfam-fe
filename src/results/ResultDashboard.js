@@ -62,7 +62,7 @@ const ResultDashboard = ({ postId }) => {
         <Button 
           component={RouterLink}
           to={`/postings/${postId}/results`}
-          variant="contained" 
+          variant="outlined" 
           fullWidth
           sx={{ mt: 1 }}
         >
