@@ -35,10 +35,8 @@ const PostingDetail = () => {
   useEffect(() => {
     async function getPosting() {
       try {
-        if (!posting) {
-          const posting = await FitFamApi.getPosting(id);
-          setPosting(posting);
-        }
+        const posting = await FitFamApi.getPosting(id);
+        setPosting(posting);
       } catch (err) {
         console.log(err);
       }
@@ -61,8 +59,8 @@ const PostingDetail = () => {
         }
         <PostingHeader
           postDate={moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
-          woName={posting.woName}
-          woDescription={posting.woDescription}
+          woName={posting.workout.woName}
+          woDescription={posting.workout.woDescription}
           famName={famName}
         />
 

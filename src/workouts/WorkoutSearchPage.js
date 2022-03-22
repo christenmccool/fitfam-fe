@@ -29,8 +29,8 @@ const WorkoutSearchPage = () => {
   }
 
   return (
-    <Container maxWidth="md" align="center">
-      <Grid container maxWidth="sm" mt={5} >
+    <Container maxWidth="sm" align="center">
+      <Grid container mt={5} >
         <Grid item xs={12}>
           <Box p={3} sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
             <Typography component="h1" variant="h5" textAlign="center">

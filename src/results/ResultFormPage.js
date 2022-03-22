@@ -49,7 +49,7 @@ const ResultFormPage = () => {
   }, []);
 
   async function submitNewResult(score, notes) {
-    await FitFamApi.createResult(posting.id, user.id, {...score, type: posting.woScoreType}, notes);
+    await FitFamApi.createResult(posting.id, user.id, {...score, type: posting.workout.woScoreType}, notes);
     navigate(`/postings/${postId}`);
   }
 
@@ -77,8 +77,8 @@ const ResultFormPage = () => {
       <Box m={5} p={3}>
         <PostingHeader
           postDate={moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
-          woName={posting.woName}
-          woDescription={posting.woDescription}
+          woName={posting.workout.woName}
+          woDescription={posting.workout.woDescription}
           famName={famName}
         />
 
@@ -92,7 +92,7 @@ const ResultFormPage = () => {
             submitResult={handleSubmit} 
             deleteResult={deleteResult} 
             postId={posting.id}
-            scoreType={posting.woScoreType}
+            scoreType={posting.workout.woScoreType}
             initScore={initScore}
             initNotes={initNotes}
           />

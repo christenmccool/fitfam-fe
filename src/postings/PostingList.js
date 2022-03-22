@@ -31,7 +31,7 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
   const initialDate = searchParams.get('date') || moment().format("YYYY-MM-DD");
   const [date, setDate] = useState(initialDate);
   const [familyId, setFamilyId] = useState(currFamId);  
-  const [postings, setPostings] = useState([]);
+  const [postings, setPostings] = useState();
 
   function changeFamilyId(famId) {
     setFamilyId(famId);
@@ -50,7 +50,7 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
     async function getPostings() {
       try {
         let currPostings = await FitFamApi.getPostings(date, familyId);
-        let featured = currPostings.filter(ele => ele.woCategory==="featured");
+        let featured = currPostings.filter(ele => ele.workout.woCategory==="featured");
         
         //If no current postings, creating postings for date's featured workout
         if (!featured.length) {

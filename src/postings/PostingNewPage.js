@@ -97,7 +97,7 @@ const PostingNewPage = () => {
             </Box>
         </Box>
 
-        <Grid item xs={12} sm={6} mt={3} mb={5}>
+        <Grid item xs={12} sm={8} mt={1} mb={5} p={2}>
           <TextField
             fullWidth
             id="option"
@@ -106,7 +106,7 @@ const PostingNewPage = () => {
             color="primary"
             value={option}
             onChange={handleOptionChange}
-            InputProps={{style: {fontSize: '20px'}}}
+            InputProps={{style: {fontSize: '20px', color: '#3f50b5'}}}
           >
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>

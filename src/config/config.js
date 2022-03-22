@@ -40,7 +40,15 @@ const scoreTypeToFields = [
     fields: ["rounds", "reps"]
   },
   {
+    scoreType: "rounds + reps",
+    fields: ["reps"]
+  },
+  {
     scoreType: "Time",
+    fields: ["min", "sec"]
+  },
+  {
+    scoreType: "time",
     fields: ["min", "sec"]
   },
   {
@@ -48,7 +56,15 @@ const scoreTypeToFields = [
     fields: ["reps"]
   },
   {
+    scoreType: "reps",
+    fields: ["reps"]
+  },
+  {
     scoreType: "Load",
+    fields: ["load"]
+  },
+  {
+    scoreType: "load",
     fields: ["load"]
   },
   {
@@ -57,6 +73,10 @@ const scoreTypeToFields = [
   },
   {
     scoreType: "Calories",
+    fields: ["calories"]
+  },
+  {
+    scoreType: "calories",
     fields: ["calories"]
   }
 ] 

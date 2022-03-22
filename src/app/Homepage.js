@@ -33,9 +33,10 @@ const Homepage = () => {
     } 
   }, [searchParams, setSearchParams])
 
+
   return (
-    <Container maxWidth="md" align="center">
-      <Box my={4}>
+    <Container maxWidth="sm" align="center" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
+      <Box my={4} p={5}>
         <SelectDate />
       
         <WorkoutList date={date} />
@@ -43,7 +44,7 @@ const Homepage = () => {
         <Button 
           component={RouterLink}
           to="/workouts"
-          variant="contained" 
+          variant="outlined" 
           size="large"
           sx={{ mt: 3 }}
         >

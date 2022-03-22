@@ -21,11 +21,13 @@ const FamilySignupForm = ({ signupFamily, includeNone=false, afterFormCompleted 
   const options = [
     {
       value: 'join',
-      label: 'Join an existing FitFam'
+      label: 'Join an existing FitFam',
+      label2: 'Enter join code'
     },
     {
       value: 'create',
-      label: 'Create a new FitFam'
+      label: 'Create a new FitFam',
+      label2: 'Enter new FitFam name (spaces okay)'
     }
   ]
 
@@ -94,7 +96,7 @@ const FamilySignupForm = ({ signupFamily, includeNone=false, afterFormCompleted 
             required
             id={famOption}
             name={famOption}
-            label={options.find(ele => ele.value === famOption).label}
+            label={options.find(ele => ele.value === famOption).label2}
             onChange={handleFamDataChange}
             value={famData}
           />

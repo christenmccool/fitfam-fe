@@ -26,7 +26,6 @@ const AddWoPostingForm = ({date, postExistingWorkout}) => {
   const [workouts, setWorkouts] = useState();
   const [workout, setWorkout] = useState();
   const [workoutId, setWorkoutId] = useState("");
-  const [searched, setSearched] = useState(false);
   const [showSearch, setShowSearch] = useState(true);
   const [errors, setErrors] = useState([]);
 
@@ -38,7 +37,6 @@ const AddWoPostingForm = ({date, postExistingWorkout}) => {
       setWorkoutId(workouts[0].id);
       setWorkout(workouts[0]);
     }
-    setSearched(true);
     setShowSearch(false);
   }
 

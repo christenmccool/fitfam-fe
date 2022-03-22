@@ -19,9 +19,9 @@ const PostingCardList = ({ postings, cardMaxHeight=1000 }) => {
         <PostingCard 
           key={posting.id}
           id={posting.id} 
-          woName={posting.woName} 
-          woDescription={posting.woDescription} 
-          woScoreType={posting.woScoreType} 
+          woName={posting.workout.woName} 
+          woDescription={posting.workout.woDescription} 
+          woScoreType={posting.workout.woScoreType} 
           maxHeight={cardMaxHeight}
           isUserPost={posting.postBy === user.id}
         />

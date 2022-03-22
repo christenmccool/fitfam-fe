@@ -22,7 +22,7 @@ const PostingCard = ({ id, woName, woDescription, maxHeight, isUserPost }) => {
     <Card 
       variant="outlined" 
       align="center" 
-      sx={{maxHeight, p:1}}
+      sx={{maxHeight, p:1, borderRadius: '6px'}}
     >
       <CardContent>
           <Box p={2}>

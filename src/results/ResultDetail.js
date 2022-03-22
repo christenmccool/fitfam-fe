@@ -60,8 +60,8 @@ import { scoreToString } from '../helpers/formatScore';
       <Box m={5} p={3}>
         <PostingHeader
           postDate={moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
-          woName={posting.woName}
-          woDescription={posting.woDescription}
+          woName={posting.workout.woName}
+          woDescription={posting.workout.woDescription}
           famName={famName}
         />
 
