@@ -56,7 +56,7 @@ const ResultList = ({ postId }) => {
           deleteResult={deleteResult}
         />
         :
-        <Typography variant="h4">
+        <Typography variant="h4" color="text.secondary">
           No results posted yet.
         </Typography>
       }

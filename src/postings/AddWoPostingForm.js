@@ -1,150 +1,153 @@
 import React, {useState} from 'react';
-import { userNavigate, Link as RouterLink } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import MenuItem from '@mui/material/MenuItem';
 
 
-/** Form for posting a new workout 
- *
- * Fields for score and notes
- * Score field(s) depend on scoreType
- * Calls submitResult from ResultFormPage parent on submit
+import FitFamApi from '../api/api';
+import WorkoutSearchForm from '../workouts/WorkoutSearchForm';
+import WorkoutCard from '../workouts/WorkoutCard';
+import Alert from '../common/Alert';
+
+/** Form for posting an existing workout to a family
  * 
- * PostingFormPage -> PostingForm
+ * date and famName supplied by the parent
+ * 
+ * PostingNewPage -> {CustomPostingForm, AddWoPostingForm}
  */
-const PostingForm = ({date, famId}) => {
+const AddWoPostingForm = ({date, postExistingWorkout}) => {
   const navigate = useNavigate();
 
-  const initialState = {
-    name: "",
-    description: ""
-  }
-
-  const options = [
-    {
-      value: "search",
-      label: "Search for workout"
-    },
-    {
-     value: "create",
-     label: "Create new workout"
-    }
-  ]
-
-  const [fields, setFields] = useState(initialState);
-  const [option, setOption] = useState("create")
+  const [workouts, setWorkouts] = useState();
+  const [workout, setWorkout] = useState();
+  const [workoutId, setWorkoutId] = useState("");
+  const [searched, setSearched] = useState(false);
+  const [showSearch, setShowSearch] = useState(true);
   const [errors, setErrors] = useState([]);
 
-  const handleChange =  async (event) => {
-    const {name, value} = event.target;
-    setFields({...fields, [name]:value})
+  const searchWorkouts = async (data) => {
+    let workouts = await FitFamApi.searchWorkouts(data);
+    setWorkouts(workouts);
+
+    if (workouts.length) {
+      setWorkoutId(workouts[0].id);
+      setWorkout(workouts[0]);
+    }
+    setSearched(true);
+    setShowSearch(false);
   }
 
-  const handleOptChange =  async (event) => {
+  const handleChange =  async (event) => {
     const {value} = event.target;
-    setOption(value);
+    setWorkoutId(value);
+    const selectedWorkout = workouts.find(ele => ele.id === value);
+    setWorkout(selectedWorkout);
   }
 
   const handleSubmit =  async (event) => {
     event.preventDefault();
 
-    const fieldsToSubmit = {};
-    for (let key of Object.keys(fields)) {
-      if (fields[key]) {
-        fieldsToSubmit[key] = fields[key];
-      }
-    }
+    const result = await postExistingWorkout(workoutId);
 
-    const data = option === "create" ? fieldsToSubmit : {woId};
-    const result = await postWorkout(option, data);
-
-
-    // const workout = await createWorkout(fieldsToSubmit);
-    // const result = await createPosting(workout.id, famId, date);
-
-    if (result.err) {
-      navigate(`/?date=${date}`);
+    if (result.success) {
+      navigate(`/postings/${result.postId}`);
     } else {
       setErrors(result.err);
     } 
   }
 
+  const resetSearch = () => {
+    setShowSearch(true);
+  }
+
   return (
-    <Box>
-      <Box component="form" noValidate onSubmit={handleSubmit} mt={1} >
-        <Grid container spacing={2} justifyContent="center">
-          {fieldNames.map((name, i) => (
-            <Grid item xs={12/fieldNames.length} key={name}>
-              <TextField
-                fullWidth
-                id={name}
-                name={name}
-                label={name[0].toUpperCase() + name.slice(1)}
-                autoFocus={i === 0}
-                onChange={handleScoreChange}
-                value={score[name]}
-                sx={{input: {fontSize: 35, textAlign: "center"}}}
-              />
-            </Grid>
-          ))}
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              multiline
-              minRows={2}
-              id="notes"
-              name="notes"
-              label="Notes"
-              onChange={handleNotesChange}
-              value={notes}
-              InputProps={{
-                inputProps: {
-                  style: {fontSize: 20, textAlign: 'center', spellcheck:"false", lineHeight: "normal"}
-                }
-              }}
-            />
-          </Grid>
-        </Grid>
-        <Grid container mt={2} spacing={2} justifyContent="center">
-          <Grid item>
+    <Box mt={1} >
+      <Box maxWidth="sm" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
+        {showSearch ?
+          <WorkoutSearchForm 
+            searchWorkouts={searchWorkouts} 
+          /> 
+          :
+          <Grid item xs={12} sm={6}>
             <Button
-              type="submit"
-              variant="contained"
-              size="large"
-            >
-              Submit
-            </Button>
-          </Grid>
-          {formType === "edit" ?
-            <Grid item>
-              <Button
-                type="button"
-                variant="outlined"
-                size="large"
-                onClick={deleteResult}
-              >
-                Delete
-              </Button>
-            </Grid>
-            : null
-          }
-          <Grid item>
-            <Button
-              component={RouterLink}
-              to={`/postings/${postId}`}
               type="button"
+              fullWidth
+              variant="outlined"
               size="large"
+              onClick={resetSearch}
             >
-              Cancel
+              New Search
             </Button>
           </Grid>
-        </Grid>
+        }
       </Box>
+      {workouts && !workouts.length ? 
+        <Typography variant="h5" color="text.secondary" mt={2}>
+          No workouts match your search criteria
+        </Typography>
+        : null
+      }
+      {workouts && !showSearch && workouts.length ?
+        <Box mt={3}>
+          <Typography variant="h4" color="primary">
+            Select workout
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} mt={1}>
+            <Grid container spacing={2} justifyContent="center" alignItems="center">
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  id="option"
+                  fullWidth
+                  select
+                  label="Select workout"
+                  value={workoutId}
+                  onChange={handleChange}
+                  InputProps={{style: {fontSize: '20px'}}}
+                >
+                  {workouts.map((workout) => (
+                    <MenuItem key={workout.id} value={workout.id}>
+                      {workout.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
+              <Grid item xs={12} sm={2}>
+                <Button
+                  type="submit"
+                  size="large"
+                  variant="contained"
+                >
+                  Post
+                </Button>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        : null
+      }
+      {workouts && !showSearch && workout ?
+        <Box my={2} maxWidth="sm">
+          <WorkoutCard 
+            id={workout.id}
+            name={workout.name} 
+            description={workout.description}
+            startExpanded={true}
+          />
+        </Box>
+        : null
+      }
+
+      {errors.length ?
+        <Alert messages={errors} />
+        : null
+      } 
     </Box>
   )
 }
 
-export default ResultForm;
+export default AddWoPostingForm;

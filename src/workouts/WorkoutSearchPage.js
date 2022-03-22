@@ -33,6 +33,12 @@ const WorkoutSearchPage = () => {
       <Grid container maxWidth="sm" mt={5} >
         <Grid item xs={12}>
           <Box p={3} sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
+            <Typography component="h1" variant="h5" textAlign="center">
+              Workout search
+            </Typography>
+            <Typography variant="body1" color="text.secondary" textAlign="center">
+              Select optional filters
+            </Typography>
             <WorkoutSearchForm 
               searchWorkouts={searchWorkouts} 
             />

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import Stack from '@mui/material/Stack';
 
+import UserContext from '../auth/UserContext';
 import PostingCard from './PostingCard';
 
 /** Shows list of posting cards
@@ -10,6 +11,8 @@ import PostingCard from './PostingCard';
  * 
  */
 const PostingCardList = ({ postings, cardMaxHeight=1000 }) => {
+  const {user} = useContext(UserContext);
+
   return (
     <Stack spacing={2} >
       {postings.map(posting => (
@@ -20,6 +23,7 @@ const PostingCardList = ({ postings, cardMaxHeight=1000 }) => {
           woDescription={posting.woDescription} 
           woScoreType={posting.woScoreType} 
           maxHeight={cardMaxHeight}
+          isUserPost={posting.postBy === user.id}
         />
       ))}
     </Stack>

@@ -7,7 +7,8 @@ import WorkoutSearchPage from '../workouts/WorkoutSearchPage';
 import WorkoutDetail from '../workouts/WorkoutDetail';
 import PostingList from '../postings/PostingList';
 import PostingDetail from '../postings/PostingDetail';
-import PostingFormPage from '../postings/PostingFormPage';
+import PostingFormPage from '../postings/PostingNewPage';
+import PostingEditPage from '../postings/PostingEditPage';
 import ResultFormPage from '../results/ResultFormPage';
 import ResultDetail from '../results/ResultDetail';
 import FamilyProfile from '../profiles/FamilyProfile';
@@ -25,7 +26,7 @@ import AddFamilyForm from '../profiles/AddFamilyForm';
  *
  * Non-existant route redirects to the homepage.
  */
-const AppRoutes = ({ login, signup, signupFamily, updateProfile, currFamId, setCurrFamId }) => {
+const AppRoutes = ({ login, signup, signupFamily, currFamId, setCurrFamId }) => {
   const {user} = useContext(UserContext);
   const homeElement = user ? <PostingList currFamId={currFamId} setCurrFamId={setCurrFamId}/> : <Homepage /> ;
 
@@ -36,6 +37,7 @@ const AppRoutes = ({ login, signup, signupFamily, updateProfile, currFamId, setC
       <Route path="/workouts/:id" element={<WorkoutDetail />} />
       <Route path="/postings/:id" element={<PostingDetail />} />
       <Route path="/postings/new" element={<PostingFormPage />} />
+      <Route path="/postings/:id/edit" element={<PostingEditPage />} />
       <Route path="/postings/:postId/results" element={<ResultFormPage />} />
       <Route path="/results/:id" element={<ResultDetail />} />
       <Route path="/families/:id" element={<FamilyProfile />} />

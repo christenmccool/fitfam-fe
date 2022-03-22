@@ -52,14 +52,8 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
 
   return (
     <Box >
-      <Typography component="h1" variant="h5" textAlign="center">
-        Workout search
-      </Typography>
-      <Typography variant="body1" color="text.secondary" textAlign="center">
-        Select optional filters
-      </Typography>
       <Box component="form" noValidate onSubmit={handleSubmit} mt={3}>
-        <Grid container spacing={1}>
+        <Grid container spacing={1} justifyContent="center">
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -116,19 +110,22 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
               )}
             />
           </Grid>
+          <Grid item xs={12} sm={6}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="outlined"
+              size="large"
+              sx={{ mt: 1,
+                // backgroundColor: 'secondary.main',  
+                // '&:hover': { backgroundColor: 'secondary.dark'} 
+              }}
+            >
+              Search
+            </Button>
+          </Grid>
         </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="outlined"
-          size="large"
-          sx={{ mt: 3,
-            // backgroundColor: 'secondary.main',  
-            // '&:hover': { backgroundColor: 'secondary.dark'} 
-          }}
-        >
-          Search
-        </Button>
+
       </Box>
     </Box>
   )

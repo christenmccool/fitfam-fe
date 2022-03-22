@@ -29,8 +29,8 @@ const ExpandMore = styled((props) => {
  * WorkoutList -> WorkoutCardList -> WorkoutCard
  * Card links to WorkoutDetail
  */
-const WorkoutCard = ({ id, name, description }) => {
-  const [expanded, setExpanded] = useState(false);
+const WorkoutCard = ({ id, name, description, startExpanded=false }) => {
+  const [expanded, setExpanded] = useState(startExpanded);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);

@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 
 import FitFamApi from '../api/api';
 import PostingHeader from '../postings/PostingHeader';
+import PostingEditBar from '../postings/PostingEditBar';
 import ResultList from '../results/ResultList';
 import UserContext from '../auth/UserContext';
 
@@ -28,6 +29,7 @@ const PostingDetail = () => {
   const [posting, setPosting] = useState();
   const [loaded, setLoaded] = useState(false);
 
+  const isUserPost = loaded && user.id === posting.postBy;
   const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
 
   useEffect(() => {
@@ -51,6 +53,12 @@ const PostingDetail = () => {
   return (
     < Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF"}}>
       <Box m={5} p={3}>
+        {isUserPost ?
+          <PostingEditBar
+            postId={id}
+          />
+          : null
+        }
         <PostingHeader
           postDate={moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
           woName={posting.woName}

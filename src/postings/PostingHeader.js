@@ -43,27 +43,35 @@ const PostingHeader = ({ postDate, woName, woDescription, famName="default" }) =
       <Typography variant="h6" color="text.secondary" mb={1}>
         {postDate}
       </Typography>
-      <Typography variant="h3" color="secondary" >
-        {woName}
-      </Typography>
-      <Typography variant="h6" color="text.primary" >
+      <Typography variant="h4" color="text.primary" mb={2}>
         {famName}
       </Typography>
-      <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
-        <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </ExpandMore>
-      </Box>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <Typography variant="h6" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
+      {woName ? 
+        <Box>
+          <Typography variant="h3" color="secondary" >
+            {woName}
+          </Typography>
+          <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </Box>
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <Typography variant="h6" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
+              {woDescription}
+            </Typography>
+        </Collapse>
+        </Box>
+        :
+        <Typography variant="h3" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
           {woDescription}
         </Typography>
-      </Collapse>
+      }
     </Box>
   )
 }

@@ -158,27 +158,6 @@ function App() {
     }
   }
 
-  //Update user profile with new data
-  async function updateProfile(data) {
-    try {
-      await FitFamApi.login(user.email, data.password);
-
-      const dataToUpdate = {...data};
-      if (data.primFamId) {
-        await FitFamApi.changePrimaryFamily(user.id, data.primFamId);
-        delete dataToUpdate['primFamId'];
-        setCurrFamId(data.primFamId);
-      }
-      delete dataToUpdate['password'];
-      const updatedUser = await FitFamApi.editProfile(user.id, dataToUpdate);
-
-      setUser(updatedUser);
-      return {success: true}
-    } catch (err) {
-      return {success: false, err}
-    }
-  }
-
   if (!loaded) return <div>Loading</div>;
 
   return (
@@ -193,7 +172,6 @@ function App() {
             login={login}
             signup={signup}
             signupFamily={signupFamily}
-            updateProfile={updateProfile}
             currFamId={currFamId} 
             setCurrFamId={setCurrFamId}
           />

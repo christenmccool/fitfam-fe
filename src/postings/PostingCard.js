@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
+import PostingEditBar from '../postings/PostingEditBar';
 import ResultDashboard from '../results/ResultDashboard';
 
 /** Summary information about a posting
@@ -15,7 +16,7 @@ import ResultDashboard from '../results/ResultDashboard';
  * PostingList -> PostingCardList -> PostingCard -> ResultDashboard
  * Card links to PostingDetail
  */
-const PostingCard = ({ id, woName, woDescription, maxHeight }) => {
+const PostingCard = ({ id, woName, woDescription, maxHeight, isUserPost }) => {
 
   return (
     <Card 
@@ -24,26 +25,33 @@ const PostingCard = ({ id, woName, woDescription, maxHeight }) => {
       sx={{maxHeight, p:1}}
     >
       <CardContent>
-        <CardActionArea 
-          component={RouterLink} 
-          to={`/postings/${id}`}
-        > 
           <Box p={2}>
-            <Typography 
-              variant="h4" 
-              color="secondary" 
-              gutterBottom
-            >
-              {woName}
-            </Typography>
-            <Typography 
-              variant="h6" 
-              style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}
-            >
-              {woDescription}
-            </Typography>
+            <CardActionArea 
+              component={RouterLink} 
+              to={`/postings/${id}`}
+            > 
+              <Typography 
+                variant="h4" 
+                color="secondary" 
+                gutterBottom
+              >
+                {woName}
+              </Typography>
+              <Typography 
+                variant={woName ? "h6" : "h4"} 
+                style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}
+              >
+                {woDescription}
+              </Typography>
+            </CardActionArea>
+            
+            {isUserPost ?
+              <PostingEditBar
+                postId={id}
+              />
+              : null
+            }
           </Box>
-          </CardActionArea>
 
           <ResultDashboard 
             postId={id}

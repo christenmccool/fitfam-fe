@@ -132,6 +132,12 @@ class FitFamApi {
     return res.workout;
   }
   
+  /** Edit workout */
+  static async editWorkout(workoutId, name, description) {
+    let res = await this.request(`workouts/${workoutId}`, {name, description}, "patch");
+    return res.workout;
+  }
+
   /** Get postings by date, familyId */
   static async getPostings(date, familyId) {
     let res = await this.request("postings", { postDate: date, familyId });
@@ -148,6 +154,12 @@ class FitFamApi {
   static async createPosting(workoutId, familyId, postDate, postBy) {
     let res = await this.request("postings", { workoutId, familyId, postDate, postBy }, "post");
     return res.posting;
+  }
+
+  /** Delete posting */
+  static async deletePosting(postId) {
+    let res = await this.request(`postings/${postId}`, null, "delete");
+    return res.deleted;
   }
 
   /** Get results given postId */
