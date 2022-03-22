@@ -19,11 +19,14 @@ const PostingCardList = ({ postings, cardMaxHeight=1000 }) => {
         <PostingCard 
           key={posting.id}
           id={posting.id} 
+          familyId={posting.familyId} 
           woName={posting.workout.woName} 
           woDescription={posting.workout.woDescription} 
           woScoreType={posting.workout.woScoreType} 
           maxHeight={cardMaxHeight}
-          isUserPost={posting.postBy === user.id}
+          postBy={posting.postBy}
+          isUserWo={posting.workout.createBy === user.id}
+          startExpanded={false}
         />
       ))}
     </Stack>

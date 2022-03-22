@@ -57,7 +57,7 @@ const ResultDashboard = ({ postId }) => {
   }
 
   return (
-    <Grid container spacing={2} alignItems="stretch">
+    <Grid container alignItems="stretch">
       <Grid item xs={12} sm={6}>
         <Button 
           component={RouterLink}
@@ -66,7 +66,7 @@ const ResultDashboard = ({ postId }) => {
           fullWidth
           sx={{ mt: 1 }}
         >
-          <Typography variant="h4" >{userScore ? userScore : "Post"}</Typography>
+          <Typography >{userScore ? userScore : "Post"}</Typography>
         </Button> 
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -76,7 +76,7 @@ const ResultDashboard = ({ postId }) => {
           fullWidth
           sx={{ mt: 1, height: '100%' }}
         >
-          <Typography variant="h4" color="text.secondary" >{message}</Typography>
+          <Typography color="text.secondary" >{message}</Typography>
         </Button>
       </Grid>
     </Grid>

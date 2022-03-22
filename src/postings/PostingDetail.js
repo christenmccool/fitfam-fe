@@ -29,7 +29,7 @@ const PostingDetail = () => {
   const [posting, setPosting] = useState();
   const [loaded, setLoaded] = useState(false);
 
-  const isUserPost = loaded && user.id === posting.postBy;
+  const isUserWo = loaded && user.id === posting.workout.createBy;
   const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
 
   useEffect(() => {
@@ -42,6 +42,7 @@ const PostingDetail = () => {
       }
       setLoaded(true);
     }
+    setLoaded(false);
     getPosting();
   }, [])
 
@@ -51,7 +52,7 @@ const PostingDetail = () => {
   return (
     < Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF"}}>
       <Box m={5} p={3}>
-        {isUserPost ?
+        {isUserWo ?
           <PostingEditBar
             postId={id}
           />

@@ -81,7 +81,7 @@ const CustomPostingForm = ({formType="create", date, famName, submitPostForm, wo
               fullWidth
               id="woName"
               name="woName"
-              label="Workout Name (optional)"
+              label="Workout Name"
               onChange={handleChange}
               value={fields.woName}
               InputProps={{

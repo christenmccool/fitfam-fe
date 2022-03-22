@@ -70,8 +70,8 @@ const PostingEditPage = () => {
             date={moment(posting.postDate).format("YYYY-MM-DD")}
             famName={famName}
             submitPostForm={editWoPost}
-            woName={posting.woName}
-            woDescription={posting.woDescription}
+            woName={posting.workout.woName}
+            woDescription={posting.workout.woDescription}
             deleteWoPost={deleteWoPost}
           />
         </Box>
