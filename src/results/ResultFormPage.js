@@ -10,6 +10,9 @@ import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
 import PostingHeader from '../postings/PostingHeader';
 import ResultForm from '../results/ResultForm';
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
+
 
 /** Shows form for posting results 
  * Includes PostingHeader with workout name and description
@@ -27,6 +30,7 @@ const ResultFormPage = () => {
   const [posting, setPosting] = useState();
   const [userResult, setUserResult] = useState();
   const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState();
 
   const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
 
@@ -39,9 +43,10 @@ const ResultFormPage = () => {
         const results = await FitFamApi.getResults(postId);
         const userResult = results.filter(ele => ele.userId === user.id)[0];
         setUserResult(userResult);
-        setLoaded(true)
+        setLoaded(true);
       } catch (err) {
         console.log(err);
+        setErrors(err);
       }
     }
     setLoaded(false)
@@ -69,7 +74,8 @@ const ResultFormPage = () => {
   const initScore = formType==="edit" ? userResult.score : null;
   const initNotes = formType==="edit" ? userResult.notes : null;
 
-  if (!loaded) return <div>Loading</div>;
+  if (errors) return <ErrorPage errors={errors} />;
+  if (!loaded) return <Loading />;
 
   return (
     <Container align="center" maxWidth="sm" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>

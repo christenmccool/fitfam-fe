@@ -13,7 +13,11 @@ import PostingHeader from '../postings/PostingHeader';
 import ResultInfo from "../results/ResultInfo";
 import ResultEditBar from './ResultEditBar';
 import CommentList from '../comments/CommentList';
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
+
 import { scoreToString } from '../helpers/formatScore';
+
 
 /** Shows information about a result
  * - Posting workout name and description
@@ -31,29 +35,36 @@ import { scoreToString } from '../helpers/formatScore';
 
   const [posting, setPosting] = useState();
   const [result, setResult] = useState();
+  const [isUserResult, setIsUserResult] = useState();
+  const [famName, setFamName] = useState();
   const [loaded, setLoaded] = useState(false);
-
-  const isUserResult = loaded && user.id === result.userId;
-  const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
+  const [errors, setErrors] = useState();
 
   useEffect(() => {
     async function getResult() {
       try {
         const result = await FitFamApi.getResult(id);
         setResult(result);
+        setIsUserResult(user.id === result.userId);
 
         const posting = await FitFamApi.getPosting(result.postId);
+        const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
+        setFamName(famName);
+
         setPosting(posting);
-      
+        setLoaded(true);
       } catch (err) {
         console.log(err);
+        setErrors(err);
       }
-      setLoaded(true);
     }
+    setLoaded(false);
     getResult();
   }, [])
 
-  if (!loaded) return <div>Loading</div>
+
+  if (errors) return <ErrorPage errors={errors} />;
+  if (!loaded) return <Loading />;
 
   return (
     < Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF"}}>
