@@ -67,7 +67,7 @@ const PostingNewPage = () => {
       return {success: true, postId: posting.id}
     } catch (err) {
       console.log(err);
-      return {success: true, err}
+      return {success: false, err}
     }
   }
 
@@ -77,7 +77,7 @@ const PostingNewPage = () => {
       return {success: true, postId: posting.id}
     } catch (err) {
       console.log(err);
-      return {success: true, err}
+      return {success: false, err}
     }
   }
 

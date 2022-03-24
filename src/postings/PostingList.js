@@ -75,6 +75,12 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
     getPostings();
   }, [date, familyId]);
 
+  async function deletePosting(postId) {
+    const deletedId = await FitFamApi.deletePosting(postId);
+    const remainingPostings = postings.filter(ele => ele.id !== +deletedId);
+    setPostings([...remainingPostings]);
+  }
+
   if (errors) return <ErrorPage errors={errors} />;
   if (!loaded) return <Loading />;
 
@@ -97,6 +103,7 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
         <Box mt={2}>
           <PostingCardList
             postings={postings}
+            deletePosting={deletePosting}
           />
         </Box>
 

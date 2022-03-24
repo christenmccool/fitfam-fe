@@ -8,6 +8,9 @@ import Typography from '@mui/material/Typography';
 import FitFamApi from '../api/api';
 import WorkoutSearchForm from '../workouts/WorkoutSearchForm';
 import WorkoutCardList from '../workouts/WorkoutCardList';
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
+
 
 /** Workout search page
  * 
@@ -21,12 +24,21 @@ import WorkoutCardList from '../workouts/WorkoutCardList';
 const WorkoutSearchPage = () => {
   const [workouts, setWorkouts] = useState([]);
   const [searched, setSearched] = useState(false);
+  const [errors, setErrors] = useState();
+
 
   const searchWorkouts = async (data) => {
-    let workouts = await FitFamApi.searchWorkouts(data);
-    setWorkouts(workouts);
-    setSearched(true)
+    try {
+      let workouts = await FitFamApi.searchWorkouts(data);
+      setWorkouts(workouts);
+      setSearched(true);
+    } catch(err) {
+      console.log(err);
+      setErrors(err);
+    }
   }
+
+  if (errors) return <ErrorPage errors={errors} />;
 
   return (
     <Container maxWidth="sm" align="center">

@@ -10,7 +10,7 @@ import PostingCard from './PostingCard';
  * PostingList -> PostingCardList -> PostingCard
  * 
  */
-const PostingCardList = ({ postings, cardMaxHeight=1000 }) => {
+const PostingCardList = ({ postings, cardMaxHeight=1000, deletePosting }) => {
   const {user} = useContext(UserContext);
 
   return (
@@ -26,7 +26,9 @@ const PostingCardList = ({ postings, cardMaxHeight=1000 }) => {
           maxHeight={cardMaxHeight}
           postBy={posting.postBy}
           isUserWo={posting.workout.createBy === user.id}
+          isUserPosting={posting.postBy === user.id}
           startExpanded={false}
+          deletePosting={deletePosting}
         />
       ))}
     </Stack>

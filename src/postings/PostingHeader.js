@@ -31,7 +31,7 @@ const ExpandMore = styled((props) => {
  *
  * Routed at /postings/:id
  */
-const PostingHeader = ({ postDate, woName, woDescription, famName="default" }) => {
+const PostingHeader = ({ postDate, woName, woDescription, famName="" }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {

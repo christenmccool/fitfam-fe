@@ -12,7 +12,6 @@ import UserContext from './auth/UserContext';
 import NavBar from './app/NavBar';
 import AppRoutes from './app/AppRoutes';
 import Loading from './app/Loading';
-import ErrorPage from './app/ErrorPage';
 
 let theme = createTheme({
   palette: {
@@ -63,8 +62,6 @@ function App() {
   const initialToken = localStorage.getItem(TOKEN_STORAGE_ID);
   const [token, setToken] = useState(initialToken);
   const [loaded, setLoaded] = useState(false);
-  const [errors, setErrors] = useState();
-
 
   // Load user info from API when user logs in and generates a token
   useEffect(() => {
@@ -84,7 +81,6 @@ function App() {
         } catch (err) {
           console.error(err);
           setUser(null);
-          setErrors(err);
         }
       } else {
         localStorage.removeItem(TOKEN_STORAGE_ID);
@@ -165,7 +161,6 @@ function App() {
     }
   }
 
-  if (errors) return <ErrorPage errors={errors} />;
   if (!loaded) return <Loading />;
 
   return (

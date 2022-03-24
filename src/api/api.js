@@ -134,6 +134,7 @@ class FitFamApi {
   
   /** Edit workout */
   static async editWorkout(workoutId, name, description) {
+    console.log(workoutId, name, description)
     let res = await this.request(`workouts/${workoutId}`, {name, description}, "patch");
     return res.workout;
   }

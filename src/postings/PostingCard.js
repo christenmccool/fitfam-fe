@@ -34,7 +34,7 @@ const ExpandMore = styled((props) => {
  * PostingList -> PostingCardList -> PostingCard -> ResultDashboard
  * Card links to PostingDetail
  */
-const PostingCard = ({ id, familyId, woName, woDescription, maxHeight, postBy, isUserWo, startExpanded=true }) => {
+const PostingCard = ({ id, familyId, woName, woDescription, maxHeight, postBy, isUserWo, isUserPosting, startExpanded=true, deletePosting }) => {
   const [expanded, setExpanded] = useState(startExpanded);
   const [postByName, setPostByName] = useState();
   const [loaded, setLoaded] = useState(false);
@@ -60,6 +60,10 @@ const PostingCard = ({ id, familyId, woName, woDescription, maxHeight, postBy, i
     getUserName();
   }, [])
 
+  const handleDelete = () => {
+    deletePosting(id);
+  }
+
   if (!loaded) return <div>Loading</div>
 
   return (
@@ -69,9 +73,11 @@ const PostingCard = ({ id, familyId, woName, woDescription, maxHeight, postBy, i
       sx={{maxHeight, p:1, borderRadius: '6px'}}
     >
       <CardContent sx={{ "&:last-child": {paddingBottom: 0}}}>
-        {isUserWo ?
+        {isUserPosting ?
           <PostingEditBar
             postId={id}
+            isUserWo={isUserWo}
+            handleDelete={handleDelete}
           />
           : null
         }

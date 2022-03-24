@@ -30,7 +30,7 @@ const CommentCard = ({ id, userFirst, content, isUser, editComment, deleteCommen
   }
   
   const handleDelete = () => {
-    deleteComment(id)
+    deleteComment(id);
   }
 
   const formType = content ? "edit" : "new";

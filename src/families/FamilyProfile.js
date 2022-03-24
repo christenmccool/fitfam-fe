@@ -8,7 +8,8 @@ import Button from '@mui/material/Button';
 import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
 import FamilyDetails from './FamilyDetails';
-
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
 
 /** Shows profle for a given family
  * FamilyProfile -> FamilyDetails
@@ -20,6 +21,8 @@ const FamilyProfile = () => {
   const { user } = useContext(UserContext);
 
   const [family, setFamily] = useState();
+  const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState();
 
   const isFamAdmin = family && user.families.some(ele => (ele.isAdmin === true && ele.familyId === +id));
 
@@ -28,14 +31,19 @@ const FamilyProfile = () => {
       try {
         const family = await FitFamApi.getFamily(id);
         setFamily(family);
+        setLoaded(true);
       } catch(err) {
-        console.log(err)
+        console.log(err);
+        setErrors(err);
       }
     }
+    setLoaded(false);
     loadFamily();
   }, [])
 
-  if (!family) return <div>Loading</div>
+  if (errors) return <ErrorPage errors={errors} />;
+  if (!loaded) return <Loading />;
+
   return (
     <Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
       <Box m={5} pb={2}>

@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {useParams, Link as RouterLink} from "react-router-dom";
+import {useNavigate, useParams, Link as RouterLink} from "react-router-dom";
 import moment from 'moment';
 
 import Container from '@mui/material/Container';
@@ -27,19 +27,27 @@ import ErrorPage from '../app/ErrorPage';
 const PostingDetail = () => {
   const {id} = useParams();
   const {user} = useContext(UserContext);
+  const navigate = useNavigate();
 
   const [posting, setPosting] = useState();
+  const [isUserWo, setIsUserWo] = useState();
+  const [isUserPosting, setIsUserPosting] = useState();
+  const [famName, setFamName] = useState();
   const [loaded, setLoaded] = useState(false);
   const [errors, setErrors] = useState();
-
-  const isUserWo = loaded && user.id === posting.workout.createBy;
-  const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
 
   useEffect(() => {
     async function getPosting() {
       try {
         const posting = await FitFamApi.getPosting(id);
         setPosting(posting);
+
+        setIsUserWo(user.id === posting.workout.createBy);
+        setIsUserPosting(user.id === posting.postBy);
+
+        const familyName = user.families.find(ele => ele.familyId === posting.familyId).familyName;
+        setFamName(familyName);
+      
         setLoaded(true);
       } catch (err) {
         console.log(err);
@@ -50,18 +58,32 @@ const PostingDetail = () => {
     getPosting();
   }, [])
 
+  const handleDelete = async () => {
+    try {
+      await FitFamApi.deletePosting(id);
+      navigate(`/?date=${moment(posting.postDate).format("YYYY-MM-DD")}`);
+    } catch (err) {
+      console.log(err);
+      setErrors(err);
+    }
+  }
+
+
   if (errors) return <ErrorPage errors={errors} />;
   if (!loaded) return <Loading />;
 
   return (
     < Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF"}}>
       <Box m={5} p={3}>
-        {isUserWo ?
+        {isUserPosting ?
           <PostingEditBar
             postId={id}
+            isUserWo={isUserWo}
+            handleDelete={handleDelete}
           />
           : null
         }
+
         <PostingHeader
           postDate={moment(posting.postDate).format("dddd, MMMM Do, YYYY")}
           woName={posting.workout.woName}

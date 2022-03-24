@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
 import CustomPostingForm from './CustomPostingForm';
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
 
 /** Shows form for editing a posting 
  * 
@@ -20,6 +22,8 @@ const PostingEditPage = () => {
   const {id} = useParams();
   const {user} = useContext(UserContext);
   const [posting, setPosting] = useState();
+  const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState();
 
   const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
 
@@ -27,11 +31,16 @@ const PostingEditPage = () => {
     async function getPosting() {
       try {
         const posting = await FitFamApi.getPosting(id);
+        if (posting.workout.createBy !== user.id) setErrors(["User may only edit workouts they created"]);
+
         setPosting(posting);
+        setLoaded(true);
       } catch (err) {
         console.log(err);
+        setErrors(err);
       }
     }
+    setLoaded(false);
     getPosting();
   }, []);
 
@@ -41,7 +50,7 @@ const PostingEditPage = () => {
       return {success: true, postId: id}
     } catch (err) {
       console.log(err);
-      return {success: true, err}
+      return {success: false, err}
     }
   }
 
@@ -55,7 +64,8 @@ const PostingEditPage = () => {
     }
   }
 
-  if (!posting) return <div>Loading</div>;
+  if (errors) return <ErrorPage errors={errors} />;
+  if (!loaded) return <Loading />;
 
   return (
     <Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>

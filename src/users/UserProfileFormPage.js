@@ -17,7 +17,6 @@ import UserProfileForm from './UserProfileForm';
 const UserProfileFormPage = () => {
   const {user, setUser, setCurrFamId} = useContext(UserContext);
 
-
   //Update user profile with new data
   async function updateProfile(data) {
     try {

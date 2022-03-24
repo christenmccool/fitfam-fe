@@ -9,19 +9,30 @@ import Button from '@mui/material/Button';
  *
  * PostingList -> PostingEditBar
  */
-const PostingEditBar = ({ postId }) => {
+const PostingEditBar = ({ postId, isUserWo, handleDelete }) => {
   return (
     <Box sx={{display:"flex", justifyContent: "flex-end"}} >
-      <Button
+      {isUserWo ?
+        <Button
+          variant="contained"
+          component={RouterLink}
+          to={`/postings/${postId}/edit`}
+          color="grey"
+          sx={{p: 0, color: "text.secondary"}}
+        >
+          Edit
+        </Button>
+        :
+        <Button
         variant="contained"
-        component={RouterLink}
-        to={`/postings/${postId}/edit`}
+        onClick={handleDelete}
         color="grey"
         sx={{p: 0, color: "text.secondary"}}
       >
-        Edit
+        Delete
       </Button>
-  </Box>
+      } 
+    </Box>
   )
 }
 

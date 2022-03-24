@@ -8,7 +8,8 @@ import Button from '@mui/material/Button';
 import UserContext from '../auth/UserContext';
 import UserDetails from './UserDetails';
 import FitFamApi from '../api/api';
-
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
 
 /** Shows profle for a given user
  * UserProfile -> UserDetails
@@ -20,6 +21,8 @@ const UserProfile = () => {
   const {user} = useContext(UserContext);
 
   const [profUser, setProfUser] = useState();
+  const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState();
 
   const isUser = profUser && user.id === profUser.id;
 
@@ -28,14 +31,18 @@ const UserProfile = () => {
       try {
         const profUser = await FitFamApi.getUser(id);
         setProfUser(profUser);
+        setLoaded(true);
       } catch(err) {
         console.log(err);
+        setErrors(err);
       }
     }
+    setLoaded(false);
     getProfUser();
   }, [])
 
-  if (!profUser) return <div>Loading</div>
+  if (errors) return <ErrorPage errors={errors} />;
+  if (!loaded) return <Loading />;
 
   return (
     <Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>

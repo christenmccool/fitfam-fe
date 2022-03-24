@@ -7,7 +7,6 @@ import Typography from '@mui/material/Typography';
 import FitFamApi from '../api/api';
 import WorkoutCardList from './WorkoutCardList';
 import Loading from '../app/Loading';
-import ErrorPage from '../app/ErrorPage';
 
 
 /** Shows list of featured workouts for a given date
@@ -16,10 +15,9 @@ import ErrorPage from '../app/ErrorPage';
  * 
  * WorkoutList -> WorkoutCardList -> WorkoutCard 
  */
-const WorkoutList = ({ date }) => {
+const WorkoutList = ({ date, setErrors }) => {
   const [workouts, setWorkouts] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [errors, setErrors] = useState();
 
   useEffect(() => {
     async function getFeaturedWorkouts() {
@@ -36,7 +34,6 @@ const WorkoutList = ({ date }) => {
     getFeaturedWorkouts();
   }, [date]);
 
-  if (errors) return <ErrorPage errors={errors} />;
   if (!loaded) return <Loading />;
 
   return (

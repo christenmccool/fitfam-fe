@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 
 import SelectDate from '../common/SelectDate';
 import WorkoutList from '../workouts/WorkoutList';
+import ErrorPage from '../app/ErrorPage';
 
 
 /** FitFam homepage
@@ -25,6 +26,7 @@ const Homepage = () => {
 
   const initialDate = searchParams.get('date') || moment().format("YYYY-MM-DD");
   const [date, setDate] = useState(initialDate);
+  const [errors, setErrors] = useState();
 
   useEffect(() => {
     const newDate = searchParams.get('date');
@@ -33,13 +35,18 @@ const Homepage = () => {
     } 
   }, [searchParams, setSearchParams])
 
+  
+  if (errors) return <ErrorPage errors={errors} />;
 
   return (
     <Container maxWidth="sm" align="center" sx={{backgroundColor: "#FFF", borderRadius: '10px'}}>
       <Box my={4} p={5}>
         <SelectDate />
       
-        <WorkoutList date={date} />
+        <WorkoutList 
+          date={date} 
+          setErrors={setErrors}
+        />
 
         <Button 
           component={RouterLink}
