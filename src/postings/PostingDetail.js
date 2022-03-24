@@ -12,6 +12,8 @@ import PostingHeader from '../postings/PostingHeader';
 import PostingEditBar from '../postings/PostingEditBar';
 import ResultList from '../results/ResultList';
 import UserContext from '../auth/UserContext';
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
 
 /** Shows information about a posting 
  * - Workout name and description
@@ -28,6 +30,7 @@ const PostingDetail = () => {
 
   const [posting, setPosting] = useState();
   const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState();
 
   const isUserWo = loaded && user.id === posting.workout.createBy;
   const famName = posting && user.families.find(ele => ele.familyId === posting.familyId).familyName;
@@ -37,17 +40,18 @@ const PostingDetail = () => {
       try {
         const posting = await FitFamApi.getPosting(id);
         setPosting(posting);
+        setLoaded(true);
       } catch (err) {
         console.log(err);
+        setErrors(err);
       }
-      setLoaded(true);
     }
     setLoaded(false);
     getPosting();
   }, [])
 
-
-  if (!loaded) return <div>Loading</div>
+  if (errors) return <ErrorPage errors={errors} />;
+  if (!loaded) return <Loading />;
 
   return (
     < Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF"}}>

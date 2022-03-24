@@ -13,6 +13,8 @@ import UserContext from '../auth/UserContext';
 import SelectDate from '../common/SelectDate';
 import FamilySelect from './FamilySelect';
 import PostingCardList from './PostingCardList';
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
 
 
 /** Shows list of a working postings for a given date and family
@@ -22,7 +24,7 @@ import PostingCardList from './PostingCardList';
  * 
  * PostingList -> PostingCardList -> PostingCard 
  *  
- * Routed at /postings
+ * Routed at / for a logged in user
  */
 const PostingList = ({ currFamId, setCurrFamId }) => {
   const { user } = useContext(UserContext);
@@ -32,6 +34,8 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
   const [date, setDate] = useState(initialDate);
   const [familyId, setFamilyId] = useState(currFamId);  
   const [postings, setPostings] = useState();
+  const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState();
 
   function changeFamilyId(famId) {
     setFamilyId(famId);
@@ -61,18 +65,21 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
           }
         }
         setPostings(currPostings);
+        setLoaded(true);
       } catch (err) {
         console.log(err);
+        setErrors(err);
       }
     }
-    setPostings(null);
+    setLoaded(false);
     getPostings();
   }, [date, familyId]);
 
-  if (!postings) return <div>Loading</div>;
+  if (errors) return <ErrorPage errors={errors} />;
+  if (!loaded) return <Loading />;
 
   return (
-    <Container maxWidth="md" align="center">
+    <Container maxWidth="sm" align="center">
       <Box my={4}>
         <Box sx={{display: 'flex', justifyContent: 'center', flexDirection: {xs: "column", sm: "row"} }}>
           <Box p={1}>

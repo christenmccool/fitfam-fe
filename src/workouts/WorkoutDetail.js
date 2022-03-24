@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
 
 /** Shows information about a workout
  *
@@ -17,21 +19,29 @@ import Button from '@mui/material/Button';
 const WorkoutDetail = () => {
   const { id } = useParams();
   const [workout, setWorkout] = useState(null);
+  const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState();
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    try {
-      async function getWorkout() {
+    async function getWorkout() {
+      try {
         const workout = await FitFamApi.getWorkout(id);
         setWorkout(workout);
-      }
-      getWorkout();
-    } catch (err) {
+        setLoaded(true);
+      } catch (err) {
       console.log(err);
+      setErrors(err);
+      }
     }
+    setLoaded(false);
+    getWorkout();
   }, []);
 
-  if (!workout) return <div>Loading</div>;
+  if (errors) return <ErrorPage errors={errors} />;
+
+  if (!loaded) return <Loading />
 
   return (
     <Container align="center" maxWidth="md" sx={{backgroundColor: "#FFF"}}>

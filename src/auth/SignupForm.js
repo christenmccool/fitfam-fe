@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 
 import UserContext from './UserContext';
 import UserSignupForm from './UserSignupForm';
-import FamilySignupFormWrapper from './FamilySignupFormWrapper';
+import FamilySignupFormWrapper from '../families/FamilySignupFormWrapper';
 
 /** SignupForm
  *

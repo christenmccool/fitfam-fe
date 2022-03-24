@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import FamilySignupForm from '../auth/FamilySignupForm';
+import FamilySignupForm from '../families/FamilySignupForm';
 
 
 /** Form for existing user to join an existing family or create a new one

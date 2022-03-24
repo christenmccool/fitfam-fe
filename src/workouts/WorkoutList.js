@@ -3,8 +3,12 @@ import React, {useState, useEffect} from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+
 import FitFamApi from '../api/api';
 import WorkoutCardList from './WorkoutCardList';
+import Loading from '../app/Loading';
+import ErrorPage from '../app/ErrorPage';
+
 
 /** Shows list of featured workouts for a given date
  * 
@@ -14,20 +18,26 @@ import WorkoutCardList from './WorkoutCardList';
  */
 const WorkoutList = ({ date }) => {
   const [workouts, setWorkouts] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [errors, setErrors] = useState();
 
   useEffect(() => {
     async function getFeaturedWorkouts() {
       try {
         const dailyworkouts = await FitFamApi.getFeaturedWorkouts(date);
         setWorkouts(dailyworkouts);
+        setLoaded(true);
       } catch (err) {
         console.log(err);
+        setErrors(err);
       }
     }
+    setLoaded(false);
     getFeaturedWorkouts();
   }, [date]);
 
-  if (!workouts) return <div>Loading</div>;
+  if (errors) return <ErrorPage errors={errors} />;
+  if (!loaded) return <Loading />;
 
   return (
     <Container maxWidth="sm" >

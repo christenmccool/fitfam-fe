@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 
-import UserList from './UserList';
+import UserList from '../users/UserList';
 
 /** Shows details of family profile, including list of users
  *  FamilyProfile -> FamilyDetails -> Users
