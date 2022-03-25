@@ -22,7 +22,7 @@ beforeEach(() => {
       workout: 
         {
           workoutId: 1, 
-          woName:"Amanda", 
+          woName:"Test Workout Name", 
           woDescription:"Do this hard thing", 
           woCategory: "featured", 
           woScoreType: "Reps", 
@@ -84,7 +84,7 @@ it("renders list of postings", async function () {
       </LocalizationProvider>
     </MemoryRouter>
   );
-  expect(await findByText("Amanda")).toBeInTheDocument();
+  expect(await findByText("Test Workout Name")).toBeInTheDocument();
   expect(getAllByText("Select FitFam")[0]).toBeInTheDocument();
   expect(getByText("Family 1")).toBeInTheDocument();
 });

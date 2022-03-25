@@ -10,7 +10,7 @@ import PostingCard from './PostingCard';
  * PostingList -> PostingCardList -> PostingCard
  * 
  */
-const PostingCardList = ({ postings, cardMaxHeight=1000, deletePosting }) => {
+const PostingCardList = ({ postings, family, deletePosting, cardMaxHeight=1000 }) => {
   const {user} = useContext(UserContext);
 
   return (
@@ -25,6 +25,7 @@ const PostingCardList = ({ postings, cardMaxHeight=1000, deletePosting }) => {
           woScoreType={posting.workout.woScoreType} 
           maxHeight={cardMaxHeight}
           postBy={posting.postBy}
+          postByUser={family.users.find(ele => ele.userId === posting.postBy)}
           isUserWo={posting.workout.createBy === user.id}
           isUserPosting={posting.postBy === user.id}
           startExpanded={false}

@@ -11,7 +11,6 @@ import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import FitFamApi from '../api/api';
 import PostingEditBar from '../postings/PostingEditBar';
 import ResultDashboard from '../results/ResultDashboard';
 
@@ -34,37 +33,16 @@ const ExpandMore = styled((props) => {
  * PostingList -> PostingCardList -> PostingCard -> ResultDashboard
  * Card links to PostingDetail
  */
-const PostingCard = ({ id, familyId, woName, woDescription, maxHeight, postBy, isUserWo, isUserPosting, startExpanded=true, deletePosting }) => {
+const PostingCard = ({ id, familyId, woName, woDescription, maxHeight, postBy, postByUser, isUserWo, isUserPosting, startExpanded=true, deletePosting }) => {
   const [expanded, setExpanded] = useState(startExpanded);
-  const [postByName, setPostByName] = useState();
-  const [loaded, setLoaded] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
-  useEffect(() => {
-    async function getUserName() {
-      try {
-        const family = await FitFamApi.getFamily(familyId);
-        const user = family.users.find(ele => ele.userId === postBy);
-        if (user) {
-          setPostByName(`${user.firstName} ${user.lastName}`);
-        }
-        setLoaded(true);
-      } catch(err) {
-        console.log(err)
-      }
-    }
-    setLoaded(false);
-    getUserName();
-  }, [])
-
   const handleDelete = () => {
     deletePosting(id);
   }
-
-  if (!loaded) return <div>Loading</div>
 
   return (
     <Card 
@@ -100,13 +78,13 @@ const PostingCard = ({ id, familyId, woName, woDescription, maxHeight, postBy, i
               {woDescription}
             </Typography>
           }
-          {postByName ? 
+          {postByUser ? 
             <Typography 
               variant="h6"
               color="text.secondary"
               sx={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}
             >
-              {postByName}
+              {`${postByUser.firstName} ${postByUser.lastName}`}
             </Typography>
             : null
           }

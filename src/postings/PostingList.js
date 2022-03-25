@@ -33,6 +33,7 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
   const initialDate = searchParams.get('date') || moment().format("YYYY-MM-DD");
   const [date, setDate] = useState(initialDate);
   const [familyId, setFamilyId] = useState(currFamId);  
+  const [family, setFamily] = useState();  
   const [postings, setPostings] = useState();
   const [loaded, setLoaded] = useState(false);
   const [errors, setErrors] = useState();
@@ -53,6 +54,9 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
   useEffect(() => {
     async function getPostings() {
       try {
+        let family = await FitFamApi.getFamily(familyId);
+        setFamily(family);
+
         let currPostings = await FitFamApi.getPostings(date, familyId);
         let featured = currPostings.filter(ele => ele.workout.woCategory==="featured");
         
@@ -103,6 +107,7 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
         <Box mt={2}>
           <PostingCardList
             postings={postings}
+            family={family}
             deletePosting={deletePosting}
           />
         </Box>
