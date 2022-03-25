@@ -103,13 +103,13 @@ exports[`matches snapshot 1`] = `
           >
             <input
               aria-invalid="false"
-              aria-label="Choose date, selected date is Mar 24, 2022"
+              aria-label="Choose date, selected date is Mar 25, 2022"
               aria-readonly="true"
               class="MuiOutlinedInput-input MuiInputBase-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
               id="mui-3"
               readonly=""
               type="text"
-              value="03/24/2022"
+              value="03/25/2022"
             />
             <fieldset
               aria-hidden="true"

@@ -58,7 +58,6 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
             <TextField
               fullWidth
               id="keyword"
-              inputProps={{ 'data-testid': 'keyword' }}
               name="keyword"
               label="Keyword"
               autoFocus
@@ -67,7 +66,28 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth>
+            <TextField
+              fullWidth
+              id="category"
+              select
+              label="Category"
+              onChange={handleCategoryChange}
+              value={category}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {categoryOpts.map((name) => (
+                <MenuItem
+                  key={name}
+                  value={name}
+                >
+                  {name}
+                </MenuItem>
+              ))}
+            </TextField>
+
+            {/* <FormControl fullWidth>
               <InputLabel id="cetegory-label">Category</InputLabel>
               <Select
                 labelId="cetegory-label"
@@ -88,7 +108,7 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
                   </MenuItem>
                 ))}
               </Select>
-            </FormControl>
+            </FormControl> */}
           </Grid>
           <Grid item xs={12}>
             <Autocomplete
