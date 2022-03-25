@@ -1,5 +1,6 @@
 {
   "name": "fitfam-fe",
+  "homepage": "https://myfitfam.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
