@@ -19,12 +19,10 @@ const PostingCardList = ({ postings, family, deletePosting, cardMaxHeight=1000 }
         <PostingCard 
           key={posting.id}
           id={posting.id} 
-          familyId={posting.familyId} 
           woName={posting.workout.woName} 
           woDescription={posting.workout.woDescription} 
           woScoreType={posting.workout.woScoreType} 
           maxHeight={cardMaxHeight}
-          postBy={posting.postBy}
           postByUser={family.users.find(ele => ele.userId === posting.postBy)}
           isUserWo={posting.workout.createBy === user.id}
           isUserPosting={posting.postBy === user.id}

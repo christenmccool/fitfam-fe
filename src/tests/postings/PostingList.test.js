@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, act} from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import AdapterMoment from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -47,38 +47,42 @@ beforeEach(() => {
   )
 })
 
-// it('renders without crashing', () => {
-//   render(
-//     <MemoryRouter>
-//       <LocalizationProvider dateAdapter={AdapterMoment}>
-//         <UserContext.Provider value={{user: null}}>
-//           <PostingList />
-//         </UserContext.Provider>
-//       </LocalizationProvider>
-//     </MemoryRouter>
-//   );
-// });
+it('renders without crashing', async function () {
+  await act(async () => {
+    render(
+      <MemoryRouter>
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <UserContext.Provider value={{user: demoUser}}>
+            <PostingList currFamId={1} />
+          </UserContext.Provider>
+        </LocalizationProvider>
+      </MemoryRouter>
+    );
+  });
+});
 
 
-// it("matches snapshot", function () {
-//   const { asFragment } = render(
-//     <MemoryRouter>
-//       <LocalizationProvider dateAdapter={AdapterMoment}>
-//         <UserContext.Provider value={{user: null}}>
-//           <PostingList />
-//         </UserContext.Provider>
-//       </LocalizationProvider>
-//     </MemoryRouter>
-//   );
-//   expect(asFragment()).toMatchSnapshot();
-// });
+it("matches snapshot", async function () {
+  await act(async () => {
+    const { asFragment } = render(
+      <MemoryRouter>
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <UserContext.Provider value={{user: demoUser}}>
+            <PostingList currFamId={1} />
+          </UserContext.Provider>
+        </LocalizationProvider>
+      </MemoryRouter>
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+});
 
 
 it("renders list of postings", async function () {
   const { findByText, getAllByText, getByText } = render(
     <MemoryRouter>
       <LocalizationProvider dateAdapter={AdapterMoment}>
-        <UserContext.Provider value={{user: demoUser, currFamId: 1}}>
+        <UserContext.Provider value={{user: demoUser}}>
           <PostingList currFamId={1}/>
         </UserContext.Provider>
       </LocalizationProvider>

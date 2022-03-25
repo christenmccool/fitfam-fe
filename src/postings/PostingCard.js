@@ -33,7 +33,7 @@ const ExpandMore = styled((props) => {
  * PostingList -> PostingCardList -> PostingCard -> ResultDashboard
  * Card links to PostingDetail
  */
-const PostingCard = ({ id, familyId, woName, woDescription, maxHeight, postBy, postByUser, isUserWo, isUserPosting, startExpanded=true, deletePosting }) => {
+const PostingCard = ({ id, woName, woDescription, maxHeight, postByUser, isUserWo, isUserPosting, startExpanded=true, deletePosting }) => {
   const [expanded, setExpanded] = useState(startExpanded);
 
   const handleExpandClick = () => {

@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import FitFamApi from '../api/api';
 import WorkoutSearchForm from '../workouts/WorkoutSearchForm';
 import WorkoutCardList from '../workouts/WorkoutCardList';
-import Loading from '../app/Loading';
 import ErrorPage from '../app/ErrorPage';
 
 
@@ -25,7 +24,6 @@ const WorkoutSearchPage = () => {
   const [workouts, setWorkouts] = useState([]);
   const [searched, setSearched] = useState(false);
   const [errors, setErrors] = useState();
-
 
   const searchWorkouts = async (data) => {
     try {

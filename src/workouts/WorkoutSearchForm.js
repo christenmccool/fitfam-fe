@@ -58,6 +58,7 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
             <TextField
               fullWidth
               id="keyword"
+              inputProps={{ 'data-testid': 'keyword' }}
               name="keyword"
               label="Keyword"
               autoFocus
