@@ -1,12 +1,9 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import UserEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
-import "@testing-library/jest-dom/extend-expect";
-
 
 import WorkoutSearchForm from "../../workouts/WorkoutSearchForm";
-
 
 it('renders without crashing', function () {
   render(
@@ -61,7 +58,5 @@ it("responds to user input", function () {
   UserEvent.type(movementsField, "Toes-to-Bar");
   expect(movementsField.value).toContain("Ring dip");  
   expect(movementsField.value).toContain("Toes-to-Bar");  
-
-  screen.debug();
 });
 

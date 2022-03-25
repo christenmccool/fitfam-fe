@@ -1,5 +1,5 @@
 import React from "react";
-import { render, act} from "@testing-library/react";
+import { screen, render, act} from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import AdapterMoment from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -79,7 +79,7 @@ it("matches snapshot", async function () {
 
 
 it("renders list of postings", async function () {
-  const { findByText, getAllByText, getByText } = render(
+  render(
     <MemoryRouter>
       <LocalizationProvider dateAdapter={AdapterMoment}>
         <UserContext.Provider value={{user: demoUser}}>
@@ -88,9 +88,9 @@ it("renders list of postings", async function () {
       </LocalizationProvider>
     </MemoryRouter>
   );
-  expect(await findByText("Test Workout Name")).toBeInTheDocument();
-  expect(getAllByText("Select FitFam")[0]).toBeInTheDocument();
-  expect(getByText("Family 1")).toBeInTheDocument();
+  expect(await screen.findByText("Test Workout Name")).toBeInTheDocument();
+  expect(screen.getAllByText("Select FitFam")[0]).toBeInTheDocument();
+  expect(screen.getByText("Family 1")).toBeInTheDocument();
 });
 
 

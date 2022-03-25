@@ -1,8 +1,9 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 import App from "../App";
+
 
 it('renders without crashing', () => {
   render(
@@ -24,49 +25,49 @@ it("matches snapshot", function () {
 
 
 it("renders NavBar and Search Workout Page", function () {
-  const { queryByText } = render(
+  render(
     <MemoryRouter>
       <App />
     </MemoryRouter>
   );
-  expect(queryByText("FitFam")).toBeInTheDocument();
-  expect(queryByText("Login")).toBeInTheDocument();
-  expect(queryByText("Signup")).toBeInTheDocument();
-  expect(queryByText("Search for more workouts")).toBeInTheDocument();
+  expect(screen.queryByText("FitFam")).toBeInTheDocument();
+  expect(screen.queryByText("Login")).toBeInTheDocument();
+  expect(screen.queryByText("Signup")).toBeInTheDocument();
+  expect(screen.queryByText("Search for more workouts")).toBeInTheDocument();
 });
 
 
 it("renders Login page when click on Login button", function () {
-  const { getByText, queryByText } = render(
+  render(
     <MemoryRouter>
       <App />
     </MemoryRouter>
   );
 
-  expect(queryByText("Email Address")).not.toBeInTheDocument();
+  expect(screen.queryByText("Email Address")).not.toBeInTheDocument();
 
-  const loginLink = getByText("Login");
+  const loginLink = screen.getByText("Login");
   fireEvent.click(loginLink);
-  expect(queryByText("Email Address")).toBeInTheDocument();
-  expect(queryByText("Password")).toBeInTheDocument();
+  expect(screen.queryByText("Email Address")).toBeInTheDocument();
+  expect(screen.queryByText("Password")).toBeInTheDocument();
 });
 
 
 it("renders Signup page when click on Signup button", function () {
-  const { getByText, queryByText } = render(
+  render(
     <MemoryRouter>
       <App />
     </MemoryRouter>
   );
 
-  expect(queryByText("Email Address")).not.toBeInTheDocument();
+  expect(screen.queryByText("Email Address")).not.toBeInTheDocument();
 
-  const loginLink = getByText("Signup");
+  const loginLink = screen.getByText("Signup");
   fireEvent.click(loginLink);
-  expect(queryByText("Email Address")).toBeInTheDocument();
-  expect(queryByText("First Name")).toBeInTheDocument();
-  expect(queryByText("Last Name")).toBeInTheDocument();
-  expect(queryByText("Password")).toBeInTheDocument();
+  expect(screen.queryByText("Email Address")).toBeInTheDocument();
+  expect(screen.queryByText("First Name")).toBeInTheDocument();
+  expect(screen.queryByText("Last Name")).toBeInTheDocument();
+  expect(screen.queryByText("Password")).toBeInTheDocument();
 });
 
 

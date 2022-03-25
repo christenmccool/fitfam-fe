@@ -77,6 +77,7 @@ it("renders workout search results", async function () {
   fireEvent.click(searchButton);
   expect(await findByText("Test Workout Name 1")).toBeInTheDocument();
   expect(await findByText("Test Workout Name 2")).toBeInTheDocument();
+
 });
 
 
