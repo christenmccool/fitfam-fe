@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <header
+    class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionStatic css-11ouz13-MuiPaper-root-MuiAppBar-root"
+  >
+    <div
+      class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-1t29gy6-MuiToolbar-root"
+    >
+      <div
+        class="MuiBox-root css-1l0r181"
+      >
+        <a
+          aria-label="go to FitFam homepage"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+          href="/"
+          tabindex="0"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeLarge css-tzssek-MuiSvgIcon-root"
+            data-testid="FitnessCenterIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M20.57 14.86 22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29z"
+            />
+          </svg>
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </a>
+        <a
+          class="MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeLarge MuiButton-textSizeLarge MuiButton-colorInherit MuiButtonBase-root  css-1pbqo9m-MuiButtonBase-root-MuiButton-root"
+          href="/"
+          tabindex="0"
+        >
+          <h5
+            class="MuiTypography-root MuiTypography-h5 css-9e04yy-MuiTypography-root"
+          >
+            FitFam
+          </h5>
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </a>
+      </div>
+      <div
+        class="MuiBox-root css-0"
+      >
+        <div
+          class="MuiBox-root css-0"
+        >
+          <a
+            class="MuiButton-root MuiButton-contained MuiButton-containedWhite MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-144b0kh-MuiButtonBase-root-MuiButton-root"
+            href="/login"
+            tabindex="0"
+          >
+            Login
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </a>
+          <a
+            class="MuiButton-root MuiButton-outlined MuiButton-outlinedInherit MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-colorInherit MuiButtonBase-root  css-15jxpu6-MuiButtonBase-root-MuiButton-root"
+            href="/signup"
+            tabindex="0"
+          >
+            Signup
+            <span
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div
+    align="center"
+    class="MuiContainer-root MuiContainer-maxWidthSm css-ead4d9-MuiContainer-root"
+  >
+    <div
+      class="MuiBox-root css-19rm58x"
+    >
+      <div
+        class="MuiBox-root css-1l4w6pd"
+      >
+        <div
+          class="MuiFormControl-root MuiTextField-root css-1tazx64-MuiFormControl-root-MuiTextField-root"
+        >
+          <label
+            class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary MuiFormLabel-filled css-1fiey6h-MuiFormLabel-root-MuiInputLabel-root"
+            data-shrink="true"
+            for="mui-3"
+            id="mui-3-label"
+          >
+            Date
+          </label>
+          <div
+            class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-1h79i46-MuiInputBase-root-MuiOutlinedInput-root"
+          >
+            <input
+              aria-invalid="false"
+              aria-label="Choose date, selected date is Mar 24, 2022"
+              aria-readonly="true"
+              class="MuiOutlinedInput-input MuiInputBase-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+              id="mui-3"
+              readonly=""
+              type="text"
+              value="03/24/2022"
+            />
+            <fieldset
+              aria-hidden="true"
+              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="css-7nxzgd"
+              >
+                <span>
+                  Date
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div
+        align="center"
+        class="MuiContainer-root MuiContainer-maxWidthSm css-cuefkz-MuiContainer-root"
+      >
+        <div
+          class="MuiBox-root css-19rm58x"
+        >
+          <h6
+            class="MuiTypography-root MuiTypography-h6 css-h0utxw-MuiTypography-root"
+          >
+            Loading
+          </h6>
+        </div>
+      </div>
+      <a
+        class="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeLarge MuiButton-outlinedSizeLarge MuiButtonBase-root  css-1p9lcac-MuiButtonBase-root-MuiButton-root"
+        href="/workouts"
+        tabindex="0"
+      >
+        <h6
+          class="MuiTypography-root MuiTypography-h6 css-h0utxw-MuiTypography-root"
+        >
+          Search for more workouts
+        </h6>
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
