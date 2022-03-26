@@ -1,8 +1,10 @@
 import React from "react";
-import { render, act, screen } from "@testing-library/react";
+import { screen, render, act} from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import AdapterMoment from '@mui/lab/AdapterMoment';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
-import WorkoutList from "../../workouts/WorkoutList";
+import Homepage from "../../app/Homepage";
 
 import FitFamApi from '../../api/api';
 jest.mock('../../api/api');
@@ -36,7 +38,9 @@ it('renders without crashing', async function () {
   await act(async () => {
     render(
       <MemoryRouter>
-        <WorkoutList />
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <Homepage />
+        </LocalizationProvider>
       </MemoryRouter>
     );
   });
@@ -45,9 +49,11 @@ it('renders without crashing', async function () {
 
 it("matches snapshot", async function () {
   await act(async () => {
-  const { asFragment } = render(
+    const { asFragment } = render(
       <MemoryRouter>
-        <WorkoutList />
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <Homepage />
+        </LocalizationProvider>
       </MemoryRouter>
     );
     expect(asFragment()).toMatchSnapshot();
@@ -55,15 +61,20 @@ it("matches snapshot", async function () {
 });
 
 
-it("renders list of workouts", async function () {
+it("renders list of workouts and search button", async function () {
   render(
     <MemoryRouter>
-      <WorkoutList />
+      <LocalizationProvider dateAdapter={AdapterMoment}>
+        <Homepage />
+      </LocalizationProvider>
     </MemoryRouter>
   );
   expect(await screen.findByText("Featured Workout", {exact: false})).toBeInTheDocument();
   expect(screen.getByText("Test Workout Name 1")).toBeInTheDocument();
   expect(screen.getByText("Test Workout Name 2")).toBeInTheDocument();
+  expect(screen.getByText( "Search for more workouts")).toBeInTheDocument();
+
+  screen.debug();
 });
 
 

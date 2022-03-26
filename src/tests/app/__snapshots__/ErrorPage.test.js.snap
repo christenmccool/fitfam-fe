@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    align="center"
+    class="MuiContainer-root MuiContainer-maxWidthSm css-ead4d9-MuiContainer-root"
+  >
+    <div
+      class="MuiBox-root css-19rm58x"
+    >
+      <h6
+        class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+      >
+        Server error. Try again later.
+      </h6>
+    </div>
+  </div>
+</DocumentFragment>
+`;

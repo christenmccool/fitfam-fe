@@ -1,24 +1,20 @@
 import React from "react";
 import { screen, render, act} from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import AdapterMoment from '@mui/lab/AdapterMoment';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
+
+import UserContext from "../../auth/UserContext";
+import SignupForm from "../../auth/SignupForm";
 
 import {demoUser } from "../testutils";
-
-import SignupForm from "../../auth/SignupForm";
-import UserContext from "../../auth/UserContext";
 
 
 it('renders without crashing with no user in context', async function () {
   await act(async () => {
     render(
       <MemoryRouter>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <UserContext.Provider value={{user: null}}>
-            <SignupForm />
-          </UserContext.Provider>
-        </LocalizationProvider>
+        <UserContext.Provider value={{user: null}}>
+          <SignupForm />
+        </UserContext.Provider>
       </MemoryRouter>
     );
   });
@@ -29,11 +25,9 @@ it('renders without crashing with no user in context', async function () {
   await act(async () => {
     render(
       <MemoryRouter>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <UserContext.Provider value={{user: demoUser}}>
-            <SignupForm />
-          </UserContext.Provider>
-        </LocalizationProvider>
+        <UserContext.Provider value={{user: demoUser}}>
+          <SignupForm />
+        </UserContext.Provider>
       </MemoryRouter>
     );
   });
@@ -44,11 +38,9 @@ it("matches snapshot with user in context", async function () {
   await act(async () => {
     const { asFragment } = render(
       <MemoryRouter>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <UserContext.Provider value={{user: demoUser}}>
+        <UserContext.Provider value={{user: demoUser}}>
           <SignupForm />
-          </UserContext.Provider>
-        </LocalizationProvider>
+        </UserContext.Provider>
       </MemoryRouter>
     );
     expect(asFragment()).toMatchSnapshot();
@@ -60,11 +52,9 @@ it("matches snapshot with no user in context", async function () {
   await act(async () => {
     const { asFragment } = render(
       <MemoryRouter>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          <UserContext.Provider value={{user: null}}>
+        <UserContext.Provider value={{user: null}}>
           <SignupForm />
-          </UserContext.Provider>
-        </LocalizationProvider>
+        </UserContext.Provider>
       </MemoryRouter>
     );
     expect(asFragment()).toMatchSnapshot();
@@ -75,11 +65,9 @@ it("matches snapshot with no user in context", async function () {
 it("renders UserSignupForm when no user in context", async function () {
   render(
     <MemoryRouter>
-      <LocalizationProvider dateAdapter={AdapterMoment}>
-        <UserContext.Provider value={{user: null}}>
-          <SignupForm />
-        </UserContext.Provider>
-      </LocalizationProvider>
+      <UserContext.Provider value={{user: null}}>
+        <SignupForm />
+      </UserContext.Provider>
     </MemoryRouter>
   );
   expect(screen.getByRole('textbox', {name: /email/i})).toBeInTheDocument();
@@ -92,11 +80,9 @@ it("renders UserSignupForm when no user in context", async function () {
 it("renders UserSignupForm when user in context", async function () {
   render(
     <MemoryRouter>
-      <LocalizationProvider dateAdapter={AdapterMoment}>
-        <UserContext.Provider value={{user: demoUser}}>
-          <SignupForm />
-        </UserContext.Provider>
-      </LocalizationProvider>
+      <UserContext.Provider value={{user: demoUser}}>
+        <SignupForm />
+      </UserContext.Provider>
     </MemoryRouter>
   );
   expect(screen.queryByRole('textbox', {name: /email/i})).not.toBeInTheDocument();

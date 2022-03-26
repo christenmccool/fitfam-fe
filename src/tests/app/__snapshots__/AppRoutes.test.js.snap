@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot when not signed in 1`] = `
+<DocumentFragment>
+  <div
+    align="center"
+    class="MuiContainer-root MuiContainer-maxWidthSm css-ead4d9-MuiContainer-root"
+  >
+    <div
+      class="MuiBox-root css-19rm58x"
+    >
+      <div
+        class="MuiBox-root css-1l4w6pd"
+      >
+        <div
+          class="MuiFormControl-root MuiTextField-root css-1tazx64-MuiFormControl-root-MuiTextField-root"
+        >
+          <label
+            class="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary MuiFormLabel-filled css-1sumxir-MuiFormLabel-root-MuiInputLabel-root"
+            data-shrink="true"
+            for="mui-3"
+            id="mui-3-label"
+          >
+            Date
+          </label>
+          <div
+            class="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+          >
+            <input
+              aria-invalid="false"
+              aria-label="Choose date, selected date is Mar 25, 2022"
+              aria-readonly="true"
+              class="MuiOutlinedInput-input MuiInputBase-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+              id="mui-3"
+              readonly=""
+              type="text"
+              value="03/25/2022"
+            />
+            <fieldset
+              aria-hidden="true"
+              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="css-7nxzgd"
+              >
+                <span>
+                  Date
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+      <div
+        align="center"
+        class="MuiContainer-root MuiContainer-maxWidthSm css-cuefkz-MuiContainer-root"
+      >
+        <div
+          class="MuiBox-root css-19rm58x"
+        >
+          <h6
+            class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+          >
+            Loading
+          </h6>
+        </div>
+      </div>
+      <a
+        class="MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeLarge MuiButton-outlinedSizeLarge MuiButtonBase-root  css-1tgvzpz-MuiButtonBase-root-MuiButton-root"
+        href="/workouts"
+        tabindex="0"
+      >
+        <h6
+          class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+        >
+          Search for more workouts
+        </h6>
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`matches snapshot when signed in 1`] = `
+<DocumentFragment>
+  <div
+    align="center"
+    class="MuiContainer-root MuiContainer-maxWidthSm css-cuefkz-MuiContainer-root"
+  >
+    <div
+      class="MuiBox-root css-19rm58x"
+    >
+      <h6
+        class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+      >
+        Loading
+      </h6>
+    </div>
+  </div>
+</DocumentFragment>
+`;
