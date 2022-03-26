@@ -81,5 +81,6 @@ const scoreTypeToFields = [
   }
 ] 
 
+const TEAMFITFAMID = 1;
 
-export {movementOpts, categoryOpts, scoreTypeToFields};
+export {movementOpts, categoryOpts, scoreTypeToFields, TEAMFITFAMID};

@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-
 import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
 import SelectDate from '../common/SelectDate';
@@ -15,6 +14,7 @@ import FamilySelect from './FamilySelect';
 import PostingCardList from './PostingCardList';
 import Loading from '../app/Loading';
 import ErrorPage from '../app/ErrorPage';
+import { TEAMFITFAMID } from '../config/config';
 
 
 /** Shows list of a working postings for a given date and family
@@ -112,14 +112,17 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
           />
         </Box>
 
-        <Button 
-          component={RouterLink}
-          to={`/postings/new?date=${date}`}
-          variant="contained"
-          sx={{ mt: 4 }}
-        >
-          <Typography variant="h4" >Post new workout</Typography>
-        </Button> 
+        {currFamId !== TEAMFITFAMID ?
+          <Button 
+            component={RouterLink}
+            to={`/postings/new?date=${date}`}
+            variant="contained"
+            sx={{ mt: 4 }}
+          >
+            <Typography variant="h4" >Post new workout</Typography>
+          </Button> 
+          : null
+        }
       </Box>
     </Container>
   )
