@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 import WorkoutCardList from "../../workouts/WorkoutCardList";
@@ -47,13 +47,13 @@ it("matches snapshot", function () {
 
 
 it("renders list of workouts", async function () {
-  const { getByText } = render(
+  render(
     <MemoryRouter>
       <WorkoutCardList workouts={workouts} />
     </MemoryRouter>
   );
-  expect(getByText("Test Workout Name 1")).toBeInTheDocument();
-  expect(getByText("Test Workout Name 2")).toBeInTheDocument();
+  expect(screen.getByText("Test Workout Name 1")).toBeInTheDocument();
+  expect(screen.getByText("Test Workout Name 2")).toBeInTheDocument();
 });
 
 

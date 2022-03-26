@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-0"
+  >
+    <h6
+      class="MuiTypography-root MuiTypography-h6 css-1krercm-MuiTypography-root"
+    >
+      Tuesday, March 22nd, 2022
+    </h6>
+    <h4
+      class="MuiTypography-root MuiTypography-h4 css-wulekh-MuiTypography-root"
+    >
+      Family 1
+    </h4>
+    <div
+      class="MuiBox-root css-0"
+    >
+      <h3
+        class="MuiTypography-root MuiTypography-h3 css-1t5mc0a-MuiTypography-root"
+      >
+        Test Workout Name 1
+      </h3>
+      <div
+        class="MuiBox-root css-1bvc4cc"
+      >
+        <button
+          aria-expanded="false"
+          aria-label="show more"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-3ogxn6-MuiButtonBase-root-MuiIconButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+            data-testid="ExpandMoreIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            />
+          </svg>
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

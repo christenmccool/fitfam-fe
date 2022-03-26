@@ -26,6 +26,7 @@ let theme = createTheme({
 
 const demoUser = 
   {
+    id: 1,
     email: "test@mail.com",
     firstName: "testfirst",
     lastName: "testlast",

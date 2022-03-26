@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiBox-root css-1bvc4cc"
+  >
+    <a
+      class="MuiButton-root MuiButton-contained MuiButton-containedGrey MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root  css-1tcl1r1-MuiButtonBase-root-MuiButton-root"
+      href="/postings/1/edit"
+      tabindex="0"
+    >
+      Edit
+      <span
+        class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+      />
+    </a>
+  </div>
+</DocumentFragment>
+`;

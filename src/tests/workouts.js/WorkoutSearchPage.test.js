@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 import WorkoutSearchPage from "../../workouts/WorkoutSearchPage";
@@ -52,31 +52,31 @@ it("matches snapshot", function () {
 
 
 it("renders workout search page", function () {
-  const { queryByText, queryAllByText } = render(
+  render(
     <MemoryRouter>
       <WorkoutSearchPage />
     </MemoryRouter>
   );
-  expect(queryByText("Workout search")).toBeInTheDocument();
-  expect(queryByText("Select optional filters")).toBeInTheDocument();
-  expect(queryAllByText("Keyword")[0]).toBeInTheDocument();
-  expect(queryAllByText("Category")[0]).toBeInTheDocument();
-  expect(queryAllByText("Movements")[0]).toBeInTheDocument();
-  expect(queryByText("Search")).toBeInTheDocument();
+  expect(screen.queryByText("Workout search")).toBeInTheDocument();
+  expect(screen.queryByText("Select optional filters")).toBeInTheDocument();
+  expect(screen.queryAllByText("Keyword")[0]).toBeInTheDocument();
+  expect(screen.queryAllByText("Category")[0]).toBeInTheDocument();
+  expect(screen.queryAllByText("Movements")[0]).toBeInTheDocument();
+  expect(screen.queryByText("Search")).toBeInTheDocument();
 });
 
 
 it("renders workout search results", async function () {
-  const { queryByText, findByText, debug } = render(
+  render(
     <MemoryRouter>
       <WorkoutSearchPage />
     </MemoryRouter>
   );
 
-  const searchButton = queryByText("Search");
+  const searchButton = screen.queryByText("Search");
   fireEvent.click(searchButton);
-  expect(await findByText("Test Workout Name 1")).toBeInTheDocument();
-  expect(await findByText("Test Workout Name 2")).toBeInTheDocument();
+  expect(await screen.findByText("Test Workout Name 1")).toBeInTheDocument();
+  expect(await screen.findByText("Test Workout Name 2")).toBeInTheDocument();
 
 });
 

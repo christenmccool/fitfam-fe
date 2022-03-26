@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -20,7 +20,7 @@ import Alert from '../common/Alert';
  * 
  * PostingNewPage -> {CustomPostingForm, AddWoPostingForm}
  */
-const AddWoPostingForm = ({date, postExistingWorkout}) => {
+const AddWoPostingForm = ({postExistingWorkout}) => {
   const navigate = useNavigate();
 
   const [workouts, setWorkouts] = useState();

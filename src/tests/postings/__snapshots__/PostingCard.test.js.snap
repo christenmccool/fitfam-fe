@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    align="center"
+    class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root css-1l09cnc-MuiPaper-root-MuiCard-root"
+  >
+    <div
+      class="MuiCardContent-root css-566zuw-MuiCardContent-root"
+    >
+      <a
+        class="MuiButtonBase-root MuiCardActionArea-root css-b6lsxj-MuiButtonBase-root-MuiCardActionArea-root"
+        href="/postings/1"
+        tabindex="0"
+      >
+        <h4
+          class="MuiTypography-root MuiTypography-h4 css-i0231a-MuiTypography-root"
+        >
+          Test Workout Name 1
+        </h4>
+        <span
+          class="MuiCardActionArea-focusHighlight css-1v2exvi-MuiCardActionArea-focusHighlight"
+        />
+        <span
+          class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+        />
+      </a>
+      <div
+        class="MuiBox-root css-eldtq0"
+      >
+        <button
+          aria-expanded="false"
+          aria-label="show more"
+          class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-3ogxn6-MuiButtonBase-root-MuiIconButton-root"
+          tabindex="0"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+            data-testid="ExpandMoreIcon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"
+            />
+          </svg>
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
