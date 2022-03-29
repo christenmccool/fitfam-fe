@@ -109,6 +109,7 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
             postings={postings}
             family={family}
             deletePosting={deletePosting}
+            startExpanded={true}
           />
         </Box>
 

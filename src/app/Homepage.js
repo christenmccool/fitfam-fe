@@ -57,6 +57,26 @@ const Homepage = () => {
         >
           <Typography variant="h6">Search for more workouts</Typography>
         </Button>
+
+        <Box mt={5}>
+          <Button 
+            component={RouterLink}
+            to="/login"
+            variant="contained" 
+            size="large"
+            sx={{ mr: 1 }}
+          >
+            <Typography variant="h6">Login</Typography>
+          </Button>
+          <Button 
+            component={RouterLink}
+            to="/signup"
+            variant="contained" 
+            size="large"
+          >
+            <Typography variant="h6">Signup</Typography>
+          </Button>
+        </Box>
       </Box>
     </Container>
   )

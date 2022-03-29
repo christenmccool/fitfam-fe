@@ -9,7 +9,7 @@ import WorkoutCard from './WorkoutCard';
  * WorkoutList -> WorkoutCardList -> WorkoutCard 
  * 
  */
-const WorkoutCardList = ({ workouts }) => {
+const WorkoutCardList = ({ workouts, startExpanded=false }) => {
   return (
     <Stack spacing={2}>
       {workouts.map(workout => (
@@ -18,6 +18,7 @@ const WorkoutCardList = ({ workouts }) => {
             id={workout.id} 
             name={workout.name} 
             description={workout.description} 
+            startExpanded={startExpanded}
           />
         ))
       }

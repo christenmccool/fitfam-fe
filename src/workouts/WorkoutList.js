@@ -44,6 +44,7 @@ const WorkoutList = ({ date, setErrors }) => {
         </Typography>
         <WorkoutCardList
           workouts={workouts}
+          startExpanded={true}
         />
       </Box>
     </Container>
