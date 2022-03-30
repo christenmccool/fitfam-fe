@@ -63,7 +63,7 @@ const ResultDashboard = ({ postId }) => {
           to={`/postings/${postId}/results`}
           variant="outlined" 
           fullWidth
-          sx={{ mt: 1 }}
+          sx={{ mt: 1, textTransform: "none" }}
         >
           <Typography >{userScore ? userScore : "Post"}</Typography>
         </Button> 
