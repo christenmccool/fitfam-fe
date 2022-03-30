@@ -34,53 +34,6 @@ const categoryOpts = [
 ];
 
 
-const scoreTypeToFields = [
-  {
-    scoreType: "Rounds + Reps",
-    fields: ["rounds", "reps"]
-  },
-  {
-    scoreType: "rounds + reps",
-    fields: ["reps"]
-  },
-  {
-    scoreType: "Time",
-    fields: ["min", "sec"]
-  },
-  {
-    scoreType: "time",
-    fields: ["min", "sec"]
-  },
-  {
-    scoreType: "Reps",
-    fields: ["reps"]
-  },
-  {
-    scoreType: "reps",
-    fields: ["reps"]
-  },
-  {
-    scoreType: "Load",
-    fields: ["load"]
-  },
-  {
-    scoreType: "load",
-    fields: ["load"]
-  },
-  {
-    scoreType: "Other / Text",
-    fields: ["results"]
-  },
-  {
-    scoreType: "Calories",
-    fields: ["calories"]
-  },
-  {
-    scoreType: "calories",
-    fields: ["calories"]
-  }
-] 
-
 const TEAMFITFAMID = 1;
 
-export {movementOpts, categoryOpts, scoreTypeToFields, TEAMFITFAMID};
+export {movementOpts, categoryOpts, TEAMFITFAMID};

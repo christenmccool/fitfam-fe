@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack';
 
 import UserContext from '../auth/UserContext';
 import ResultCard from './ResultCard';
-import { scoreToString } from '../helpers/formatScore';
+
 
 /** Shows list of result cards
  * 
@@ -21,7 +21,7 @@ const ResultCardList = ({ results, deleteResult }) => {
           key={result.id}
           id={result.id} 
           userFirst={result.userFirst} 
-          score={scoreToString(result.score)} 
+          score={result.score} 
           notes={result.notes}
           isUser={result.userId === user.id}
           postId={result.postId}

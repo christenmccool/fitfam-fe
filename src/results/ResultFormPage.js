@@ -54,7 +54,7 @@ const ResultFormPage = () => {
   }, []);
 
   async function submitNewResult(score, notes) {
-    await FitFamApi.createResult(posting.id, user.id, {...score, type: posting.workout.woScoreType}, notes);
+    await FitFamApi.createResult(posting.id, user.id, score, notes);
     navigate(`/postings/${postId}`);
   }
 
@@ -98,7 +98,6 @@ const ResultFormPage = () => {
             submitResult={handleSubmit} 
             deleteResult={deleteResult} 
             postId={posting.id}
-            scoreType={posting.workout.woScoreType}
             initScore={initScore}
             initNotes={initNotes}
           />

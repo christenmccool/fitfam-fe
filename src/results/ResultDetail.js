@@ -16,8 +16,6 @@ import CommentList from '../comments/CommentList';
 import Loading from '../app/Loading';
 import ErrorPage from '../app/ErrorPage';
 
-import { scoreToString } from '../helpers/formatScore';
-
 
 /** Shows information about a result
  * - Posting workout name and description
@@ -79,7 +77,7 @@ import { scoreToString } from '../helpers/formatScore';
         <Box mt={4} mb={3}>
           <ResultInfo
             userFirst={result.userFirst} 
-            score={scoreToString(result.score)} 
+            score={result.score} 
             notes={result.notes}
             size="large"
           />

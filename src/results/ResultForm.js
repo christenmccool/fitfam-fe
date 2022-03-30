@@ -6,7 +6,6 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import { scoreTypeToFields } from '../config/config';
 
 /** Form for entering new results and deleting/editing results
  *
@@ -16,20 +15,13 @@ import { scoreTypeToFields } from '../config/config';
  * 
  * ResultFormPage -> {PostingHeader, ResultForm}
  */
-const ResultForm = ({formType, submitResult, deleteResult, postId, scoreType, initScore, initNotes}) => {
-  const fieldNames = scoreTypeToFields.find(ele => ele.scoreType === scoreType).fields;
-  
-  let initialScore = {};
-  for (let name of fieldNames) {
-    initialScore[name] = "";
-  }
-
-  const [score, setScore] = useState(initScore || initialScore);
+const ResultForm = ({formType, submitResult, deleteResult, postId, initScore, initNotes}) => {
+  const [score, setScore] = useState(initScore || "");
   const [notes, setNotes] = useState(initNotes || "");
 
   const handleScoreChange = (event) => {
-    const {name, value} = event.target;
-    setScore({...score, [name]:value});
+    const {value} = event.target;
+    setScore(value);
   };
 
   const handleNotesChange = (event) => {
@@ -51,20 +43,22 @@ const ResultForm = ({formType, submitResult, deleteResult, postId, scoreType, in
     <Box>
       <Box component="form" noValidate onSubmit={handleSubmit} mt={1} >
         <Grid container spacing={2} justifyContent="center">
-          {fieldNames.map((name, i) => (
-            <Grid item xs={12/fieldNames.length} key={name}>
-              <TextField
-                fullWidth
-                id={name}
-                name={name}
-                label={name[0].toUpperCase() + name.slice(1)}
-                autoFocus={i === 0}
-                onChange={handleScoreChange}
-                value={score[name]}
-                sx={{input: {fontSize: 35, textAlign: "center"}}}
-              />
-            </Grid>
-          ))}
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              id="score"
+              name="score"
+              label="Score"
+              autoFocus
+              onChange={handleScoreChange}
+              value={score}
+              InputProps={{
+                inputProps: {
+                  style: {fontSize: 35, textAlign: 'center'}
+                }
+              }}
+            />
+          </Grid>
           <Grid item xs={12}>
             <TextField
               fullWidth

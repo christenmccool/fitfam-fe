@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 
 import FitFamApi from '../api/api';
 import UserContext from '../auth/UserContext';
-import { scoreToString } from '../helpers/formatScore';
 
 
 /** Summary information about results for a posting
@@ -31,7 +30,7 @@ const ResultDashboard = ({ postId }) => {
 
         const userResults = results.filter(ele => ele.userId === user.id);
         if (userResults.length) {
-          const userScore = scoreToString(userResults[0].score)
+          const userScore = userResults[0].score;
           setUserScore(userScore);
         }
         
