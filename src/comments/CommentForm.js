@@ -1,10 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
+import Picker from 'emoji-picker-react';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Typography from '@mui/material/Typography';
 
+//From MUI docs
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+}));
 
 /** Form for creatng or editing comment
  *
@@ -13,6 +30,22 @@ import Button from '@mui/material/Button';
 const CommentForm = ({formType, handleComment, initialComment="", toggleEditing}) => {
   const [content, setContent] = useState(initialComment);
   const [showSubmit, setShowSubmit] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  const contentRef = useRef(null);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  //with help from stackoverflow https://stackoverflow.com/questions/66261433/add-emojis-to-input
+  const onEmojiClick = (event, emojiObject) => {
+    const cursor = contentRef.current.selectionStart;
+    const newContent = content.slice(0, cursor) + emojiObject.emoji + content.slice(cursor);
+    setContent(newContent);
+    const newCursor = cursor + emojiObject.emoji.length;
+    setTimeout(() => contentRef.current.setSelectionRange(newCursor, newCursor), 10);
+  };
 
   useEffect(() => {
     if (content !== "") {
@@ -49,6 +82,7 @@ const CommentForm = ({formType, handleComment, initialComment="", toggleEditing}
               id="content"
               name="content"
               label="Comment"
+              inputRef={contentRef}
               multiline
               autoFocus
               onChange={handleChange}
@@ -87,6 +121,26 @@ const CommentForm = ({formType, handleComment, initialComment="", toggleEditing}
             :
             null
           }
+          <Grid item xs={12}>
+            <Box sx={{display: 'flex', justifyContent: 'flex-end'}}>
+              <Typography variant="body" color="text.secondary" align="center" sx={{ display:"block", width: "100%"}}>
+                Choose comment emoji
+              </Typography>
+              <ExpandMore
+                expand={expanded}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+              >
+                <ExpandMoreIcon color="text.secondary" />
+              </ExpandMore>
+            </Box>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+              <Grid item xs={12}>
+                <Picker onEmojiClick={onEmojiClick} pickerStyle={{ width: '100%' }} />
+              </Grid>
+            </Collapse>
+          </Grid>
         </Grid>
       </Box>
     </Box>

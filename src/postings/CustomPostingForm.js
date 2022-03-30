@@ -35,7 +35,6 @@ const CustomPostingForm = ({formType="create", date, famName, submitPostForm, wo
     event.preventDefault();
 
     const result = await submitPostForm(fields);
-    console.log(result)
 
     if (result.success) {
       navigate(`/postings/${result.postId}`);
