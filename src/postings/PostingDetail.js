@@ -61,7 +61,7 @@ const PostingDetail = () => {
   const handleDelete = async () => {
     try {
       await FitFamApi.deletePosting(id);
-      navigate(`/?date=${moment(posting.postDate).format("YYYY-MM-DD")}`);
+      navigate(posting.postDate === moment().format("YYYYMMDD") ? `/` : `/?date=${moment(posting.postDate).format("YYYY-MM-DD")}`);
     } catch (err) {
       console.log(err);
       setErrors(err);
@@ -99,7 +99,7 @@ const PostingDetail = () => {
 
         <Button 
           component={RouterLink}
-          to={`/?date=${moment(posting.postDate).format("YYYY-MM-DD")}`}
+          to={posting.postDate === moment().format("YYYYMMDD") ? `/` : `/?date=${moment(posting.postDate).format("YYYY-MM-DD")}`}
           size="large"
           sx={{ mt: 5, height: '100%' }}
         >

@@ -21,7 +21,8 @@ const SelectDate = () => {
     if (newDate) {
       setDate(newDate);
     } else {
-      setSearchParams({date: moment().format("YYYY-MM-DD")});
+      setDate(moment().format("YYYY-MM-DD"));
+      // setSearchParams({date: moment().format("YYYY-MM-DD")});
     }
   }, [searchParams, setSearchParams])
   

@@ -47,7 +47,9 @@ const PostingList = ({ currFamId, setCurrFamId }) => {
     const newDate = searchParams.get('date');
     if (newDate) {
       setDate(newDate);
-    } 
+    } else {
+      setDate(moment().format("YYYY-MM-DD"));
+    }
   }, [searchParams, setSearchParams])
 
 
