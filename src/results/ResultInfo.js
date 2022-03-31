@@ -15,7 +15,7 @@ const ResultInfo = ({ userFirst, score, notes, size="normal" }) => {
   let fontSizing = size === "normal" ? "h5" : "h4";
 
   return (
-    <Grid container spacing={1} alignItems="center">
+    <Grid container spacing={1} alignItems="center"  pt={2} pb={3}>
       <Grid item xs={12}>
         <Typography 
           variant={fontSizing} 
@@ -25,15 +25,15 @@ const ResultInfo = ({ userFirst, score, notes, size="normal" }) => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-      <Typography 
-        variant="h2"
-        color="primary" 
-      >
-        {score}
-      </Typography>
+        <Typography 
+          variant="h2"
+          color="primary" 
+        >
+          {score}
+        </Typography>
       </Grid>
       {notes ?
-        <Grid item xs={12}>
+        <Grid item xs={12} mt={2}>
           <Typography 
             variant={fontSizing} 
             color="text.secondary" 

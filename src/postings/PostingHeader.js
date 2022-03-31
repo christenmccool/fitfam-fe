@@ -43,7 +43,7 @@ const PostingHeader = ({ postDate, woName, woDescription, famName="" }) => {
       <Typography variant="h6" color="text.secondary" mb={1}>
         {postDate}
       </Typography>
-      <Typography variant="h4" color="text.primary" mb={2}>
+      <Typography variant="h4" color="text.secondary" mb={2}>
         {famName}
       </Typography>
       {woName ? 
@@ -62,7 +62,7 @@ const PostingHeader = ({ postDate, woName, woDescription, famName="" }) => {
             </ExpandMore>
           </Box>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <Typography variant="h6" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
+            <Typography variant="h4" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
               {woDescription}
             </Typography>
           </Collapse>

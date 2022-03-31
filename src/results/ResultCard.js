@@ -22,7 +22,9 @@ const ResultCard = ({ id, userFirst, score, notes, isUser, postId }) => {
       variant="outlined" 
       align="center" 
     >
-      <CardContent>
+      <CardContent
+        sx={{ mt:1, py: 1, '&:last-child': { pb: 1 }}}
+      >
         <CardActionArea 
           component={RouterLink} 
           to={`/results/${id}`}
