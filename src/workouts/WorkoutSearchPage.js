@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
@@ -9,8 +9,8 @@ import Typography from '@mui/material/Typography';
 import FitFamApi from '../api/api';
 import WorkoutSearchForm from '../workouts/WorkoutSearchForm';
 import WorkoutCardList from '../workouts/WorkoutCardList';
+import Loading from '../app/Loading';
 import ErrorPage from '../app/ErrorPage';
-
 
 /** Workout search page
  * 
@@ -26,10 +26,44 @@ const WorkoutSearchPage = () => {
 
   const [workouts, setWorkouts] = useState([]);
   const [searched, setSearched] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState();
+
+  useEffect(() => {
+    async function getWorkouts() {
+      try {
+        const keyword = searchParams.get('keyword');
+        const category = searchParams.get('category');
+        const movementId = searchParams.getAll('movementId');
+
+        const data = {};
+        if (keyword) data.keyword = keyword;
+        if (category) data.category = category;
+        if (movementId.length) data.movementId = movementId;
+
+        if (!Object.keys(data).length) {
+          setLoading(false);
+          return;
+        }
+
+        let workouts = await FitFamApi.searchWorkouts(data);
+
+        setWorkouts(workouts);
+        setLoading(false);
+        setSearched(true);
+      } catch (err) {
+        console.log(err);
+        setErrors(err);
+      }
+    }
+    setLoading(true);
+    getWorkouts();
+  }, [searchParams, setSearchParams]);
+
 
   const searchWorkouts = async (data) => {
     try {
+      setLoading(true);
       let workouts = await FitFamApi.searchWorkouts(data);
       setWorkouts(workouts);
       setSearched(true);
@@ -38,7 +72,9 @@ const WorkoutSearchPage = () => {
       console.log(err);
       setErrors(err);
     }
+    setLoading(false);
   }
+
 
   if (errors) return <ErrorPage errors={errors} />;
 
@@ -57,6 +93,11 @@ const WorkoutSearchPage = () => {
               searchWorkouts={searchWorkouts} 
             />
           </Box>
+          {loading ?
+            <Loading />
+            : 
+            null
+          }
           {searched ?
             <Box mt={5}>
               <Typography variant="h5" align="center" color="text.secondary" gutterBottom>
