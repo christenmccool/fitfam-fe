@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -21,6 +22,8 @@ import ErrorPage from '../app/ErrorPage';
  * Routed at /workouts/search
  */
 const WorkoutSearchPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams("");
+
   const [workouts, setWorkouts] = useState([]);
   const [searched, setSearched] = useState(false);
   const [errors, setErrors] = useState();
@@ -30,6 +33,7 @@ const WorkoutSearchPage = () => {
       let workouts = await FitFamApi.searchWorkouts(data);
       setWorkouts(workouts);
       setSearched(true);
+      setSearchParams({ keyword: data.keyword || "", category: data.category || "", movementId: data.movementId || [] })
     } catch(err) {
       console.log(err);
       setErrors(err);

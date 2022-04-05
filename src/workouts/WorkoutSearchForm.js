@@ -1,12 +1,9 @@
 import React, {useState} from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
@@ -21,9 +18,14 @@ import {movementOpts, categoryOpts} from '../config/config.js';
  * WorkoutSearchPage -> WorkoutSearchForm
  */
 const WorkoutSearchForm = ({ searchWorkouts }) => {
-  const [keyword, setKeyword] = useState("")
-  const [category, setCategory] = useState("")
-  const [movements, setMovements] = useState([])
+  const [searchParams, setSearchParams] = useSearchParams("");
+
+  const [keyword, setKeyword] = useState(searchParams.get('keyword') || "");
+  const [category, setCategory] = useState(searchParams.get('category') || "");
+
+  const movementIds = searchParams.getAll('movementId');
+  const initialMovements = movementIds.map(ele => movementOpts.find(opt => opt.id === ele));
+  const [movements, setMovements] = useState(initialMovements)
 
   const handleKeywordChange = (event) => {
     const {value} = event.target;
@@ -86,29 +88,6 @@ const WorkoutSearchForm = ({ searchWorkouts }) => {
                 </MenuItem>
               ))}
             </TextField>
-
-            {/* <FormControl fullWidth>
-              <InputLabel id="cetegory-label">Category</InputLabel>
-              <Select
-                labelId="cetegory-label"
-                id="category"
-                value={category}
-                label="Category"
-                onChange={handleCategoryChange}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {categoryOpts.map((name) => (
-                  <MenuItem
-                    key={name}
-                    value={name}
-                  >
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl> */}
           </Grid>
           <Grid item xs={12}>
             <Autocomplete
