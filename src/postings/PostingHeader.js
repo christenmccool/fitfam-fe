@@ -62,13 +62,13 @@ const PostingHeader = ({ postDate, woName, woDescription, famName="" }) => {
             </ExpandMore>
           </Box>
           <Collapse in={expanded} timeout="auto" unmountOnExit>
-            <Typography variant="h4" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
+            <Typography variant="h5" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
               {woDescription}
             </Typography>
           </Collapse>
         </Box>
         :
-        <Typography variant="h3" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
+        <Typography variant="h4" mb={3} style={{whiteSpace: "pre-wrap", wordWrap: "break-word"}}>
           {woDescription}
         </Typography>
       }

@@ -10,15 +10,17 @@ import UserContext from '../auth/UserContext';
 
 
 /** Summary information about results for a posting
- * - number of results 
  * - user's score (or "post" if no user results)
- *
+ * - number of results 
+ * - total number of comments for all results
+ * 
  * PostingList -> PostingCardList -> PostingCard -> ResultDashboard
  */
 const ResultDashboard = ({ postId }) => {
   const { user } = useContext(UserContext);
 
   const [results, setResults] = useState();
+  const [numComments, setNumComments] = useState(0);
   const [userScore, setUserScore] = useState();
   const [loaded, setLoaded] = useState(false);
 
@@ -27,6 +29,11 @@ const ResultDashboard = ({ postId }) => {
       try {
         let results = await FitFamApi.getResults(postId);
         setResults(results);
+
+        for (let result of results) {
+          let comments = await FitFamApi.getComments(result.id);
+          setNumComments(num => num + comments.length);
+        }
 
         const userResults = results.filter(ele => ele.userId === user.id);
         if (userResults.length) {
@@ -45,19 +52,28 @@ const ResultDashboard = ({ postId }) => {
 
   if (!loaded) return <div></div>;
 
-  let message;
+  let postMessage;
   let numResults = results ? results.length : 0;
   if (numResults > 1) {
-    message = `${numResults} results`;
+    postMessage = `${numResults} results`;
   } else if (numResults === 1) {
-    message = `1 result`;
+    postMessage = `1 result`;
   } else {
-    message = "0 results"
+    postMessage = "0 results"
+  }
+
+  let commentMessage;
+  if (numComments > 1) {
+    commentMessage = `${numComments} comments`;
+  } else if (numComments === 1) {
+    commentMessage = `1 comment`;
+  } else {
+    commentMessage = "0 comments"
   }
 
   return (
     <Grid container alignItems="stretch">
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={4}>
         <Button 
           component={RouterLink}
           to={`/postings/${postId}/results`}
@@ -68,14 +84,24 @@ const ResultDashboard = ({ postId }) => {
           <Typography >{userScore ? userScore : "Post"}</Typography>
         </Button> 
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={4}>
         <Button 
           component={RouterLink}
           to={`/postings/${postId}`}
           fullWidth
           sx={{ mt: 1, height: '100%' }}
         >
-          <Typography color="text.secondary" >{message}</Typography>
+          <Typography color="text.secondary" >{postMessage}</Typography>
+        </Button>
+      </Grid>
+      <Grid item xs={12} sm={4}>
+        <Button 
+          component={RouterLink}
+          to={`/postings/${postId}`}
+          fullWidth
+          sx={{ mt: 1, height: '100%' }}
+        >
+          <Typography color="text.secondary" >{commentMessage}</Typography>
         </Button>
       </Grid>
     </Grid>

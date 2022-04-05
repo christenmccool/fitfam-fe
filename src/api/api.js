@@ -204,7 +204,7 @@ class FitFamApi {
     let res = await this.request(`comments/${id}`);
     return res.comment;
   }
-      
+
   /** Create new comment */
   static async createComment(resultId, userId, content) {
     let res = await this.request("comments", {resultId, userId, content}, "post");
